@@ -23,3 +23,7 @@ O site principal é o `index.html` da raiz. As pastas dos módulos preservam scr
 Quando publicado, o site principal fica em:
 
 https://er3mit4.github.io/Project-D1/
+
+## Nota Legal
+
+Todo o conteúdo conceitual, marcas registradas e propriedades intelectuais referentes a Dungeons & Dragons (D&D) são de direito exclusivo da Wizards of the Coast LLC. Este é um projeto de fã sem fins comerciais, desenvolvido para uso pessoal e facilitação das sessões de jogo.
