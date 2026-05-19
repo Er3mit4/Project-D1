@@ -10,13 +10,13 @@
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(212,164,74,0.08),transparent 32rem),radial-gradient(circle at 90% 20%,rgba(142,68,173,0.08),transparent 28rem),linear-gradient(180deg,#140f19 0%,var(--bg) 42%,#09070a 100%);color:var(--fg);font-family:'Lora',Georgia,serif;overflow-x:hidden}
 button,input{font:inherit}
-.module-nav{position:sticky;top:0;z-index:130;display:flex;justify-content:center;align-items:center;gap:.35rem;height:36px;padding:0 .8rem;background:linear-gradient(180deg,#140f19 0%,#0d0b0e 100%);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.5);opacity:1}
+.module-nav{position:relative;z-index:130;display:flex;justify-content:center;align-items:center;gap:.35rem;height:36px;padding:0 .8rem;background:linear-gradient(180deg,#140f19 0%,#0d0b0e 100%);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.5);opacity:1}
 .module-nav button{position:relative;flex:0 0 auto;padding:.2rem .66rem .3rem;border:0;background:transparent;color:var(--fg2);font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .2s,transform .2s}
 .module-nav button:hover{color:var(--fg);transform:translateY(-1px)}
 .module-nav button.active{color:var(--accent2)}
 .module-nav button::after{content:"";position:absolute;left:.55rem;right:.55rem;bottom:.02rem;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform .22s ease;box-shadow:0 0 10px rgba(212,164,74,.35)}
 .module-nav button.active::after,.module-nav button:hover::after{transform:scaleX(1)}
-header{position:sticky;top:36px;z-index:100;display:flex;align-items:center;gap:1rem;height:54px;padding:0 1rem;background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);border-bottom:2px solid var(--accent)}
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:1rem;height:54px;padding:0 1rem;background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);border-bottom:2px solid var(--accent)}
 header h1{margin:0;min-width:12rem;font-family:'Cinzel',serif;font-size:1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-shadow:0 0 20px rgba(212,164,74,.3);white-space:nowrap}
 .search-row{flex:1;max-width:720px;margin:0 auto;display:flex;align-items:center;gap:.4rem;min-width:0}
 #search-box{flex:1;min-width:0;padding:.42rem .8rem;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--fg);font-size:.9rem;outline:none}
