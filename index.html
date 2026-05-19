@@ -201,18 +201,31 @@
     }
 
     main {
-      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #side-nav {
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    body.show-sidebar #side-nav {
+      transform: translateX(0);
+    }
+    
+    body.show-sidebar #overlay {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     @media (min-width: 1024px) {
       body.show-sidebar main {
-        margin-left: 20rem; /* w-80 matches 20rem */
+        margin-right: 20rem; /* w-80 matches 20rem */
+        margin-left: auto;
       }
-      #side-nav {
-        transform: translateX(-100%);
-      }
-      body.show-sidebar #side-nav {
-        transform: translateX(0);
+      body.show-sidebar #overlay {
+        opacity: 0;
+        pointer-events: none;
       }
     }
   </style>
@@ -234,7 +247,7 @@
     <div class="flex items-center gap-4">
       <!-- Search Input in Header (Shown when not on Home module) -->
       <div class="relative hidden sm:block opacity-0 transition-opacity duration-300" id="header-search-container">
-        <input class="bg-surface-container border border-primary/30 text-on-surface px-4 py-1.5 focus:outline-none focus:border-primary transition-all w-64 font-body-md text-sm rounded-sm" placeholder="Buscar no multiverso..." type="search" id="search-box" autocomplete="off" spellcheck="false"/>
+        <input class="bg-surface-container border border-primary/30 text-on-surface pl-4 pr-10 py-1.5 focus:outline-none focus:border-primary transition-all w-64 font-body-md text-sm rounded-sm" placeholder="Buscar no multiverso..." type="search" id="search-box" autocomplete="off" spellcheck="false"/>
         <span class="material-symbols-outlined absolute right-2.5 top-2 text-primary/60 pointer-events-none">search</span>
       </div>
       
@@ -246,8 +259,8 @@
   <!-- Dim Overlay for mobile sidebar -->
   <div class="fixed inset-0 bg-black/60 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
 
-  <!-- Left Sidebar for Filters (SideNavBar) -->
-  <aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-80 bg-surface-container border-r border-primary/30 z-40 flex flex-col p-6 shadow-xl transition-transform duration-300 ease-in-out transform -translate-x-full" id="side-nav">
+  <!-- Right Sidebar for Filters (SideNavBar) -->
+  <aside class="fixed right-0 top-16 h-[calc(100vh-64px)] w-80 bg-surface-container border-l border-primary/30 z-40 flex flex-col p-6 shadow-xl transition-transform duration-300 ease-in-out transform translate-x-full" id="side-nav">
     <div class="mb-8">
       <div class="flex items-center gap-3 mb-2">
         <div class="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
@@ -1290,23 +1303,22 @@
     // Reset Filters trigger
     $('#clear-filters').onclick = clearAllFilters;
 
-    // Sidebar controllers for mobile
+    // Sidebar controllers driven by body.show-sidebar class
     function openSidebar() {
       if (current === 'inicio') return;
-      const sideNav = $('#side-nav');
-      sideNav.classList.remove('-translate-x-full');
-      $('#overlay').classList.add('opacity-100', 'pointer-events-auto');
-      $('#overlay').classList.remove('opacity-0', 'pointer-events-none');
+      document.body.classList.add('show-sidebar');
     }
 
     function closeSidebar() {
-      const sideNav = $('#side-nav');
-      sideNav.classList.add('-translate-x-full');
-      $('#overlay').classList.add('opacity-0', 'pointer-events-none');
-      $('#overlay').classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.classList.remove('show-sidebar');
     }
 
-    $('#toggle-filters').onclick = openSidebar;
+    function toggleSidebar() {
+      if (current === 'inicio') return;
+      document.body.classList.toggle('show-sidebar');
+    }
+
+    $('#toggle-filters').onclick = toggleSidebar;
     $('#overlay').onclick = closeSidebar;
 
     // Bind module changes to all navigation elements
