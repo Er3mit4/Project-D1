@@ -1,0 +1,72 @@
+{
+  "source": "D:\\Python project\\Projeto D1\\Arsenal\\arsenal_raw.json",
+  "reviewed": "D:\\Python project\\Projeto D1\\Arsenal\\arsenal_reviewed.json",
+  "final": "D:\\Python project\\Projeto D1\\Arsenal\\arsenal.json",
+  "before_total": 526,
+  "after_total": 527,
+  "before_counts": {
+    "Armadura": 13,
+    "Arma": 37,
+    "Equipamento": 98,
+    "Ferramenta": 38,
+    "Montaria": 8,
+    "Veículo e montaria": 13,
+    "Veículo": 6,
+    "Item mágico": 313
+  },
+  "after_counts": {
+    "Armadura": 13,
+    "Arma": 37,
+    "Equipamento": 99,
+    "Ferramenta": 38,
+    "Montaria": 8,
+    "Veículo e montaria": 13,
+    "Veículo": 6,
+    "Item mágico": 313
+  },
+  "before_sources": {
+    "Livro do Jogador": 213,
+    "Guia do Mestre": 271,
+    "Guia de Xanathar para Todas as Coisas": 42
+  },
+  "after_sources": {
+    "Livro do Jogador": 214,
+    "Guia do Mestre": 271,
+    "Guia de Xanathar para Todas as Coisas": 42
+  },
+  "corrections": [
+    "split: Pregos de ferro (10) / Rações de viagem (1 dia)",
+    "type: Arma +1, +2 Ou +3",
+    "type: Arma de Alerta",
+    "type: Armadura +1, +2 Ou +3",
+    "type: Armadura de Invulnerabilidade",
+    "type: Armadura de Resistência",
+    "type: Armadura do Marinheiro",
+    "type: Machado Furioso",
+    "description: Cadeado da Enganação",
+    "description: Cajado Canoro",
+    "description: Chapéu da Feitiçaria",
+    "description: Chapéu dos Vermes"
+  ],
+  "pending_visual_checks": [
+    "Revisar manualmente descrições com OCR pesado fora da lista de correções explícitas."
+  ],
+  "raw_counts": {
+    "total": 526,
+    "by_category": {
+      "Armadura": 13,
+      "Arma": 37,
+      "Equipamento": 98,
+      "Ferramenta": 38,
+      "Montaria": 8,
+      "Veículo e montaria": 13,
+      "Veículo": 6,
+      "Item mágico": 313
+    },
+    "by_source": {
+      "Livro do Jogador": 213,
+      "Guia do Mestre": 271,
+      "Guia de Xanathar para Todas as Coisas": 42
+    }
+  }
+}

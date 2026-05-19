@@ -1,0 +1,3201 @@
+{
+  "Bardo": {
+    "Truque": [
+      {
+        "nome": "Amizade",
+        "ritual": false
+      },
+      {
+        "nome": "Ataque Certeiro",
+        "ritual": false
+      },
+      {
+        "nome": "Consertar",
+        "ritual": false
+      },
+      {
+        "nome": "Globos de Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Mágicas",
+        "ritual": false
+      },
+      {
+        "nome": "Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Prestidigitação",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Lâminas",
+        "ritual": false
+      },
+      {
+        "nome": "Zombaria Viciosa",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Amizade animal",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Disfarçar-se",
+        "ritual": false
+      },
+      {
+        "nome": "Enfeitiçar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Fogo das Fadas",
+        "ritual": false
+      },
+      {
+        "nome": "Heroísmo",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Silenciosa",
+        "ritual": false
+      },
+      {
+        "nome": "Onda Trovejante",
+        "ritual": false
+      },
+      {
+        "nome": "Queda Suave",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra Curativa",
+        "ritual": false
+      },
+      {
+        "nome": "Passos Longos",
+        "ritual": false
+      },
+      {
+        "nome": "Perdição",
+        "ritual": false
+      },
+      {
+        "nome": "Riso Histérico de Tasha",
+        "ritual": false
+      },
+      {
+        "nome": "Sono",
+        "ritual": false
+      },
+      {
+        "nome": "Sussurros Dissonantes",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Acalmar Emoções",
+        "ritual": false
+      },
+      {
+        "nome": "Aprimorar Habilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Arrombar",
+        "ritual": false
+      },
+      {
+        "nome": "Cativar",
+        "ritual": false
+      },
+      {
+        "nome": "Cegueira/Surdez",
+        "ritual": false
+      },
+      {
+        "nome": "Coroa da Loucura",
+        "ritual": false
+      },
+      {
+        "nome": "Esquentar Metal",
+        "ritual": false
+      },
+      {
+        "nome": "Despedaçar",
+        "ritual": false
+      },
+      {
+        "nome": "Força Fantasmagórica",
+        "ritual": false
+      },
+      {
+        "nome": "Detectar Pensamentos",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem de Adagas",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão",
+        "ritual": false
+      },
+      {
+        "nome": "Ver o Invisível",
+        "ritual": false
+      },
+      {
+        "nome": "Zona da Verdade",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Ampliar Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Clarividência",
+        "ritual": false
+      },
+      {
+        "nome": "Dificultar Detecção",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Enviar Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Falar com os Mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Falar com Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Glifo de Vigilância",
+        "ritual": false
+      },
+      {
+        "nome": "Idiomas",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Medo",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Fétida",
+        "ritual": false
+      },
+      {
+        "nome": "Padrão Hipnótico",
+        "ritual": false
+      },
+      {
+        "nome": "Rogar Maldição",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Confusão",
+        "ritual": false
+      },
+      {
+        "nome": "Compulsão",
+        "ritual": false
+      },
+      {
+        "nome": "Movimentação Livre",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose",
+        "ritual": false
+      },
+      {
+        "nome": "Porta Dimensional",
+        "ritual": false
+      },
+      {
+        "nome": "Terreno Alucinógeno",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Âncora Planar",
+        "ritual": false
+      },
+      {
+        "nome": "Animar Objetos",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo de Teletransporte",
+        "ritual": false
+      },
+      {
+        "nome": "Conhecimento Lendário",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Despertar",
+        "ritual": false
+      },
+      {
+        "nome": "Despistar",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Missão",
+        "ritual": false
+      },
+      {
+        "nome": "Modificar Memória",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Reviver os Mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Similaridade",
+        "ritual": false
+      },
+      {
+        "nome": "Sonho",
+        "ritual": false
+      },
+      {
+        "nome": "Vidência",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Ataque Visual",
+        "ritual": false
+      },
+      {
+        "nome": "Dança Irresistível de Otto",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar o Caminho",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Programada",
+        "ritual": false
+      },
+      {
+        "nome": "Proteger Fortaleza",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Visão da Verdade",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Espada de Mordenkainen",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Etérea",
+        "ritual": false
+      },
+      {
+        "nome": "Miragem",
+        "ritual": false
+      },
+      {
+        "nome": "Prisão de Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Projetar Imagem",
+        "ritual": false
+      },
+      {
+        "nome": "Regeneração",
+        "ritual": false
+      },
+      {
+        "nome": "Ressurreição",
+        "ritual": false
+      },
+      {
+        "nome": "Símbolo",
+        "ritual": false
+      },
+      {
+        "nome": "Teletransporte",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Dominar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Enfraquecer Intelecto",
+        "ritual": false
+      },
+      {
+        "nome": "Limpar a Mente",
+        "ritual": false
+      },
+      {
+        "nome": "Loquacidade",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Palavra de Poder Curar",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra de Poder Matar",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose Verdadeira",
+        "ritual": false
+      },
+      {
+        "nome": "Sexto Sentido",
+        "ritual": false
+      }
+    ]
+  },
+  "Bruxo": {
+    "Truque": [
+      {
+        "nome": "Amizade",
+        "ritual": false
+      },
+      {
+        "nome": "Ataque Certeiro",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Mágicas",
+        "ritual": false
+      },
+      {
+        "nome": "Prestidigitação",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Lâminas",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada de Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada Mística",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Arrepiante",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Armadura de Agathys",
+        "ritual": false
+      },
+      {
+        "nome": "Braços de Hadar",
+        "ritual": false
+      },
+      {
+        "nome": "Bruxaria",
+        "ritual": false
+      },
+      {
+        "nome": "Enfeitiçar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Bruxa",
+        "ritual": false
+      },
+      {
+        "nome": "Recuo Acelerado",
+        "ritual": false
+      },
+      {
+        "nome": "Repreensão Infernal",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Cativar",
+        "ritual": false
+      },
+      {
+        "nome": "Coroa da Loucura",
+        "ritual": false
+      },
+      {
+        "nome": "Despedaçar",
+        "ritual": false
+      },
+      {
+        "nome": "Escuridão",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem de Adagas",
+        "ritual": false
+      },
+      {
+        "nome": "Passo Nebuloso",
+        "ritual": false
+      },
+      {
+        "nome": "Patas de Aranha",
+        "ritual": false
+      },
+      {
+        "nome": "Raio do Enfraquecimento",
+        "ritual": false
+      },
+      {
+        "nome": "Reflexos",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Círculo Mágico",
+        "ritual": false
+      },
+      {
+        "nome": "Contramágica",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Fome de Hadar",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Gasosa",
+        "ritual": false
+      },
+      {
+        "nome": "Idiomas",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Remover Maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Medo",
+        "ritual": false
+      },
+      {
+        "nome": "Padrão Hipnótico",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Vampírico",
+        "ritual": false
+      },
+      {
+        "nome": "Voo",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Banimento",
+        "ritual": false
+      },
+      {
+        "nome": "Porta Dimensional",
+        "ritual": false
+      },
+      {
+        "nome": "Malogro",
+        "ritual": false
+      },
+      {
+        "nome": "Terreno Alucinógeno",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Imobilizar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Sonho",
+        "ritual": false
+      },
+      {
+        "nome": "Vidência",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Ataque Visual",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Fada",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Mortos-Vivos",
+        "ritual": false
+      },
+      {
+        "nome": "Carne para Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Portal Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Visão da Verdade",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Dedo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Etérea",
+        "ritual": false
+      },
+      {
+        "nome": "Prisão de Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Viagem Planar",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Dominar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Enfraquecer o Intelecto",
+        "ritual": false
+      },
+      {
+        "nome": "Loquacidade",
+        "ritual": false
+      },
+      {
+        "nome": "Semiplano",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Aprisionamento",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose Verdadeira",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra de Poder Matar",
+        "ritual": false
+      },
+      {
+        "nome": "Projeção Astral",
+        "ritual": false
+      },
+      {
+        "nome": "Sexto Sentido",
+        "ritual": false
+      }
+    ]
+  },
+  "Clérigo": {
+    "Truque": [
+      {
+        "nome": "Chama Sagrada",
+        "ritual": false
+      },
+      {
+        "nome": "Consertar",
+        "ritual": false
+      },
+      {
+        "nome": "Estabilizar",
+        "ritual": false
+      },
+      {
+        "nome": "Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Orientação",
+        "ritual": false
+      },
+      {
+        "nome": "Resistência",
+        "ritual": false
+      },
+      {
+        "nome": "Taumaturgia",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Bênção",
+        "ritual": false
+      },
+      {
+        "nome": "Comando",
+        "ritual": false
+      },
+      {
+        "nome": "Criar ou Destruir Água",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Detectar o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Escudo da Fé",
+        "ritual": false
+      },
+      {
+        "nome": "Infringir Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra Curativa",
+        "ritual": false
+      },
+      {
+        "nome": "Perdição",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Guiador",
+        "ritual": false
+      },
+      {
+        "nome": "Santuário",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Acalmar Emoções",
+        "ritual": false
+      },
+      {
+        "nome": "Ajuda",
+        "ritual": false
+      },
+      {
+        "nome": "Aprimorar Habilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Arma Espiritual",
+        "ritual": true
+      },
+      {
+        "nome": "Cegueira/Surdez",
+        "ritual": false
+      },
+      {
+        "nome": "Chama Continua",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar Armadilhas",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Oração Curativa",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Vínculo Protetor",
+        "ritual": false
+      },
+      {
+        "nome": "Zona da Verdade",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Animar mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo Mágico",
+        "ritual": false
+      },
+      {
+        "nome": "Clarividência",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Alimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Enviar Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Espíritos Guardiões",
+        "ritual": false
+      },
+      {
+        "nome": "Falar com os Mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Glifo de Vigilância",
+        "ritual": false
+      },
+      {
+        "nome": "Idiomas",
+        "ritual": false
+      },
+      {
+        "nome": "Luz do Dia",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra Curativa em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Rogar maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Sinal de Esperança",
+        "ritual": false
+      },
+      {
+        "nome": "Remover Maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Revivificar",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Banimento",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar a Água",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Guardião da Fé",
+        "ritual": false
+      },
+      {
+        "nome": "Moldar Rochas",
+        "ritual": false
+      },
+      {
+        "nome": "Movimentação Livre",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra a Morte",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Âncora Planar",
+        "ritual": false
+      },
+      {
+        "nome": "Coluna de Chamas",
+        "ritual": false
+      },
+      {
+        "nome": "Conhecimento Lendário",
+        "ritual": false
+      },
+      {
+        "nome": "Consagrar",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Missão",
+        "ritual": false
+      },
+      {
+        "nome": "Praga",
+        "ritual": false
+      },
+      {
+        "nome": "Praga de Insetos",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Reviver os Mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Vidência",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Aliado Planar",
+        "ritual": false
+      },
+      {
+        "nome": "Barreira de Lâminas",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Mortos-Vivos",
+        "ritual": false
+      },
+      {
+        "nome": "Cura Completa",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar o Caminho",
+        "ritual": false
+      },
+      {
+        "nome": "Doença Plena",
+        "ritual": false
+      },
+      {
+        "nome": "Banquete dos Heróis",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra de Recordação",
+        "ritual": false
+      },
+      {
+        "nome": "Visão da Verdade",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Conjurar Celestial",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Etérea",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra Divina",
+        "ritual": false
+      },
+      {
+        "nome": "Regeneração",
+        "ritual": false
+      },
+      {
+        "nome": "Ressurreição",
+        "ritual": false
+      },
+      {
+        "nome": "Símbolo",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Viagem Planar",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Aura Sagrada",
+        "ritual": false
+      },
+      {
+        "nome": "Campo Antimagia",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar o Clima",
+        "ritual": false
+      },
+      {
+        "nome": "Terremoto",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Cura Completa em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Portal",
+        "ritual": false
+      },
+      {
+        "nome": "Projeção Astral",
+        "ritual": false
+      },
+      {
+        "nome": "Ressurreição Verdadeira",
+        "ritual": false
+      }
+    ]
+  },
+  "Druida": {
+    "Truque": [
+      {
+        "nome": "Bordão Místico",
+        "ritual": false
+      },
+      {
+        "nome": "Chicote de Espinhos",
+        "ritual": false
+      },
+      {
+        "nome": "Consertar",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Chamas",
+        "ritual": false
+      },
+      {
+        "nome": "Druidismo",
+        "ritual": false
+      },
+      {
+        "nome": "Orientação",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada de Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Resistência",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Amizade Animal",
+        "ritual": false
+      },
+      {
+        "nome": "Bom Fruto",
+        "ritual": false
+      },
+      {
+        "nome": "Constrição",
+        "ritual": false
+      },
+      {
+        "nome": "Criar ou Destruir Água",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Enfeitiçar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Fogo das Fadas",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Obscurecente",
+        "ritual": false
+      },
+      {
+        "nome": "Onda Trovejante",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra Curativa",
+        "ritual": false
+      },
+      {
+        "nome": "Passos Longos",
+        "ritual": false
+      },
+      {
+        "nome": "Salto",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Aprimorar Habilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Crescer Espinhos",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar Armadilhas",
+        "ritual": false
+      },
+      {
+        "nome": "Esfera Flamejante",
+        "ritual": false
+      },
+      {
+        "nome": "Esquentar Metal",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Lâmina Flamejante",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Lufada de Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Passos sem Pegadas",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Árvore",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Lunar",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Visão no Escuro",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Ampliar Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Animais",
+        "ritual": false
+      },
+      {
+        "nome": "Convocar Relâmpagos",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Falar com Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Luz do Dia",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Nevasca",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Energia",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Confusão",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Seres da Floresta",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar a Água",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Besta",
+        "ritual": false
+      },
+      {
+        "nome": "Inseto Gigante",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Malogro",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose",
+        "ritual": false
+      },
+      {
+        "nome": "Moldar Rochas",
+        "ritual": false
+      },
+      {
+        "nome": "Movimentação Livre",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Gelo",
+        "ritual": false
+      },
+      {
+        "nome": "Terreno Alucinógeno",
+        "ritual": false
+      },
+      {
+        "nome": "Vinha Esmagadora",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Âncora Planar",
+        "ritual": false
+      },
+      {
+        "nome": "Caminhar em Árvores",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Elemental",
+        "ritual": false
+      },
+      {
+        "nome": "Cúpula Antivida",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Despertar",
+        "ritual": false
+      },
+      {
+        "nome": "Missão",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Praga",
+        "ritual": false
+      },
+      {
+        "nome": "Praga de Insetos",
+        "ritual": false
+      },
+      {
+        "nome": "Reencarnação",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Vidência",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Banquete de Heróis",
+        "ritual": false
+      },
+      {
+        "nome": "Caminhar no Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Fada",
+        "ritual": false
+      },
+      {
+        "nome": "Cura Completa",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar o Caminho",
+        "ritual": false
+      },
+      {
+        "nome": "Mover Terra",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Espinhos",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Teletransporte por Árvores",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Inverter a Gravidade",
+        "ritual": false
+      },
+      {
+        "nome": "Miragem",
+        "ritual": false
+      },
+      {
+        "nome": "Regeneração",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Viagem Planar",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Antipatia/Simpatia",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar o Clima",
+        "ritual": false
+      },
+      {
+        "nome": "Enfraquecer o Intelecto",
+        "ritual": false
+      },
+      {
+        "nome": "Explosão Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Formas Animais",
+        "ritual": false
+      },
+      {
+        "nome": "Terremoto",
+        "ritual": false
+      },
+      {
+        "nome": "Tsunami",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Alterar Forma",
+        "ritual": false
+      },
+      {
+        "nome": "Ressurreição Verdadeira",
+        "ritual": false
+      },
+      {
+        "nome": "Sexto Sentido",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade da Vingança",
+        "ritual": false
+      }
+    ]
+  },
+  "Feiticeiro": {
+    "Truque": [
+      {
+        "nome": "Amizade",
+        "ritual": false
+      },
+      {
+        "nome": "Ataque Certeiro",
+        "ritual": false
+      },
+      {
+        "nome": "Consertar",
+        "ritual": false
+      },
+      {
+        "nome": "Espirro Ácido",
+        "ritual": false
+      },
+      {
+        "nome": "Globos de Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Mágicas",
+        "ritual": false
+      },
+      {
+        "nome": "Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Prestidigitação",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Lâminas",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Gelo",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada de Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Arrepiante",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Chocante",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Armadura Arcana",
+        "ritual": false
+      },
+      {
+        "nome": "Disfarçar-se",
+        "ritual": false
+      },
+      {
+        "nome": "Enfeitiçar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Escudo Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Silenciosa",
+        "ritual": false
+      },
+      {
+        "nome": "Leque Cromático",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Flamejantes",
+        "ritual": false
+      },
+      {
+        "nome": "Mísseis Mágicos",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Obscurecente",
+        "ritual": false
+      },
+      {
+        "nome": "Onda Trovejante",
+        "ritual": false
+      },
+      {
+        "nome": "Orbe Cromática",
+        "ritual": false
+      },
+      {
+        "nome": "Queda Suave",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Adoecente",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Bruxa",
+        "ritual": false
+      },
+      {
+        "nome": "Recuo Acelerado",
+        "ritual": false
+      },
+      {
+        "nome": "Sono",
+        "ritual": false
+      },
+      {
+        "nome": "Salto",
+        "ritual": false
+      },
+      {
+        "nome": "Vitalidade Falsa",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Alterar-se",
+        "ritual": false
+      },
+      {
+        "nome": "Aprimorar Habilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Arrombar",
+        "ritual": false
+      },
+      {
+        "nome": "Aumentar/Reduzir",
+        "ritual": false
+      },
+      {
+        "nome": "Cegueira/Surdez",
+        "ritual": false
+      },
+      {
+        "nome": "Coroa da Loucura",
+        "ritual": false
+      },
+      {
+        "nome": "Despedaçar",
+        "ritual": false
+      },
+      {
+        "nome": "Detectar Pensamentos",
+        "ritual": false
+      },
+      {
+        "nome": "Escuridão",
+        "ritual": false
+      },
+      {
+        "nome": "Força Fantasmagórica",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Levitação",
+        "ritual": false
+      },
+      {
+        "nome": "Lufada de Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Nublar",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem de Adagas",
+        "ritual": false
+      },
+      {
+        "nome": "Passo Nebuloso",
+        "ritual": false
+      },
+      {
+        "nome": "Patas de Aranha",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Ardente",
+        "ritual": false
+      },
+      {
+        "nome": "Reflexos",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão",
+        "ritual": false
+      },
+      {
+        "nome": "Teia",
+        "ritual": false
+      },
+      {
+        "nome": "Visão no Escuro",
+        "ritual": false
+      },
+      {
+        "nome": "Ver o Invisível",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Bola de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Clarividência",
+        "ritual": false
+      },
+      {
+        "nome": "Contramágica",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Gasosa",
+        "ritual": false
+      },
+      {
+        "nome": "Idiomas",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Lentidão",
+        "ritual": false
+      },
+      {
+        "nome": "Luz do Dia",
+        "ritual": false
+      },
+      {
+        "nome": "Medo",
+        "ritual": false
+      },
+      {
+        "nome": "Nevasca",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Fétida",
+        "ritual": false
+      },
+      {
+        "nome": "Padrão Hipnótico",
+        "ritual": false
+      },
+      {
+        "nome": "Piscar",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Relâmpago",
+        "ritual": false
+      },
+      {
+        "nome": "Velocidade",
+        "ritual": false
+      },
+      {
+        "nome": "Voo",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Banimento",
+        "ritual": false
+      },
+      {
+        "nome": "Confusão",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Besta",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Malogro",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Porta Dimensional",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Gelo",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Animar Objetos",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo de Teletransporte",
+        "ritual": false
+      },
+      {
+        "nome": "Cone de Frio",
+        "ritual": false
+      },
+      {
+        "nome": "Criação",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Mortal",
+        "ritual": false
+      },
+      {
+        "nome": "Praga de Insetos",
+        "ritual": false
+      },
+      {
+        "nome": "Similaridade",
+        "ritual": false
+      },
+      {
+        "nome": "Telecinésia",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Ataque Visual",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Corrente de Relâmpagos",
+        "ritual": false
+      },
+      {
+        "nome": "Desintegrar",
+        "ritual": false
+      },
+      {
+        "nome": "Globo de Invulnerabilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Mover Terra",
+        "ritual": false
+      },
+      {
+        "nome": "Portal Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Visão da Verdade",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Bola de Fogo Controlável",
+        "ritual": false
+      },
+      {
+        "nome": "Dedo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Etérea",
+        "ritual": false
+      },
+      {
+        "nome": "Inverter a Gravidade",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada Prismática",
+        "ritual": false
+      },
+      {
+        "nome": "Teletransporte",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Viagem Planar",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Dominar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Explosão Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem Incendiária",
+        "ritual": false
+      },
+      {
+        "nome": "Terremoto",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Chuva de Meteoros",
+        "ritual": false
+      },
+      {
+        "nome": "Desejo",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra de Poder Matar",
+        "ritual": false
+      },
+      {
+        "nome": "Parar o Tempo",
+        "ritual": false
+      },
+      {
+        "nome": "Portal",
+        "ritual": false
+      }
+    ]
+  },
+  "Mago": {
+    "Truque": [
+      {
+        "nome": "Amizade",
+        "ritual": false
+      },
+      {
+        "nome": "Ataque Certeiro",
+        "ritual": false
+      },
+      {
+        "nome": "Consertar",
+        "ritual": false
+      },
+      {
+        "nome": "Espirro Ácido",
+        "ritual": false
+      },
+      {
+        "nome": "Globos de Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Luz",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Mágicas",
+        "ritual": false
+      },
+      {
+        "nome": "Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Prestidigitação",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Lâminas",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Gelo",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada de Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Arrepiante",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Chocante",
+        "ritual": false
+      },
+      {
+        "nome": "Ver o Invisível",
+        "ritual": false
+      },
+      {
+        "nome": "Visão no Escuro",
+        "ritual": false
+      }
+    ],
+    "1° nível": [
+      {
+        "nome": "Área Escorregadia",
+        "ritual": false
+      },
+      {
+        "nome": "Armadura Arcana",
+        "ritual": false
+      },
+      {
+        "nome": "Disfarçar-se",
+        "ritual": false
+      },
+      {
+        "nome": "Enfeitiçar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Escudo Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Silenciosa",
+        "ritual": false
+      },
+      {
+        "nome": "Leque Cromático",
+        "ritual": false
+      },
+      {
+        "nome": "Mãos Flamejantes",
+        "ritual": false
+      },
+      {
+        "nome": "Mísseis Mágicos",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Obscurecente",
+        "ritual": false
+      },
+      {
+        "nome": "Onda Trovejante",
+        "ritual": false
+      },
+      {
+        "nome": "Orbe Cromática",
+        "ritual": false
+      },
+      {
+        "nome": "Passos Longos",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Queda Suave",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Adoecente",
+        "ritual": false
+      },
+      {
+        "nome": "Raio de Bruxa",
+        "ritual": false
+      },
+      {
+        "nome": "Recuo Acelerado",
+        "ritual": false
+      },
+      {
+        "nome": "Riso Histérico de Tasha",
+        "ritual": false
+      },
+      {
+        "nome": "Salto",
+        "ritual": false
+      },
+      {
+        "nome": "Sono",
+        "ritual": false
+      },
+      {
+        "nome": "Vitalidade Falsa",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Alterar-se",
+        "ritual": false
+      },
+      {
+        "nome": "Arma Mágica",
+        "ritual": false
+      },
+      {
+        "nome": "Arrombar",
+        "ritual": false
+      },
+      {
+        "nome": "Aumentar/Reduzir",
+        "ritual": false
+      },
+      {
+        "nome": "Aura Mágica de Nystul",
+        "ritual": false
+      },
+      {
+        "nome": "Cegueira/Surdez",
+        "ritual": false
+      },
+      {
+        "nome": "Chama Continua",
+        "ritual": false
+      },
+      {
+        "nome": "Coroa da Loucura",
+        "ritual": false
+      },
+      {
+        "nome": "Despedaçar",
+        "ritual": false
+      },
+      {
+        "nome": "Detectar Pensamentos",
+        "ritual": false
+      },
+      {
+        "nome": "Escuridão",
+        "ritual": false
+      },
+      {
+        "nome": "Esfera Flamejante",
+        "ritual": false
+      },
+      {
+        "nome": "Flecha Ácida de Melf",
+        "ritual": false
+      },
+      {
+        "nome": "Força Fantasmagórica",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Levitação",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Lufada de Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Nublar",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem de Adagas",
+        "ritual": false
+      },
+      {
+        "nome": "Passo Nebuloso",
+        "ritual": false
+      },
+      {
+        "nome": "Patas de Aranha",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Ardente",
+        "ritual": false
+      },
+      {
+        "nome": "Raio do Enfraquecimento",
+        "ritual": false
+      },
+      {
+        "nome": "Reflexos",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão",
+        "ritual": false
+      },
+      {
+        "nome": "Teia",
+        "ritual": false
+      },
+      {
+        "nome": "Tranca Arcana",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Animar Mortos",
+        "ritual": false
+      },
+      {
+        "nome": "Bola de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo Mágico",
+        "ritual": false
+      },
+      {
+        "nome": "Clarividência",
+        "ritual": false
+      },
+      {
+        "nome": "Contramágica",
+        "ritual": false
+      },
+      {
+        "nome": "Dificultar Detecção",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Enviar Mensagem",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Gasosa",
+        "ritual": false
+      },
+      {
+        "nome": "Glifo de Vigilância",
+        "ritual": false
+      },
+      {
+        "nome": "Idiomas",
+        "ritual": false
+      },
+      {
+        "nome": "Imagem Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Lentidão",
+        "ritual": false
+      },
+      {
+        "nome": "Medo",
+        "ritual": false
+      },
+      {
+        "nome": "Nevasca",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Fétida",
+        "ritual": false
+      },
+      {
+        "nome": "Padrão Hipnótico",
+        "ritual": false
+      },
+      {
+        "nome": "Piscar",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Relâmpago",
+        "ritual": false
+      },
+      {
+        "nome": "Remover Maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Rogar Maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Toque Vampírico",
+        "ritual": false
+      },
+      {
+        "nome": "Velocidade",
+        "ritual": false
+      },
+      {
+        "nome": "Voo",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Arca Secreta de Leomund",
+        "ritual": false
+      },
+      {
+        "nome": "Assassino Fantasmagórico",
+        "ritual": false
+      },
+      {
+        "nome": "Banimento",
+        "ritual": false
+      },
+      {
+        "nome": "Cão Fiel de Mordenkainen",
+        "ritual": false
+      },
+      {
+        "nome": "Confusão",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar a Água",
+        "ritual": false
+      },
+      {
+        "nome": "Escudo de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Esfera Resiliente de Otiluke",
+        "ritual": false
+      },
+      {
+        "nome": "Fabricar",
+        "ritual": false
+      },
+      {
+        "nome": "Invisibilidade Maior",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Malogro",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose",
+        "ritual": false
+      },
+      {
+        "nome": "Moldar Rochas",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Fogo",
+        "ritual": false
+      },
+      {
+        "nome": "Olho Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Porta Dimensional",
+        "ritual": false
+      },
+      {
+        "nome": "Tempestade de Gelo",
+        "ritual": false
+      },
+      {
+        "nome": "Tentáculos Negros de Evard",
+        "ritual": false
+      },
+      {
+        "nome": "Terreno Alucinógeno",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Âncora Planar",
+        "ritual": false
+      },
+      {
+        "nome": "Animar Objetos",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo de Teletransporte",
+        "ritual": false
+      },
+      {
+        "nome": "Cone de Frio",
+        "ritual": false
+      },
+      {
+        "nome": "Conhecimento Lendário",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Elemental",
+        "ritual": false
+      },
+      {
+        "nome": "Criação",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Passagem",
+        "ritual": false
+      },
+      {
+        "nome": "Despistar",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Pessoa",
+        "ritual": false
+      },
+      {
+        "nome": "Imobilizar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Mão de Bigby",
+        "ritual": false
+      },
+      {
+        "nome": "Missão",
+        "ritual": false
+      },
+      {
+        "nome": "Modificar Memória",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Mortal",
+        "ritual": false
+      },
+      {
+        "nome": "Similaridade",
+        "ritual": false
+      },
+      {
+        "nome": "Sonho",
+        "ritual": false
+      },
+      {
+        "nome": "Telecinésia",
+        "ritual": false
+      },
+      {
+        "nome": "Vidência",
+        "ritual": false
+      }
+    ],
+    "6° nível": [
+      {
+        "nome": "Ataque Visual",
+        "ritual": false
+      },
+      {
+        "nome": "Carne para Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Contingência",
+        "ritual": false
+      },
+      {
+        "nome": "Corrente de Relâmpagos",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Mortos-Vivos",
+        "ritual": false
+      },
+      {
+        "nome": "Dança Irresistível de Otto",
+        "ritual": false
+      },
+      {
+        "nome": "Desintegrar",
+        "ritual": false
+      },
+      {
+        "nome": "Esfera Congelante de Otiluke",
+        "ritual": false
+      },
+      {
+        "nome": "Globo de Invulnerabilidade",
+        "ritual": false
+      },
+      {
+        "nome": "Ilusão Programada",
+        "ritual": false
+      },
+      {
+        "nome": "Mover Terra",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Gelo",
+        "ritual": false
+      },
+      {
+        "nome": "Portal Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Proteger Fortaleza",
+        "ritual": false
+      },
+      {
+        "nome": "Raio Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Recipiente Arcano",
+        "ritual": false
+      },
+      {
+        "nome": "Sugestão em Massa",
+        "ritual": false
+      },
+      {
+        "nome": "Visão da Verdade",
+        "ritual": false
+      }
+    ],
+    "7° nível": [
+      {
+        "nome": "Bola de Fogo Controlável",
+        "ritual": false
+      },
+      {
+        "nome": "Dedo da Morte",
+        "ritual": false
+      },
+      {
+        "nome": "Espada de Mordenkainen",
+        "ritual": false
+      },
+      {
+        "nome": "Inverter a Gravidade",
+        "ritual": false
+      },
+      {
+        "nome": "Isolamento",
+        "ritual": false
+      },
+      {
+        "nome": "Forma Etérea",
+        "ritual": false
+      },
+      {
+        "nome": "Miragem",
+        "ritual": false
+      },
+      {
+        "nome": "Prisão de Energia",
+        "ritual": false
+      },
+      {
+        "nome": "Projetar Imagem",
+        "ritual": false
+      },
+      {
+        "nome": "Rajada Prismática",
+        "ritual": false
+      },
+      {
+        "nome": "Símbolo",
+        "ritual": false
+      },
+      {
+        "nome": "Simulacro",
+        "ritual": false
+      },
+      {
+        "nome": "Teletransporte",
+        "ritual": false
+      },
+      {
+        "nome": "Viagem Planar",
+        "ritual": false
+      }
+    ],
+    "8° nível": [
+      {
+        "nome": "Antipatia/Simpatia",
+        "ritual": false
+      },
+      {
+        "nome": "Campo Antimagia",
+        "ritual": false
+      },
+      {
+        "nome": "Clone",
+        "ritual": false
+      },
+      {
+        "nome": "Controlar o Clima",
+        "ritual": false
+      },
+      {
+        "nome": "Dominar Monstro",
+        "ritual": false
+      },
+      {
+        "nome": "Enfraquecer o Intelecto",
+        "ritual": false
+      },
+      {
+        "nome": "Explosão Solar",
+        "ritual": false
+      },
+      {
+        "nome": "Labirinto",
+        "ritual": false
+      },
+      {
+        "nome": "Limpar a Mente",
+        "ritual": false
+      },
+      {
+        "nome": "Nuvem Incendiária",
+        "ritual": false
+      },
+      {
+        "nome": "Semiplano",
+        "ritual": false
+      },
+      {
+        "nome": "Telepatia",
+        "ritual": false
+      }
+    ],
+    "9° nível": [
+      {
+        "nome": "Alterar Forma",
+        "ritual": false
+      },
+      {
+        "nome": "Aprisionamento",
+        "ritual": false
+      },
+      {
+        "nome": "Chuva de Meteoros",
+        "ritual": false
+      },
+      {
+        "nome": "Desejo",
+        "ritual": false
+      },
+      {
+        "nome": "Encarnação Fantasmagórica",
+        "ritual": false
+      },
+      {
+        "nome": "Metamorfose Verdadeira",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha Prismática",
+        "ritual": false
+      },
+      {
+        "nome": "Palavra de Poder Matar",
+        "ritual": false
+      },
+      {
+        "nome": "Parar o Tempo",
+        "ritual": false
+      },
+      {
+        "nome": "Portal",
+        "ritual": false
+      },
+      {
+        "nome": "Projeção Astral",
+        "ritual": false
+      },
+      {
+        "nome": "Sexto Sentido",
+        "ritual": false
+      }
+    ]
+  },
+  "Paladino": {
+    "1° nível": [
+      {
+        "nome": "Auxílio Divino",
+        "ritual": false
+      },
+      {
+        "nome": "Bênção",
+        "ritual": false
+      },
+      {
+        "nome": "Comando",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Colérica",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Lancinante",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Trovejante",
+        "ritual": false
+      },
+      {
+        "nome": "Detectar o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Duelo Compelido",
+        "ritual": false
+      },
+      {
+        "nome": "Escudo da Fé",
+        "ritual": false
+      },
+      {
+        "nome": "Heroísmo",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra o Bem e Mal",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Ajuda",
+        "ritual": false
+      },
+      {
+        "nome": "Arma Mágica",
+        "ritual": false
+      },
+      {
+        "nome": "Convocar Montaria",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Marca da Punição",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Zona da Verdade",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Arma Elemental",
+        "ritual": false
+      },
+      {
+        "nome": "Aura de Vitalidade",
+        "ritual": false
+      },
+      {
+        "nome": "Círculo Mágico",
+        "ritual": false
+      },
+      {
+        "nome": "Criar Alimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Cegante",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar Magia",
+        "ritual": false
+      },
+      {
+        "nome": "Luz do Dia",
+        "ritual": false
+      },
+      {
+        "nome": "Manto do Cruzado",
+        "ritual": false
+      },
+      {
+        "nome": "Remover Maldição",
+        "ritual": false
+      },
+      {
+        "nome": "Revivificar",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Aura de Pureza",
+        "ritual": false
+      },
+      {
+        "nome": "Aura de Vida",
+        "ritual": false
+      },
+      {
+        "nome": "Banimento",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Estonteante",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra a Morte",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Círculo de Poder",
+        "ritual": false
+      },
+      {
+        "nome": "Destruição Banidora",
+        "ritual": false
+      },
+      {
+        "nome": "Dissipar o Bem e Mal",
+        "ritual": false
+      },
+      {
+        "nome": "Missão",
+        "ritual": false
+      },
+      {
+        "nome": "Onda Destrutiva",
+        "ritual": false
+      },
+      {
+        "nome": "Reviver os Mortos",
+        "ritual": false
+      }
+    ]
+  },
+  "Patrulheiro": {
+    "1° nível": [
+      {
+        "nome": "Amizade Animal",
+        "ritual": false
+      },
+      {
+        "nome": "Bom Fruto",
+        "ritual": false
+      },
+      {
+        "nome": "Curar Ferimentos",
+        "ritual": false
+      },
+      {
+        "nome": "Golpe Constritor",
+        "ritual": false
+      },
+      {
+        "nome": "Marca do Caçador",
+        "ritual": false
+      },
+      {
+        "nome": "Névoa Obscurecente",
+        "ritual": false
+      },
+      {
+        "nome": "Passos Longos",
+        "ritual": false
+      },
+      {
+        "nome": "Salto",
+        "ritual": false
+      },
+      {
+        "nome": "Saraivada de Espinhos",
+        "ritual": false
+      }
+    ],
+    "2° nível": [
+      {
+        "nome": "Cordão de Flechas",
+        "ritual": false
+      },
+      {
+        "nome": "Crescer Espinhos",
+        "ritual": false
+      },
+      {
+        "nome": "Encontrar Armadilhas",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Objeto",
+        "ritual": false
+      },
+      {
+        "nome": "Passos sem Pegadas",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Árvore",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Veneno",
+        "ritual": false
+      },
+      {
+        "nome": "Restauração Menor",
+        "ritual": false
+      },
+      {
+        "nome": "Visão no Escuro",
+        "ritual": false
+      }
+    ],
+    "3° nível": [
+      {
+        "nome": "Ampliar Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Animais",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Rajada",
+        "ritual": false
+      },
+      {
+        "nome": "Dificultar Detecção",
+        "ritual": false
+      },
+      {
+        "nome": "Falar com Plantas",
+        "ritual": false
+      },
+      {
+        "nome": "Flecha Relampejante",
+        "ritual": false
+      },
+      {
+        "nome": "Luz do Dia",
+        "ritual": false
+      },
+      {
+        "nome": "Muralha de Vento",
+        "ritual": false
+      },
+      {
+        "nome": "Proteção contra Energia",
+        "ritual": false
+      }
+    ],
+    "4° nível": [
+      {
+        "nome": "Conjurar Seres da Floresta",
+        "ritual": false
+      },
+      {
+        "nome": "Localizar Criatura",
+        "ritual": false
+      },
+      {
+        "nome": "Movimentação Livre",
+        "ritual": false
+      },
+      {
+        "nome": "Pele de Pedra",
+        "ritual": false
+      },
+      {
+        "nome": "Vinha Esmagadora",
+        "ritual": false
+      }
+    ],
+    "5° nível": [
+      {
+        "nome": "Aljava Veloz",
+        "ritual": false
+      },
+      {
+        "nome": "Caminhar em Árvores",
+        "ritual": false
+      },
+      {
+        "nome": "Conjurar Saraivada",
+        "ritual": false
+      }
+    ],
+    "6° nível": [],
+    "9° nível": [],
+    "Truque": []
+  }
+}

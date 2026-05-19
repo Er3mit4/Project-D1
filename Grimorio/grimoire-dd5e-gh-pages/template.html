@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grimório — Magias D&D 5e</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0d0b0e;
+  --bg2:#1a1520;
+  --bg3:#241e2c;
+  --fg:#e8dcc8;
+  --fg2:#a89b8a;
+  --accent:#d4a44a;
+  --accent2:#e8c06a;
+  --card:#1c1724;
+  --border:#3a2f48;
+  --cantrip:#8e44ad;
+  --shadow:0 2px 12px rgba(0,0,0,0.5);
+  --sidebar-w:280px;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Lora',Georgia,serif;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+header{
+  background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);
+  border-bottom:2px solid var(--accent);
+  padding:0 1rem;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+header h1{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:1rem;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  text-shadow:0 0 20px rgba(212,164,74,0.3);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+#search-box{
+  flex:1;
+  max-width:500px;
+  margin:0 auto;
+  padding:0.4rem 0.8rem;
+  font-size:0.9rem;
+  font-family:'Lora',serif;
+  background:var(--bg2);
+  color:var(--fg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+
+#search-box:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 8px rgba(212,164,74,0.25);
+}
+
+#search-box::placeholder{color:var(--fg2);opacity:0.6}
+
+.filter-toggle-btn{
+  padding:0.35rem 0.7rem;
+  font-size:0.85rem;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  background:var(--bg3);
+  color:var(--fg2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+.filter-toggle-btn:hover{background:var(--border);color:var(--fg)}
+
+.overlay{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.6);
+  z-index:200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s;
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.sidebar{
+  position:fixed;
+  top:0;right:0;bottom:0;
+  width:var(--sidebar-w);
+  max-width:85vw;
+  background:var(--bg2);
+  border-left:2px solid var(--accent);
+  z-index:300;
+  transform:translateX(100%);
+  transition:transform 0.3s ease;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar.open{
+  transform:translateX(0);
+}
+
+.sidebar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.8rem 1rem;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+
+.sidebar-header h2{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:0.95rem;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+
+.sidebar-close{
+  background:none;
+  border:none;
+  color:var(--fg2);
+  font-size:1.2rem;
+  cursor:pointer;
+  padding:0.2rem 0.4rem;
+  border-radius:4px;
+  transition:all 0.2s;
+}
+
+.sidebar-close:hover{color:var(--fg);background:var(--bg3)}
+
+.sidebar-body{
+  padding:0.8rem 1rem;
+  flex:1;
+  overflow-y:auto;
+}
+
+.filter-section{
+  margin-bottom:1rem;
+}
+
+.filter-section-title{
+  font-family:'Cinzel',serif;
+  font-size:0.7rem;
+  color:var(--fg2);
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  margin-bottom:0.4rem;
+  padding-bottom:0.3rem;
+  border-bottom:1px solid var(--border);
+}
+
+.filter-section-btns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.3rem;
+}
+
+.filter-btn{
+  padding:0.25rem 0.55rem;
+  font-size:0.75rem;
+  font-family:'Lora',serif;
+  background:var(--bg3);
+  color:var(--fg2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+
+.filter-btn:hover{background:var(--border);color:var(--fg)}
+
+.filter-btn.active{
+  background:var(--accent);
+  color:#1a0f25;
+  border-color:var(--accent);
+  font-weight:700;
+}
+
+.filter-btn.active-trick{
+  background:var(--cantrip);
+  color:#fff;
+  border-color:var(--cantrip);
+  font-weight:700;
+}
+
+#stats{
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--fg2);
+  padding:0.3rem 1rem;
+}
+
+#spell-list{
+  max-width:900px;
+  margin:0 auto;
+  padding:0 0.8rem 3rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+}
+
+.spell-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;
+}
+
+.spell-card:hover{
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.spell-card.cantrip{border-left:3px solid var(--cantrip)}
+.spell-card.leveled{border-left:3px solid var(--accent)}
+
+.spell-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.6rem 0.8rem;
+  gap:0.5rem;
+}
+
+.spell-name{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:0.95rem;
+  color:var(--fg);
+  flex:1;
+}
+
+.spell-meta{
+  display:flex;
+  gap:0.35rem;
+  flex-shrink:0;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.badge{
+  padding:0.1rem 0.4rem;
+  font-size:0.65rem;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  border-radius:3px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+
+.badge-level{
+  background:rgba(212,164,74,0.15);
+  color:var(--accent2);
+  border:1px solid rgba(212,164,74,0.3);
+}
+
+.badge-cantrip{
+  background:rgba(142,68,173,0.2);
+  color:#bb6bd9;
+  border:1px solid rgba(142,68,173,0.3);
+}
+
+.badge-school{
+  background:rgba(52,152,219,0.12);
+  color:#5dade2;
+  border:1px solid rgba(52,152,219,0.25);
+}
+
+.spell-detail{
+  display:none;
+  padding:0 0.8rem 0.8rem;
+  border-top:1px solid var(--border);
+  margin-top:0;
+}
+
+.spell-card.open .spell-detail{
+  display:block;
+  padding-top:0.6rem;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.3rem 1rem;
+  margin-bottom:0.6rem;
+  font-size:0.82rem;
+}
+
+.detail-label{
+  color:var(--fg2);
+  font-size:0.7rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+
+.detail-value{color:var(--fg)}
+
+.spell-desc{
+  font-size:0.85rem;
+  color:var(--fg);
+  line-height:1.7;
+  margin-bottom:0.5rem;
+  padding-top:0.4rem;
+  border-top:1px dashed var(--border);
+  overflow-x:auto;
+}
+
+.spell-desc p{margin:0 0 0.6em}
+
+.spell-desc ul{
+  margin:0.4em 0 0.6em 1.2em;
+  padding:0;
+  list-style:disc;
+}
+
+.spell-desc li{
+  margin-bottom:0.3em;
+  line-height:1.6;
+}
+
+.spell-desc .higher-levels{
+  color:var(--accent2);
+  display:inline-block;
+  margin-top:0.2em;
+}
+
+.spell-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:0.5em 0 0.8em;
+  font-size:0.8rem;
+  border:1px solid var(--border);
+}
+
+.spell-table th,
+.spell-table td{
+  padding:0.3rem 0.5rem;
+  text-align:left;
+  border:1px solid var(--border);
+}
+
+.spell-table thead th{
+  background:var(--bg3);
+  color:var(--fg2);
+  font-family:'Cinzel',serif;
+  font-size:0.7rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+
+.spell-table tbody tr:nth-child(even){
+  background:rgba(255,255,255,0.02);
+}
+
+.spell-table-wrap{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin:0.5em 0 0.8em;
+}
+
+.spell-ref{
+  font-size:0.75rem;
+  color:var(--fg2);
+  text-align:right;
+}
+
+.spell-ref span{
+  background:var(--bg3);
+  padding:0.15rem 0.5rem;
+  border-radius:3px;
+  border:1px solid var(--border);
+}
+
+.spell-classes{
+  display:flex;
+  gap:0.25rem;
+  flex-wrap:wrap;
+  margin-top:0.3rem;
+}
+
+.class-tag{
+  font-size:0.65rem;
+  padding:0.1rem 0.35rem;
+  border-radius:3px;
+  background:var(--bg2);
+  color:var(--fg2);
+  border:1px solid var(--border);
+}
+
+.class-tag.tag-Bardo{border-color:#8e44ad;color:#bb6bd9}
+.class-tag.tag-Bruxo{border-color:#c0392b;color:#e74c3c}
+.class-tag.tag-Clérigo{border-color:#f1c40f;color:#f7dc6f}
+.class-tag.tag-Druida{border-color:#27ae60;color:#58d68d}
+.class-tag.tag-Feiticeiro{border-color:#e67e22;color:#f0b27a}
+.class-tag.tag-Mago{border-color:#3498db;color:#85c1e9}
+.class-tag.tag-Paladino{border-color:#d4a44a;color:#e8c06a}
+.class-tag.tag-Patrulheiro{border-color:#1abc9c;color:#76d7c4}
+
+#no-results{
+  display:none;
+  text-align:center;
+  padding:3rem 1rem;
+  color:var(--fg2);
+}
+
+#no-results .icon{font-size:3rem;margin-bottom:0.5rem}
+
+footer{
+  text-align:center;
+  padding:1.5rem;
+  font-size:0.75rem;
+  color:var(--fg2);
+  opacity:0.5;
+  border-top:1px solid var(--border);
+}
+
+.expand-arrow{
+  transition:transform 0.2s;
+  color:var(--fg2);
+  font-size:0.8rem;
+}
+
+.spell-card.open .expand-arrow{transform:rotate(90deg)}
+
+.hidden{display:none!important}
+
+@media(max-width:600px){
+  header{
+    gap:0.5rem;
+    padding:0 0.5rem;
+  }
+  header h1{
+    font-size:0.8rem;
+    letter-spacing:0.05em;
+  }
+  #search-box{
+    font-size:0.8rem;
+    padding:0.3rem 0.6rem;
+  }
+  .filter-toggle-btn{
+    font-size:0.75rem;
+    padding:0.3rem 0.5rem;
+  }
+  .spell-header{flex-direction:column;align-items:flex-start}
+  .spell-meta{justify-content:flex-start}
+  .detail-grid{grid-template-columns:1fr}
+}
+
+@media(min-width:901px){
+  .spell-card:hover{transform:translateX(2px)}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>&#x2699; Filtros</h2>
+    <button class="sidebar-close" onclick="toggleSidebar()" title="Fechar filtros">&#x2715;</button>
+  </div>
+  <div class="sidebar-body" id="filters"></div>
+</div>
+
+<header>
+  <h1>&#x1F52E; Grimório</h1>
+  <input type="text" id="search-box" placeholder="Buscar magia por nome..." autocomplete="off" spellcheck="false">
+  <button class="filter-toggle-btn" onclick="toggleSidebar()">&#x2630; Filtros</button>
+</header>
+
+<div id="stats"></div>
+
+<div id="spell-list"></div>
+<div id="no-results">
+  <div class="icon">&#x1F50D;</div>
+  <p>Nenhuma magia encontrada.</p>
+</div>
+
+<footer>Grimório D&D 5e &mdash; Consulta de Magias em Português Brasileiro</footer>
+
+<script>
+const SPELLS = __SPELLS_DATA__;
+
+const ESCOLAS = ['abjuração','adivinhação','conjuração','encantamento','evocação','ilusão','necromancia','transmutação'];
+const CLASSES = ['Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Mago','Paladino','Patrulheiro'];
+const NIVEIS = ['Truque','1° nível','2° nível','3° nível','4° nível','5° nível','6° nível','7° nível','8° nível','9° nível'];
+
+let activeFilters = {nivel:new Set(),escola:new Set(),classe:new Set()};
+let searchQuery = '';
+let openSpell = null;
+
+function buildFilters(){
+  const container = document.getElementById('filters');
+
+  const sNivel = document.createElement('div');
+  sNivel.className = 'filter-section';
+  sNivel.innerHTML = '<div class="filter-section-title">Nível</div><div class="filter-section-btns" id="btns-nivel"></div>';
+  container.appendChild(sNivel);
+
+  NIVEIS.forEach(nv => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = nv === 'Truque' ? '★' : nv.replace(' nível','');
+    btn.dataset.filter = 'nivel';
+    btn.dataset.value = nv;
+    if(nv === 'Truque') btn.classList.add('cantrip-filter');
+    btn.onclick = () => toggleFilter('nivel',nv,btn);
+    sNivel.querySelector('#btns-nivel').appendChild(btn);
+  });
+
+  const sEscola = document.createElement('div');
+  sEscola.className = 'filter-section';
+  sEscola.innerHTML = '<div class="filter-section-title">Escola</div><div class="filter-section-btns" id="btns-escola"></div>';
+  container.appendChild(sEscola);
+
+  ESCOLAS.forEach(e => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = e.charAt(0).toUpperCase() + e.slice(1);
+    btn.dataset.filter = 'escola';
+    btn.dataset.value = e;
+    btn.onclick = () => toggleFilter('escola',e,btn);
+    sEscola.querySelector('#btns-escola').appendChild(btn);
+  });
+
+  const sClasse = document.createElement('div');
+  sClasse.className = 'filter-section';
+  sClasse.innerHTML = '<div class="filter-section-title">Classe</div><div class="filter-section-btns" id="btns-classe"></div>';
+  container.appendChild(sClasse);
+
+  CLASSES.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = c;
+    btn.dataset.filter = 'classe';
+    btn.dataset.value = c;
+    btn.onclick = () => toggleFilter('classe',c,btn);
+    sClasse.querySelector('#btns-classe').appendChild(btn);
+  });
+}
+
+function toggleFilter(type,value,btn){
+  if(activeFilters[type].has(value)){
+    activeFilters[type].delete(value);
+    btn.classList.remove('active','active-trick');
+  } else {
+    activeFilters[type].add(value);
+    if(type === 'nivel' && value === 'Truque'){
+      btn.classList.add('active-trick');
+    } else {
+      btn.classList.add('active');
+    }
+  }
+  render();
+}
+
+function getFiltered(){
+  return SPELLS.filter(s => {
+    if(searchQuery && !s.n.toLowerCase().includes(searchQuery)) return false;
+    if(activeFilters.nivel.size && !activeFilters.nivel.has(s.nv)) return false;
+    if(activeFilters.escola.size && !activeFilters.escola.has(s.e)) return false;
+    if(activeFilters.classe.size){
+      const has = s.cl.some(c => activeFilters.classe.has(c));
+      if(!has) return false;
+    }
+    return true;
+  });
+}
+
+function escHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function render(){
+  const filtered = getFiltered();
+  const list = document.getElementById('spell-list');
+  const noRes = document.getElementById('no-results');
+  const stats = document.getElementById('stats');
+  stats.textContent = filtered.length + ' de ' + SPELLS.length + ' magias';
+
+  if(!filtered.length){
+    list.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  let html = '';
+  for(const s of filtered){
+    const isCantrip = s.nv === 'Truque';
+    const cls = isCantrip ? 'cantrip' : 'leveled';
+    const badgeCls = isCantrip ? 'badge-cantrip' : 'badge-level';
+    const badgeTxt = isCantrip ? 'Truque' : s.nv;
+
+    let classTags = '';
+    if(s.cl.length){
+      classTags = '<div class="spell-classes">' +
+        s.cl.map(c => '<span class="class-tag tag-'+c+'">'+c+'</span>').join('') +
+        '</div>';
+    }
+
+    html += '<div class="spell-card '+cls+'" data-name="'+escHtml(s.n)+'" onclick="toggleSpell(this)">' +
+      '<div class="spell-header">' +
+        '<span class="spell-name">'+escHtml(s.n)+'</span>' +
+        '<div class="spell-meta">' +
+          '<span class="badge '+badgeCls+'">'+badgeTxt+'</span>' +
+          '<span class="badge badge-school">'+escHtml(s.e)+'</span>' +
+          '<span class="expand-arrow">&#x25B6;</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="spell-detail">' +
+        '<div class="detail-grid">' +
+          '<div><span class="detail-label">Tempo</span><br><span class="detail-value">'+escHtml(s.tc)+'</span></div>' +
+          '<div><span class="detail-label">Alcance</span><br><span class="detail-value">'+escHtml(s.al)+'</span></div>' +
+          '<div><span class="detail-label">Componentes</span><br><span class="detail-value">'+escHtml(s.co)+'</span></div>' +
+          '<div><span class="detail-label">Duração</span><br><span class="detail-value">'+escHtml(s.du)+'</span></div>' +
+        '</div>' +
+        classTags +
+        '<div class="spell-desc">'+s.d+'</div>' +
+        '<div class="spell-ref"><span>&#x1F4D6; '+escHtml(s.pr)+'</span></div>' +
+      '</div>' +
+    '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function toggleSpell(el){
+  if(openSpell && openSpell !== el){
+    openSpell.classList.remove('open');
+  }
+  el.classList.toggle('open');
+  openSpell = el.classList.contains('open') ? el : null;
+  if(openSpell){
+    setTimeout(() => {
+      openSpell.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }, 50);
+  }
+}
+
+function toggleSidebar(){
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const isOpen = sidebar.classList.contains('open');
+  if(isOpen){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+  }
+}
+
+document.getElementById('search-box').addEventListener('input', function(){
+  searchQuery = this.value.toLowerCase().trim();
+  openSpell = null;
+  render();
+});
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const sidebar = document.getElementById('sidebar');
+    if(sidebar.classList.contains('open')){
+      toggleSidebar();
+    } else {
+      document.getElementById('search-box').value = '';
+      searchQuery = '';
+      render();
+    }
+  }
+  if(e.key === '/' && document.activeElement !== document.getElementById('search-box')){
+    e.preventDefault();
+    document.getElementById('search-box').focus();
+  }
+});
+
+buildFilters();
+render();
+</script>
+</body>
+</html>

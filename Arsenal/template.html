@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsenal — D&D 5e</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0d0b0e;
+  --bg2:#1a1520;
+  --bg3:#241e2c;
+  --fg:#e8dcc8;
+  --fg2:#a89b8a;
+  --accent:#d4a44a;
+  --accent2:#e8c06a;
+  --card:#1c1724;
+  --border:#3a2f48;
+  --cantrip:#8e44ad;
+  --shadow:0 2px 12px rgba(0,0,0,0.5);
+  --sidebar-w:280px;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Lora',Georgia,serif;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+header{
+  background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);
+  border-bottom:2px solid var(--accent);
+  padding:0 1rem;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+header h1{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:1rem;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  text-shadow:0 0 20px rgba(212,164,74,0.3);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+#search-box{
+  flex:1;
+  max-width:500px;
+  margin:0 auto;
+  padding:0.4rem 0.8rem;
+  font-size:0.9rem;
+  font-family:'Lora',serif;
+  background:var(--bg2);
+  color:var(--fg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+
+#search-box:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 8px rgba(212,164,74,0.25);
+}
+
+#search-box::placeholder{color:var(--fg2);opacity:0.6}
+
+.filter-toggle-btn{
+  padding:0.35rem 0.7rem;
+  font-size:0.85rem;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  background:var(--bg3);
+  color:var(--fg2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+.filter-toggle-btn:hover{background:var(--border);color:var(--fg)}
+
+.overlay{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.6);
+  z-index:200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s;
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.sidebar{
+  position:fixed;
+  top:0;right:0;bottom:0;
+  width:var(--sidebar-w);
+  max-width:85vw;
+  background:var(--bg2);
+  border-left:2px solid var(--accent);
+  z-index:300;
+  transform:translateX(100%);
+  transition:transform 0.3s ease;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar.open{
+  transform:translateX(0);
+}
+
+.sidebar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.8rem 1rem;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+
+.sidebar-header h2{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:0.95rem;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+
+.sidebar-close{
+  background:none;
+  border:none;
+  color:var(--fg2);
+  font-size:1.2rem;
+  cursor:pointer;
+  padding:0.2rem 0.4rem;
+  border-radius:4px;
+  transition:all 0.2s;
+}
+
+.sidebar-close:hover{color:var(--fg);background:var(--bg3)}
+
+.sidebar-body{
+  padding:0.8rem 1rem;
+  flex:1;
+  overflow-y:auto;
+}
+
+.filter-section{
+  margin-bottom:1rem;
+}
+
+.filter-section.collapsible .filter-section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.filter-section.collapsible .filter-section-title::after{
+  content:"\25BE";
+  color:var(--fg2);
+  transition:transform 0.2s;
+}
+
+.filter-section.collapsible.collapsed .filter-section-title::after{
+  transform:rotate(-90deg);
+}
+
+.filter-section.collapsible.collapsed .filter-section-body{
+  display:none;
+}
+
+.filter-section-title{
+  width:100%;
+  background:none;
+  border:0;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-family:'Cinzel',serif;
+  font-size:0.7rem;
+  color:var(--fg2);
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  margin-bottom:0.4rem;
+  padding-bottom:0.3rem;
+}
+
+.type-filter-search{
+  width:100%;
+  margin-bottom:0.45rem;
+  padding:0.35rem 0.55rem;
+  font-size:0.78rem;
+  font-family:'Lora',serif;
+  background:var(--bg3);
+  color:var(--fg);
+  border:1px solid var(--border);
+  border-radius:4px;
+  outline:none;
+}
+
+.type-filter-search:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 6px rgba(212,164,74,0.2);
+}
+
+.type-filter-search::placeholder{color:var(--fg2);opacity:0.65}
+
+.filter-section-btns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.3rem;
+}
+
+.filter-section.collapsible .filter-section-btns{
+  max-height:18rem;
+  overflow:auto;
+  padding-right:0.2rem;
+}
+
+.filter-btn{
+  padding:0.25rem 0.55rem;
+  font-size:0.75rem;
+  font-family:'Lora',serif;
+  background:var(--bg3);
+  color:var(--fg2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  cursor:pointer;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+
+.filter-btn:hover{background:var(--border);color:var(--fg)}
+
+.filter-btn.active{
+  background:var(--accent);
+  color:#1a0f25;
+  border-color:var(--accent);
+  font-weight:700;
+}
+
+.filter-btn.active-trick{
+  background:var(--cantrip);
+  color:#fff;
+  border-color:var(--cantrip);
+  font-weight:700;
+}
+
+#stats{
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--fg2);
+  padding:0.3rem 1rem;
+}
+
+#item-list{
+  max-width:900px;
+  margin:0 auto;
+  padding:0 0.8rem 3rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+}
+
+.spell-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;
+}
+
+.spell-card:hover{
+  border-color:var(--accent);
+  box-shadow:var(--shadow);
+}
+
+.spell-card.cantrip{border-left:3px solid var(--cantrip)}
+.spell-card.leveled{border-left:3px solid var(--accent)}
+
+.spell-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.6rem 0.8rem;
+  gap:0.5rem;
+}
+
+.spell-name{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:0.95rem;
+  color:var(--fg);
+  flex:1;
+}
+
+.spell-meta{
+  display:flex;
+  gap:0.35rem;
+  flex-shrink:0;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.badge{
+  padding:0.1rem 0.4rem;
+  font-size:0.65rem;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  border-radius:3px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+
+.badge-level{
+  background:rgba(212,164,74,0.15);
+  color:var(--accent2);
+  border:1px solid rgba(212,164,74,0.3);
+}
+
+.badge-cantrip{
+  background:rgba(142,68,173,0.2);
+  color:#bb6bd9;
+  border:1px solid rgba(142,68,173,0.3);
+}
+
+.badge-school{
+  background:rgba(52,152,219,0.12);
+  color:#5dade2;
+  border:1px solid rgba(52,152,219,0.25);
+}
+
+.badge-source{
+  background:rgba(255,255,255,0.04);
+  color:var(--fg2);
+  border:1px solid var(--border);
+}
+
+.icon-badge{
+  min-width:1.45rem;
+  text-align:center;
+  font-size:0.78rem;
+  line-height:1.2;
+  background:rgba(212,164,74,0.12);
+  color:var(--accent2);
+  border:1px solid rgba(212,164,74,0.32);
+}
+
+.icon-badge.magic{
+  background:rgba(142,68,173,0.2);
+  color:#bb6bd9;
+  border-color:rgba(142,68,173,0.3);
+}
+
+.spell-detail{
+  display:none;
+  padding:0 0.8rem 0.8rem;
+  border-top:1px solid var(--border);
+  margin-top:0;
+}
+
+.spell-card.open .spell-detail{
+  display:block;
+  padding-top:0.6rem;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.3rem 1rem;
+  margin-bottom:0.6rem;
+  font-size:0.82rem;
+}
+
+.detail-label{
+  color:var(--fg2);
+  font-size:0.7rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+
+.detail-value{color:var(--fg)}
+
+.spell-desc{
+  font-size:0.85rem;
+  color:var(--fg);
+  line-height:1.7;
+  margin-bottom:0.5rem;
+  padding-top:0.4rem;
+  border-top:1px dashed var(--border);
+  overflow-x:auto;
+}
+
+.spell-desc p{margin:0 0 0.6em}
+.spell-desc ul{
+  margin:0 0 0.75em 1.1rem;
+  padding:0;
+}
+.spell-desc li{margin:0.15rem 0}
+.desc-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:0.4rem 0 0.8rem;
+  font-size:0.8rem;
+}
+.desc-table th,
+.desc-table td{
+  border:1px solid var(--border);
+  padding:0.28rem 0.4rem;
+  vertical-align:top;
+}
+.desc-table th{
+  color:var(--gold);
+  background:rgba(212,164,74,0.08);
+  text-align:left;
+  text-transform:uppercase;
+  font-size:0.7rem;
+  letter-spacing:0.06em;
+}
+.desc-table td:first-child{
+  width:5.5rem;
+  white-space:nowrap;
+  color:var(--fg2);
+}
+
+.spell-ref{
+  font-size:0.75rem;
+  color:var(--fg2);
+  text-align:right;
+}
+
+.spell-ref span{
+  background:var(--bg3);
+  padding:0.15rem 0.5rem;
+  border-radius:3px;
+  border:1px solid var(--border);
+}
+
+.spell-classes{
+  display:flex;
+  gap:0.25rem;
+  flex-wrap:wrap;
+  margin-top:0.3rem;
+}
+
+.class-tag{
+  font-size:0.65rem;
+  padding:0.1rem 0.35rem;
+  border-radius:3px;
+  background:var(--bg2);
+  color:var(--fg2);
+  border:1px solid var(--border);
+}
+
+.class-tag.tag-Arma{border-color:#c0392b;color:#e74c3c}
+.class-tag.tag-Armadura{border-color:#d4a44a;color:#e8c06a}
+.class-tag.tag-Equipamento{border-color:#3498db;color:#85c1e9}
+.class-tag.tag-Ferramenta{border-color:#27ae60;color:#58d68d}
+.class-tag.tag-Item{border-color:#8e44ad;color:#bb6bd9}
+.class-tag.tag-Montaria{border-color:#1abc9c;color:#76d7c4}
+.class-tag.tag-Veículo{border-color:#e67e22;color:#f0b27a}
+
+#no-results{
+  display:none;
+  text-align:center;
+  padding:3rem 1rem;
+  color:var(--fg2);
+}
+
+#no-results .icon{font-size:3rem;margin-bottom:0.5rem}
+
+footer{
+  text-align:center;
+  padding:1.5rem;
+  font-size:0.75rem;
+  color:var(--fg2);
+  opacity:0.5;
+  border-top:1px solid var(--border);
+}
+
+.expand-arrow{
+  transition:transform 0.2s;
+  color:var(--fg2);
+  font-size:0.8rem;
+}
+
+.spell-card.open .expand-arrow{transform:rotate(90deg)}
+
+.hidden{display:none!important}
+
+@media(max-width:600px){
+  header{
+    gap:0.5rem;
+    padding:0 0.5rem;
+  }
+  header h1{
+    font-size:0.8rem;
+    letter-spacing:0.05em;
+  }
+  #search-box{
+    font-size:0.8rem;
+    padding:0.3rem 0.6rem;
+  }
+  .filter-toggle-btn{
+    font-size:0.75rem;
+    padding:0.3rem 0.5rem;
+  }
+  .spell-header{flex-direction:column;align-items:flex-start}
+  .spell-meta{justify-content:flex-start}
+  .detail-grid{grid-template-columns:1fr}
+}
+
+@media(min-width:901px){
+  .spell-card:hover{transform:translateX(2px)}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>&#x2699; Filtros</h2>
+    <button class="sidebar-close" onclick="toggleSidebar()" title="Fechar filtros">&#x2715;</button>
+  </div>
+  <div class="sidebar-body" id="filters"></div>
+</div>
+
+<header>
+  <h1>&#x2694; Arsenal</h1>
+  <input type="text" id="search-box" placeholder="Buscar item por nome..." autocomplete="off" spellcheck="false">
+  <button class="filter-toggle-btn" onclick="toggleSidebar()">&#x2630; Filtros</button>
+</header>
+
+<div id="stats"></div>
+
+<div id="item-list"></div>
+<div id="no-results">
+  <div class="icon">&#x1F50D;</div>
+  <p>Nenhum item encontrado.</p>
+</div>
+
+<footer>Arsenal D&D 5e &mdash; Consulta de Equipamentos e Itens Mágicos em Português Brasileiro</footer>
+
+<script>
+const ITEMS = __ARSENAL_DATA__;
+
+const CATEGORIAS = uniqueValues('categoria');
+const TIPOS = uniqueValues('tipo');
+const FONTES = uniqueValues('fonte');
+const RARIDADES = uniqueValues('raridade');
+const SINTONIZACOES = ['Requer sintonização','Não requer sintonização'];
+const CLASSES = ['Bárbaro','Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Guerreiro','Ladino','Mago','Monge','Paladino','Patrulheiro'];
+
+let activeFilters = {categoria:new Set(),tipo:new Set(),fonte:new Set(),raridade:new Set(),sintonizacao:new Set(),classe:new Set()};
+let searchQuery = '';
+let openItem = null;
+
+function uniqueValues(field){
+  return [...new Set(ITEMS.map(i => i[field]).filter(Boolean))]
+    .sort((a,b) => a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
+}
+
+function buildFilters(){
+  const container = document.getElementById('filters');
+  addFilterSection(container,'Categoria','categoria',CATEGORIAS);
+  addFilterSection(container,'Tipo','tipo',TIPOS,{collapsible:true,collapsed:true,search:true});
+  addFilterSection(container,'Fonte','fonte',FONTES);
+  addFilterSection(container,'Usável por classe','classe',CLASSES);
+  addFilterSection(container,'Raridade','raridade',RARIDADES);
+  addFilterSection(container,'Sintonização','sintonizacao',SINTONIZACOES);
+}
+
+function addFilterSection(container,title,type,values,options = {}){
+  const section = document.createElement('div');
+  section.className = 'filter-section' + (options.collapsible ? ' collapsible' : '') + (options.collapsed ? ' collapsed' : '');
+  const btnsId = 'btns-' + type;
+  const titleHtml = options.collapsible
+    ? '<button class="filter-section-title" type="button">'+title+'</button>'
+    : '<div class="filter-section-title">'+title+'</div>';
+  const searchHtml = options.search
+    ? '<input class="type-filter-search" id="'+type+'-filter-search" type="search" placeholder="Filtrar tipos..." autocomplete="off" spellcheck="false">'
+    : '';
+  section.innerHTML = titleHtml + '<div class="filter-section-body">'+searchHtml+'<div class="filter-section-btns" id="'+btnsId+'"></div></div>';
+  container.appendChild(section);
+
+  if(options.collapsible){
+    section.querySelector('.filter-section-title').onclick = () => section.classList.toggle('collapsed');
+  }
+  if(options.search){
+    section.querySelector('#'+type+'-filter-search').addEventListener('input', event => {
+      const query = normalize(event.target.value);
+      section.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('hidden', query && !normalize(btn.dataset.value).includes(query));
+      });
+    });
+  }
+
+  values.forEach(value => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = value;
+    btn.dataset.filter = type;
+    btn.dataset.value = value;
+    btn.onclick = () => toggleFilter(type,value,btn);
+    section.querySelector('#'+btnsId).appendChild(btn);
+  });
+}
+
+function toggleFilter(type,value,btn){
+  if(activeFilters[type].has(value)){
+    activeFilters[type].delete(value);
+    btn.classList.remove('active','active-trick');
+  } else {
+    activeFilters[type].add(value);
+    if(type === 'categoria' && value === 'Item mágico'){
+      btn.classList.add('active-trick');
+    } else {
+      btn.classList.add('active');
+    }
+  }
+  render();
+}
+
+function getFiltered(){
+  return ITEMS.filter(item => {
+    const haystack = [
+      item.nome,item.categoria,item.tipo,item.fonte,item.raridade,item.descricao,
+      item.preco,item.peso,item.dano,item.ca,item.proficiência_requerida,
+      (item.propriedades || []).join(' '),(item.classes || []).join(' ')
+    ].join(' ').toLowerCase();
+
+    if(searchQuery && !normalize(haystack).includes(searchQuery)) return false;
+    if(activeFilters.categoria.size && !activeFilters.categoria.has(item.categoria)) return false;
+    if(activeFilters.tipo.size && !activeFilters.tipo.has(item.tipo)) return false;
+    if(activeFilters.fonte.size && !activeFilters.fonte.has(item.fonte)) return false;
+    if(activeFilters.classe.size){
+      const classes = item.classes || [];
+      const hasClass = [...activeFilters.classe].some(className => classes.includes(className));
+      if(!hasClass) return false;
+    }
+    if(activeFilters.raridade.size && !activeFilters.raridade.has(item.raridade)) return false;
+    if(activeFilters.sintonizacao.size){
+      const value = item.sintonizacao ? 'Requer sintonização' : 'Não requer sintonização';
+      if(!activeFilters.sintonizacao.has(value)) return false;
+    }
+    return true;
+  }).sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR',{sensitivity:'base'}));
+}
+
+function normalize(str){
+  return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+}
+
+function escHtml(str){
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function attr(str){
+  return escHtml(str).replace(/"/g,'&quot;');
+}
+
+function render(){
+  const filtered = getFiltered();
+  const list = document.getElementById('item-list');
+  const noRes = document.getElementById('no-results');
+  const stats = document.getElementById('stats');
+  stats.textContent = filtered.length + ' de ' + ITEMS.length + ' itens';
+
+  if(!filtered.length){
+    list.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  let html = '';
+  for(const item of filtered){
+    const isMagic = item.categoria === 'Item mágico';
+    const cls = isMagic ? 'cantrip' : 'leveled';
+    const icon = categoryIcon(item.categoria);
+    const source = sourceLabel(item.fonte);
+    const rarity = item.raridade ? '<span class="badge badge-level">'+escHtml(item.raridade)+'</span>' : '';
+    const attunement = item.sintonizacao ? '<span class="badge badge-school" title="Requer sintonização">&#9670;</span>' : '';
+    const tags = buildTags(item);
+    const detailRows = buildDetailRows(item);
+    const desc = buildDescription(item);
+    const descSection = desc ? '<div class="spell-desc">'+desc+'</div>' : '';
+
+    html += '<div class="spell-card '+cls+'" data-name="'+attr(item.nome)+'" onclick="toggleItem(this)">' +
+      '<div class="spell-header">' +
+        '<span class="spell-name">'+escHtml(item.nome)+'</span>' +
+        '<div class="spell-meta">' +
+          '<span class="badge icon-badge '+(isMagic ? 'magic' : '')+'" title="'+attr(item.categoria)+'">'+icon+'</span>' +
+          '<span class="badge badge-source" title="'+attr(item.fonte)+'">'+escHtml(source)+'</span>' +
+          rarity +
+          attunement +
+          '<span class="expand-arrow">&#x25B6;</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="spell-detail">' +
+        '<div class="detail-grid">' + detailRows + '</div>' +
+        tags +
+        descSection +
+        '<div class="spell-ref"><span>&#x1F4D6; '+escHtml(item.referencia || '')+'</span></div>' +
+      '</div>' +
+    '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function categoryIcon(category){
+  return {
+    'Arma':'&#9876;',
+    'Armadura':'&#128737;',
+    'Equipamento':'&#9671;',
+    'Ferramenta':'&#9881;',
+    'Item mágico':'&#10022;',
+    'Montaria':'&#9822;',
+    'Veículo':'&#9973;',
+    'Veículo e montaria':'&#9973;'
+  }[category] || '&#9671;';
+}
+
+function sourceLabel(source){
+  if(source === 'Livro do Jogador') return 'LJ';
+  if(source === 'Guia do Mestre') return 'GM';
+  if(source === 'Guia de Xanathar para Todas as Coisas') return 'Xanathar';
+  return source;
+}
+
+function buildDetailRows(item){
+  const rows = [
+    ['Tipo', item.tipo],
+    ['Fonte', item.fonte],
+    ['Proficiência', item.proficiência_requerida],
+    ['Classes', item.classes && item.classes.length === CLASSES.length ? 'Todas' : (item.classes || []).join(', ')],
+    ['Preço', item.preco],
+    ['Peso', item.peso],
+    ['Dano', item.dano],
+    ['CA', item.ca],
+    ['Força', item.forca_minima],
+    ['Furtividade', item.furtividade],
+    ['Raridade', item.raridade],
+    ['Sintonização', item.sintonizacao ? 'Requer' : null],
+    ['Deslocamento', item.deslocamento],
+    ['Velocidade', item.velocidade],
+    ['Carga', item.capacidade_carga]
+  ].filter(([,value]) => value);
+
+  return rows.map(([label,value]) =>
+    '<div><span class="detail-label">'+escHtml(label)+'</span><br><span class="detail-value">'+escHtml(value)+'</span></div>'
+  ).join('');
+}
+
+function buildTags(item){
+  const tags = [];
+  if(item.propriedades && item.propriedades.length) tags.push(...item.propriedades);
+  if(item.sintonizacao) tags.push('Sintonização');
+  if(!tags.length) return '';
+
+  return '<div class="spell-classes">' +
+    tags.map(tag => '<span class="class-tag tag-'+tagClass(tag)+'">'+escHtml(tag)+'</span>').join('') +
+    '</div>';
+}
+
+function tagClass(tag){
+  if(tag === 'Item mágico') return 'Item';
+  return normalize(tag).replace(/[^a-z0-9]+/g,'-');
+}
+
+function buildDescription(item){
+  if(item.descricao_blocos && item.descricao_blocos.length){
+    return item.descricao_blocos.map(block => {
+      if(block.type === 'paragraph'){
+        return '<p>'+escHtml(block.text)+'</p>';
+      }
+      if(block.type === 'list'){
+        return '<ul>'+block.items.map(value => '<li>'+escHtml(value)+'</li>').join('')+'</ul>';
+      }
+      if(block.type === 'table'){
+        const headers = block.headers || [];
+        const rows = block.rows || [];
+        return '<table class="desc-table"><thead><tr>' +
+          headers.map(header => '<th>'+escHtml(header)+'</th>').join('') +
+          '</tr></thead><tbody>' +
+          rows.map(row => '<tr>'+row.map(value => '<td>'+escHtml(value)+'</td>').join('')+'</tr>').join('') +
+          '</tbody></table>';
+      }
+      return '';
+    }).join('');
+  }
+  if(item.descricao){
+    return item.descricao
+      .split(/(?<=\.)\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕ])/)
+      .slice(0,10)
+      .map(p => '<p>'+escHtml(p)+'</p>')
+      .join('');
+  }
+  return '';
+}
+
+function toggleItem(el){
+  if(openItem && openItem !== el){
+    openItem.classList.remove('open');
+  }
+  el.classList.toggle('open');
+  openItem = el.classList.contains('open') ? el : null;
+  if(openItem){
+    setTimeout(() => {
+      openItem.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }, 50);
+  }
+}
+
+function toggleSidebar(){
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const isOpen = sidebar.classList.contains('open');
+  if(isOpen){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+  }
+}
+
+document.getElementById('search-box').addEventListener('input', function(){
+  searchQuery = normalize(this.value.trim());
+  openItem = null;
+  render();
+});
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const sidebar = document.getElementById('sidebar');
+    if(sidebar.classList.contains('open')){
+      toggleSidebar();
+    } else {
+      document.getElementById('search-box').value = '';
+      searchQuery = '';
+      render();
+    }
+  }
+  if(e.key === '/' && document.activeElement !== document.getElementById('search-box')){
+    e.preventDefault();
+    document.getElementById('search-box').focus();
+  }
+});
+
+buildFilters();
+render();
+</script>
+</body>
+</html>

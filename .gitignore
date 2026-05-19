@@ -1,0 +1,8 @@
+.venv/
+**/.venv/
+__pycache__/
+*.pyc
+*.log
+docling_out/
+docling_html_out/
+lib64

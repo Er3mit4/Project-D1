@@ -1,19 +1,19 @@
-# D&D Companion
+# Projeto D1
 
-> Projeto pessoal — sistema de referência completa de D&D 5e em PT-BR, com dashboard integrado para consulta na mesa e gestão de fichas de personagem.
+> **"Deu 1 no Dado"** — sistema de referência completa de D&D 5e em PT-BR, com dashboard integrado para consulta na mesa e gestão de fichas de personagem. Presente para o Henrique (mestre da mesa).
 
 ## Links
 
 - 🔮 **Grimório (v1):** [er3mit4.github.io/grimoire-dd5e](https://er3mit4.github.io/grimoire-dd5e/)
 - 📂 **Repositório:** [github.com/Er3mit4/grimoire-dd5e](https://github.com/Er3mit4/grimoire-dd5e)
-- 📁 **Arquivos locais:** `~/dd-spells/grimoire/` (WSL)
+- 📁 **Pasta local:** `~/Projeto D1/` (WSL)
 - 📖 **PDF base:** `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf`
 
 ---
 
-## Fase 1 — Grimoire ✅ (concluído)
+## Fase 1 — Grimório ✅ (concluído)
 
-- 346 magias do Livro do Jogador (PT-BR)
+- 361 magias do Livro do Jogador (PT-BR)
 - Busca em tempo real por nome
 - Filtros por nível, escola e classe
 - Descrição completa + referência de página (livro e PDF)
@@ -60,7 +60,7 @@
 
 ## Fase 6 — Dashboard Completo 📋 (planejado)
 
-- Tela inicial com tudo integrado
+- Tela inicial com todos os módulos integrados
 - Personagem → magias, itens, equipamentos vinculados
 - Quick reference pra mesa (regras rápidas, condições, etc.)
 
@@ -68,11 +68,12 @@
 
 ## Arquitetura
 
+- **Módulos independentes** — cada fase é uma pasta separada (`Grimorio/`, `Arsenal/`, etc.)
 - **HTML estático** — funciona offline, sem servidor
-- **Dados embutidos** em JSON (extraídos dos PDFs via script Python)
+- **Dados embutidos** em JSON (extraídos dos PDFs via Docling + Python)
 - **LocalStorage** para salvar fichas de personagem
-- **Repositório único** no GitHub com GitHub Pages
-- **OpenCode CLI** para geração de código (Hermes planeja e revisa)
+- **Repo único** no GitHub quando tudo estiver completo e estável
+- **Hermes/Codex** para implementação direta e revisão
 
 ## Livros necessários
 
@@ -82,11 +83,11 @@
 
 ## Ferramentas
 
-- Extração: Python + pymupdf (venv em `~/dd-spells/`)
-- Código: OpenCode CLI v1.15.3 (`~/.opencode/bin/opencode`)
+- Extração: Docling CLI (local, GPU) + Python scripts
+- Código: Hermes/Codex implementa diretamente no workspace
 - Versionamento: Git + GitHub (conta: Er3mit4)
 - Publicação: GitHub Pages
 
 ---
 
-*Última atualização: 17/05/2026*
+*Última atualização: 18/05/2026*
