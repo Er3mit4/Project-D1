@@ -1,6 +1,6 @@
 # Projeto D1
 
-> **"Deu 1 no Dado"** — sistema de referência completa de D&D 5e em PT-BR, com dashboard integrado para consulta na mesa e gestão de fichas de personagem. Presente para o Henrique (mestre da mesa).
+> **"Deu 1 no Dado"** — sistema de referência completa de D&D 5e em PT-BR, com dashboard integrado para consulta na mesa e gestão de fichas de personagem. Desenvolvido para consulta e suporte rápido ao Mestre durante as sessões de jogo.
 
 ## Links
 
@@ -74,7 +74,7 @@
 - **Dados embutidos** em JSON (extraídos dos PDFs via Docling + Python)
 - **LocalStorage** para salvar fichas de personagem
 - **Repo unificado** no GitHub: `Er3mit4/Project-D1`
-- **Hermes/Codex** para implementação direta e revisão
+- **Assistente de IA / Codex** para implementação direta e revisão
 
 ## Livros necessários
 
@@ -85,7 +85,7 @@
 ## Ferramentas
 
 - Extração: Docling CLI (local, GPU) + Python scripts
-- Código: Hermes/Codex implementa diretamente no workspace
+- Código: Assistente de IA / Codex implementa diretamente no workspace
 - Versionamento: Git + GitHub (conta: Er3mit4)
 - Publicação: GitHub Pages
 

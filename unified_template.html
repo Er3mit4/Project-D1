@@ -44,12 +44,37 @@ header h1{margin:0;min-width:12rem;font-family:'Cinzel',serif;font-size:1rem;fon
 .module-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .module-card h3{margin:0 0 .5rem;font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2)}
 .module-card p{margin:0;line-height:1.55;font-size:.86rem}
+.module-card.disabled{opacity:.45;cursor:not-allowed;border-left-color:var(--border);background:linear-gradient(180deg,rgba(25,20,30,.6),rgba(20,15,25,.75))}
+.module-card.disabled:hover{border-color:var(--border);transform:none;box-shadow:var(--shadow)}
+.module-card.disabled h3{color:var(--fg2)}
+.module-card.disabled .coming-soon{margin-top:.66rem;display:inline-block;padding:.08rem .36rem;border:1px dashed rgba(212,164,74,.4);border-radius:3px;background:rgba(212,164,74,.05);color:var(--accent2);font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .app{display:none}
 .app.active{display:block}
 #stats{text-align:center;color:var(--fg2);font-size:.75rem;padding:.55rem}
-.filters{display:flex;gap:.35rem;flex-wrap:wrap}
-.filter-btn{padding:.26rem .5rem;border:1px solid var(--border);border-radius:4px;background:var(--bg3);color:var(--fg2);font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0f25}
+.filters{display:flex;flex-direction:column;gap:1rem;width:100%}
+.filter-section{margin-bottom:0.75rem}
+.filter-section-title{width:100%;background:none;border:0;border-bottom:1px dashed var(--border);text-align:left;font-family:'Cinzel',serif;font-weight:700;font-size:0.72rem;color:var(--fg2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.45rem;padding-bottom:0.35rem;transition:color 0.2s}
+.filter-section.collapsible .filter-section-title{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.filter-section.collapsible .filter-section-title:hover{color:var(--accent2)}
+.filter-section.collapsible .filter-section-title::after{content:"\25BE";color:var(--fg2);transition:transform 0.2s}
+.filter-section.collapsible.collapsed .filter-section-title::after{transform:rotate(-90deg)}
+.filter-section.collapsible.collapsed .filter-section-body{display:none}
+.type-filter-search{width:100%;margin-bottom:0.5rem;padding:0.35rem 0.55rem;font-size:0.78rem;font-family:'Lora',serif;background:var(--bg3);color:var(--fg);border:1px solid var(--border);border-radius:4px;outline:none;transition:border-color 0.2s, box-shadow 0.2s}
+.type-filter-search:focus{border-color:var(--accent);box-shadow:0 0 6px rgba(212,164,74,0.2)}
+.type-filter-search::placeholder{color:var(--fg2);opacity:0.65}
+.filter-section-btns{display:flex;flex-wrap:wrap;gap:0.3rem}
+.filter-section.collapsible .filter-section-btns{max-height:16rem;overflow-y:auto;padding-right:0.25rem}
+.filter-btn{padding:0.22rem 0.52rem;font-size:0.74rem;font-family:'Lora',serif;background:var(--bg3);color:var(--fg2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all 0.18s ease;white-space:nowrap}
+.filter-btn:hover{background:var(--border);color:var(--fg)}
+.filter-btn.active{background:var(--accent);color:#1a0f25;border-color:var(--accent);font-weight:700}
+.filter-btn.active-trick{background:var(--cantrip);color:#fff;border-color:var(--cantrip);font-weight:700}
+.filter-btn.hidden{display:none!important}
+.cantrip-filter{border-color:rgba(142,68,173,0.35)}
+/* Personalização fina para o scrollbar dos filtros */
+.filter-section-btns::-webkit-scrollbar{width:4px}
+.filter-section-btns::-webkit-scrollbar-track{background:var(--bg2)}
+.filter-section-btns::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.filter-section-btns::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .list{max-width:900px;margin:0 auto;padding:0 .8rem 3rem;display:flex;flex-direction:column;gap:.42rem}
 .card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:var(--card);cursor:pointer;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .15s}
 .card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
@@ -139,6 +164,8 @@ footer{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 2rem;text-align:center
     <button class="module-card" type="button" data-module="grimorio"><h3>&#x1F52E; Grimório</h3><p>361 magias com busca, filtros e descrição completa.</p></button>
     <button class="module-card" type="button" data-module="arsenal"><h3>&#x2694; Arsenal</h3><p>527 equipamentos, armas, armaduras e itens mágicos.</p></button>
     <button class="module-card" type="button" data-module="bestiario"><h3>&#x1F480; Bestiário</h3><p>345 monstros com estatísticas, ações e lore.</p></button>
+    <button class="module-card disabled" type="button" disabled><h3>&#x1F4DC; Raças & Classes</h3><p>Detalhes, regras e tabelas de raças e classes de D&D 5e.</p><span class="coming-soon">Em Breve</span></button>
+    <button class="module-card disabled" type="button" disabled><h3>&#x1F4DD; Ficha</h3><p>Criação e manutenção de fichas de personagens com armazenamento local.</p><span class="coming-soon">Em Breve</span></button>
   </div>
 </section>
 <main class="app" id="app">
@@ -158,14 +185,52 @@ const MODULES={
   arsenal:{title:'\u2694 Arsenal',placeholder:'Buscar item por nome, tipo ou fonte...',data:ITEMS,total:'itens'},
   bestiario:{title:'\u{1F480} Bestiário',placeholder:'Buscar monstro por nome, tipo ou ND...',data:MONSTERS,total:'monstros'}
 };
-let current='inicio', query='', filter='Todos', openId=null;
+
+// Constantes Estáticas para Filtros (D&D 5e)
+const ESCOLAS = ['abjuração','adivinhação','conjuração','encantamento','evocação','ilusão','necromancia','transmutação'];
+const CLASSES_GRIMORIO = ['Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Mago','Paladino','Patrulheiro'];
+const NIVEIS = ['Truque','1° nível','2° nível','3° nível','4° nível','5° nível','6° nível','7° nível','8° nível','9° nível'];
+const TAMANHOS = ['Minúsculo','Pequeno','Médio','Grande','Enorme','Imenso'];
+const SINTONIZACOES = ['Requer sintonização','Não requer sintonização'];
+const CLASSES_ARSENAL = ['Bárbaro','Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Guerreiro','Ladino','Mago','Monge','Paladino','Patrulheiro'];
+const ND_RANGES = [
+  {label:'0',test:nd => nd === 0},
+  {label:'1/8–1/4',test:nd => nd > 0 && nd < 0.5},
+  {label:'1/2–1',test:nd => nd >= 0.5 && nd <= 1},
+  {label:'2–4',test:nd => nd >= 2 && nd <= 4},
+  {label:'5–10',test:nd => nd >= 5 && nd <= 10},
+  {label:'11–16',test:nd => nd >= 11 && nd <= 16},
+  {label:'17–21',test:nd => nd >= 17 && nd <= 21},
+  {label:'22–25',test:nd => nd >= 22 && nd <= 25},
+  {label:'26–30',test:nd => nd >= 26 && nd <= 30}
+];
+const ND_RANGE_LABELS = ND_RANGES.map(r => r.label);
+
+// Constantes Dinâmicas (extraídas dos dados do Arsenal e Bestiário)
+const CATEGORIAS = [...new Set(ITEMS.map(i => i.categoria).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+const TIPOS_ARSENAL = [...new Set(ITEMS.map(i => i.tipo).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+const FONTES_ARSENAL = [...new Set(ITEMS.map(i => i.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+const RARIDADES = [...new Set(ITEMS.map(i => i.raridade).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+
+const TIPOS_BESTIARIO = [...new Set(MONSTERS.map(m => m.tipo_criatura).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+const ALINHAMENTOS = [...new Set(MONSTERS.map(m => m.alinhamento).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+const FONTES_BESTIARIO = [...new Set(MONSTERS.map(m => m.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+
+// Estado Global de Filtros Separado por Módulo
+const activeFilters = {
+  grimorio: { nivel: new Set(), escola: new Set(), classe: new Set() },
+  arsenal: { categoria: new Set(), tipo: new Set(), fonte: new Set(), raridade: new Set(), sintonizacao: new Set(), classe: new Set() },
+  bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() }
+};
+
+let current='inicio', query='', openId=null;
 const $=sel=>document.querySelector(sel);
 const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const norm=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function setModule(name,push=true){
   if(!MODULES[name]) name='inicio';
   const from=ORDER.indexOf(current), to=ORDER.indexOf(name);
-  current=name; query=''; filter='Todos'; openId=null;
+  current=name; query=''; openId=null;
   $('#search-box').value=''; $('#search-box').placeholder=MODULES[name].placeholder; $('#module-title').textContent=MODULES[name].title;
   $('#toggle-filters').disabled=name==='inicio';
   if(name==='inicio') closeSidebar();
@@ -174,32 +239,272 @@ function setModule(name,push=true){
   $('#app').classList.remove('slide-left','slide-right');
   if(name!=='inicio') $('#app').classList.add(to>=from?'slide-right':'slide-left');
   if(push) history.replaceState(null,'','#'+name);
+  buildFilters();
+  render();
+}
+
+function buildFilters() {
+  const container = $('#filters');
+  if (!container) return;
+  container.innerHTML = '';
+  
+  if (current === 'inicio') return;
+  
+  if (current === 'grimorio') {
+    addFilterSection(container, 'Nível', 'nivel', NIVEIS);
+    addFilterSection(container, 'Escola', 'escola', ESCOLAS);
+    addFilterSection(container, 'Classe', 'classe', CLASSES_GRIMORIO);
+  } else if (current === 'arsenal') {
+    addFilterSection(container, 'Categoria', 'categoria', CATEGORIAS);
+    addFilterSection(container, 'Tipo', 'tipo', TIPOS_ARSENAL, { collapsible: true, collapsed: true, search: true });
+    addFilterSection(container, 'Fonte', 'fonte', FONTES_ARSENAL);
+    addFilterSection(container, 'Usável por classe', 'classe', CLASSES_ARSENAL);
+    addFilterSection(container, 'Raridade', 'raridade', RARIDADES);
+    addFilterSection(container, 'Sintonização', 'sintonizacao', SINTONIZACOES);
+  } else if (current === 'bestiario') {
+    addFilterSection(container, 'Tipo', 'tipo', TIPOS_BESTIARIO, { collapsible: true, collapsed: true, search: true });
+    addFilterSection(container, 'Tamanho', 'tamanho', TAMANHOS);
+    addFilterSection(container, 'ND', 'nd', ND_RANGE_LABELS);
+    addFilterSection(container, 'Alinhamento', 'alinhamento', ALINHAMENTOS, { collapsible: true, collapsed: true });
+    addFilterSection(container, 'Fonte', 'fonte', FONTES_BESTIARIO);
+  }
+}
+
+function addFilterSection(container, title, type, values, options = {}) {
+  const section = document.createElement('div');
+  section.className = 'filter-section' + (options.collapsible ? ' collapsible' : '') + (options.collapsed ? ' collapsed' : '');
+  const btnsId = 'btns-' + type;
+  
+  const titleHtml = options.collapsible
+    ? `<button class="filter-section-title" type="button">${esc(title)}</button>`
+    : `<div class="filter-section-title">${esc(title)}</div>`;
+    
+  const searchPlaceholder = type === 'tipo' ? 'Filtrar tipos...' : 'Filtrar...';
+  const searchHtml = options.search
+    ? `<input class="type-filter-search" id="${esc(type)}-filter-search" type="search" placeholder="${esc(searchPlaceholder)}" autocomplete="off" spellcheck="false">`
+    : '';
+    
+  section.innerHTML = titleHtml + `<div class="filter-section-body">${searchHtml}<div class="filter-section-btns" id="${esc(btnsId)}"></div></div>`;
+  container.appendChild(section);
+  
+  if (options.collapsible) {
+    section.querySelector('.filter-section-title').onclick = () => section.classList.toggle('collapsed');
+  }
+  
+  if (options.search) {
+    section.querySelector('#' + type + '-filter-search').addEventListener('input', event => {
+      const q = norm(event.target.value);
+      section.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('hidden', q && !norm(btn.dataset.value).includes(q));
+      });
+    });
+  }
+  
+  const btnsContainer = section.querySelector('#' + btnsId);
+  values.forEach(value => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    
+    // Tratamento especial para exibição de botões
+    if (current === 'grimorio' && type === 'nivel') {
+      btn.textContent = value === 'Truque' ? '★' : value.replace(' nível', '');
+      if (value === 'Truque') btn.classList.add('cantrip-filter');
+    } else {
+      if (current === 'grimorio' && type === 'escola') {
+        btn.textContent = value.charAt(0).toUpperCase() + value.slice(1);
+      } else {
+        btn.textContent = value;
+      }
+    }
+    
+    btn.dataset.filter = type;
+    btn.dataset.value = value;
+    
+    // Restaurar estado ativo do botão
+    const activeSet = activeFilters[current][type];
+    if (activeSet.has(value)) {
+      if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
+        btn.classList.add('active-trick');
+      } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
+        btn.classList.add('active-trick');
+      } else {
+        btn.classList.add('active');
+      }
+    }
+    
+    btn.onclick = () => toggleFilter(type, value, btn);
+    btnsContainer.appendChild(btn);
+  });
+}
+
+function toggleFilter(type, value, btn) {
+  const activeSet = activeFilters[current][type];
+  if (activeSet.has(value)) {
+    activeSet.delete(value);
+    btn.classList.remove('active', 'active-trick');
+  } else {
+    activeSet.add(value);
+    if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
+      btn.classList.add('active-trick');
+    } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
+      btn.classList.add('active-trick');
+    } else {
+      btn.classList.add('active');
+    }
+  }
+  openId = null;
   render();
 }
 function fields(item){
-  if(current==='grimorio') return [item.name,item.school,item.level,item.classes,item.description].join(' ');
-  if(current==='arsenal') return [item.nome,item.categoria,item.tipo,item.fonte,item.raridade,item.descricao].join(' ');
-  return [item.nome,item.tipo_criatura,item.tamanho,item.nd,item.descricao,item.alinhamento].join(' ');
+  if(current==='grimorio') {
+    return [
+      item.name,
+      item.school,
+      item.level === 'Truque' ? 'Truque' : item.level + 'º nível',
+      item.classes,
+      item.description
+    ].join(' ');
+  }
+  if(current==='arsenal') {
+    return [
+      item.nome, item.categoria, item.tipo, item.fonte, item.raridade, item.descricao,
+      item.preco, item.peso, item.dano, item.ca, item.proficiência_requerida,
+      (item.propriedades || []).join(' '), (item.classes || []).join(' ')
+    ].join(' ');
+  }
+  return [
+    item.nome, item.tipo_criatura, item.tamanho, item.alinhamento,
+    item.ca, item.pv, item.pv_dados, item.deslocamento,
+    item.testes_resistencia, item.pericias, item.resistencia_dano, item.imunidade_dano,
+    item.imunidade_condicao, item.sentidos, item.idiomas,
+    item.nd, item.xp, item.fonte, item.descricao,
+    (item.habilidades_especiais || []).join(' '),
+    (item.acoes || []).join(' '),
+    (item.acoes_lendarias || []).join(' '),
+    (item.reacoes || []).join(' ')
+  ].join(' ');
 }
-function filterValue(item){
-  if(current==='grimorio') return item.level==='Truque'?'Truque':(item.level?item.level+'º':'Outros');
-  if(current==='arsenal') return item.categoria||'Outros';
-  return item.tipo_criatura||'Outros';
-}
+
 function getFiltered(){
   const q=norm(query);
-  return MODULES[current].data.filter(item=>(filter==='Todos'||filterValue(item)===filter)&&(!q||norm(fields(item)).includes(q)));
+  const data = MODULES[current].data;
+  
+  const filtered = data.filter(item => {
+    // 1. Busca textual geral
+    if (q && !norm(fields(item)).includes(q)) return false;
+    
+    // 2. Filtros avançados por módulo
+    if (current === 'grimorio') {
+      const f = activeFilters.grimorio;
+      
+      // Nível
+      if (f.nivel.size) {
+        const levelVal = item.level === 'Truque' ? 'Truque' : (item.level ? item.level + '° nível' : 'Outros');
+        if (!f.nivel.has(levelVal)) return false;
+      }
+      
+      // Escola
+      if (f.escola.size && !f.escola.has(String(item.school || '').toLowerCase())) return false;
+      
+      // Classe
+      if (f.classe.size) {
+        const itemClasses = String(item.classes || '').split(',').map(c => c.trim()).filter(Boolean);
+        const hasClass = itemClasses.some(c => f.classe.has(c));
+        if (!hasClass) return false;
+      }
+    } 
+    else if (current === 'arsenal') {
+      const f = activeFilters.arsenal;
+      
+      // Categoria
+      if (f.categoria.size && !f.categoria.has(item.categoria)) return false;
+      
+      // Tipo
+      if (f.tipo.size && !f.tipo.has(item.tipo)) return false;
+      
+      // Fonte
+      if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
+      
+      // Classe
+      if (f.classe.size) {
+        const classes = item.classes || [];
+        const hasClass = [...f.classe].some(c => classes.includes(c));
+        if (!hasClass) return false;
+      }
+      
+      // Raridade
+      if (f.raridade.size && !f.raridade.has(item.raridade)) return false;
+      
+      // Sintonização
+      if (f.sintonizacao.size) {
+        const attunementVal = item.sintonizacao ? 'Requer sintonização' : 'Não requer sintonização';
+        if (!f.sintonizacao.has(attunementVal)) return false;
+      }
+    } 
+    else if (current === 'bestiario') {
+      const f = activeFilters.bestiario;
+      
+      // Tipo
+      if (f.tipo.size && !f.tipo.has(item.tipo_criatura)) return false;
+      
+      // Tamanho
+      if (f.tamanho.size && !f.tamanho.has(item.tamanho)) return false;
+      
+      // ND (por faixas personalizadas)
+      if (f.nd.size) {
+        const ndVal = parseNd(item.nd);
+        const matchesRange = [...f.nd].some(label => {
+          const range = ND_RANGES.find(r => r.label === label);
+          return range && range.test(ndVal);
+        });
+        if (!matchesRange) return false;
+      }
+      
+      // Alinhamento
+      if (f.alinhamento.size && !f.alinhamento.has(item.alinhamento)) return false;
+      
+      // Fonte
+      if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
+    }
+    
+    return true;
+  });
+  
+  // 3. Ordenação
+  if (current === 'grimorio') {
+    return filtered.sort((a,b) => a.name.localeCompare(b.name,'pt-BR'));
+  }
+  if (current === 'arsenal') {
+    return filtered.sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR'));
+  }
+  if (current === 'bestiario') {
+    return filtered.sort((a,b) => {
+      const ndA = parseNd(a.nd);
+      const ndB = parseNd(b.nd);
+      if(ndA !== ndB) return ndA - ndB;
+      return a.nome.localeCompare(b.nome,'pt-BR');
+    });
+  }
+  return filtered;
 }
-function renderFilters(data){
-  const values=['Todos',...Array.from(new Set(data.map(filterValue))).sort((a,b)=>String(a).localeCompare(String(b),'pt-BR',{numeric:true}))];
-  $('#filters').innerHTML=values.map(v=>`<button class="filter-btn ${v===filter?'active':''}" type="button" data-filter="${esc(v)}">${esc(v)}</button>`).join('');
-  document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{filter=btn.dataset.filter;openId=null;render();});
+
+function clearAllFilters() {
+  query = '';
+  openId = null;
+  $('#search-box').value = '';
+  if (current !== 'inicio') {
+    for (const key in activeFilters[current]) {
+      activeFilters[current][key].clear();
+    }
+  }
+  buildFilters();
+  render();
 }
+
 function render(){
   if(current==='inicio') return;
   const data=MODULES[current].data, filtered=getFiltered();
   $('#stats').textContent=`${filtered.length} de ${data.length} ${MODULES[current].total}`;
-  renderFilters(data);
   $('#empty').classList.toggle('visible',!filtered.length);
   $('#list').innerHTML=filtered.map(renderCard).join('');
   document.querySelectorAll('.card').forEach(card=>card.onclick=()=>{card.classList.toggle('open');openId=card.classList.contains('open')?card.dataset.id:null;});
@@ -310,7 +615,7 @@ function monsterDesc(m){
 }
 function scores(h){if(!h)return '';return '<div class="scores">'+['FOR','DES','CON','INT','SAB','CAR'].map(k=>h[k]?`<div class="ability-score"><div class="ability-score-label">${k}</div><div class="ability-score-value">${esc(h[k].valor)}</div><div class="ability-score-mod">(${esc(h[k].mod)})</div></div>`:'').join('')+'</div>'}
 $('#search-box').addEventListener('input',e=>{query=e.target.value;openId=null;render();});
-$('#clear-filters').onclick=()=>{query='';filter='Todos';openId=null;$('#search-box').value='';render();};
+$('#clear-filters').onclick=clearAllFilters;
 function openSidebar(){
   if(current==='inicio') return;
   $('#sidebar').classList.add('open');

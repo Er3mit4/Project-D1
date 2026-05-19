@@ -2,7 +2,7 @@
 
 ## Sobre o Projeto
 
-**Projeto D1** (codinome: "Deu 1 no Dado") — sistema unificado de referência completa de D&D 5e em Português Brasileiro. A raiz do repo é o app principal, e as pastas dos módulos preservam dados, extração e páginas legadas de manutenção. Presente para o Henrique (mestre da mesa).
+**Projeto D1** (codinome: "Deu 1 no Dado") — sistema unificado de referência completa de D&D 5e em Português Brasileiro. A raiz do repo é o app principal, e as pastas dos módulos preservam dados, extração e páginas legadas de manutenção. Desenvolvido para auxiliar o Mestre da mesa na condução e consulta rápida durante as sessões.
 
 ## Stack
 
@@ -185,11 +185,11 @@ build_html.py -> index.html
 4. Testar localmente (`python3 -m http.server` + browser)
 5. Commit + push
 
-## Pessoas Envolvidas
+## Equipe e Funções
 
-- **Ronald** — Idealizador, planejamento, testes
-- **Henrique** — Mestre da mesa, usuário principal (presenteado)
-- **Hermes** — Coordenação, extração de dados, revisão
+- **Idealizador** — Planejamento, idealização e testes gerais do sistema
+- **Mestre da Mesa** — Usuário principal e receptor do sistema de consulta rápida
+- **Desenvolvedor / Editor** — Coordenação, extração de dados e revisões técnicas do código
 
 ---
 
