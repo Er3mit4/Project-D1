@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projeto D1 — D&D 5e</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--bg:#0d0b0e;--bg2:#1a1520;--bg3:#241e2c;--fg:#e8dcc8;--fg2:#a89b8a;--accent:#d4a44a;--accent2:#e8c06a;--card:#1c1724;--border:#3a2f48;--cantrip:#8e44ad;--shadow:0 2px 12px rgba(0,0,0,0.5)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(212,164,74,0.08),transparent 32rem),radial-gradient(circle at 90% 20%,rgba(142,68,173,0.08),transparent 28rem),linear-gradient(180deg,#140f19 0%,var(--bg) 42%,#09070a 100%);color:var(--fg);font-family:'Lora',Georgia,serif;overflow-x:hidden}
+button,input{font:inherit}
+.module-nav{position:sticky;top:0;z-index:130;display:flex;justify-content:center;gap:.35rem;padding:.45rem .8rem .35rem;background:linear-gradient(180deg,rgba(13,11,14,.98),rgba(26,15,37,.96));border-bottom:1px solid var(--border);box-shadow:0 8px 18px rgba(0,0,0,.22);overflow-x:auto}
+.module-nav button{position:relative;flex:0 0 auto;padding:.32rem .66rem .46rem;border:0;background:transparent;color:var(--fg2);font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .2s,transform .2s}
+.module-nav button:hover{color:var(--fg);transform:translateY(-1px)}
+.module-nav button.active{color:var(--accent2)}
+.module-nav button::after{content:"";position:absolute;left:.55rem;right:.55rem;bottom:.08rem;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform .22s ease;box-shadow:0 0 10px rgba(212,164,74,.35)}
+.module-nav button.active::after,.module-nav button:hover::after{transform:scaleX(1)}
+header{position:sticky;top:39px;z-index:100;display:flex;align-items:center;gap:1rem;height:54px;padding:0 1rem;background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);border-bottom:2px solid var(--accent)}
+header h1{margin:0;min-width:12rem;font-family:'Cinzel',serif;font-size:1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-shadow:0 0 20px rgba(212,164,74,.3);white-space:nowrap}
+#search-box{flex:1;max-width:560px;margin:0 auto;padding:.42rem .8rem;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--fg);font-size:.9rem;outline:none}
+#search-box:focus{border-color:var(--accent);box-shadow:0 0 8px rgba(212,164,74,.25)}
+.filter-toggle-btn{padding:.36rem .7rem;border:1px solid var(--border);border-radius:4px;background:var(--bg3);color:var(--fg2);font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.filter-toggle-btn:hover{background:var(--border);color:var(--fg)}
+.intro{display:none;max-width:1100px;margin:0 auto;padding:3rem 1rem 1rem}
+.intro.visible{display:block;animation:d1EnterRight .22s ease-out both}
+.intro h2{margin:0 0 .85rem;font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}
+.intro p{max-width:42rem;margin:0 0 1.2rem;line-height:1.7}
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:1.4rem}
+.module-card{min-height:11rem;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:linear-gradient(180deg,rgba(36,30,44,.86),rgba(28,23,36,.94));box-shadow:var(--shadow);padding:1rem;text-align:left;color:var(--fg);cursor:pointer;transition:border-color .2s,transform .15s}
+.module-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.module-card h3{margin:0 0 .5rem;font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2)}
+.module-card p{margin:0;line-height:1.55;font-size:.86rem}
+.app{display:none}
+.app.active{display:block}
+#stats{text-align:center;color:var(--fg2);font-size:.75rem;padding:.55rem}
+.filters{display:flex;justify-content:center;gap:.35rem;flex-wrap:wrap;max-width:960px;margin:0 auto .65rem;padding:0 .8rem}
+.filter-btn{padding:.26rem .5rem;border:1px solid var(--border);border-radius:4px;background:var(--bg3);color:var(--fg2);font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0f25}
+.list{max-width:900px;margin:0 auto;padding:0 .8rem 3rem;display:flex;flex-direction:column;gap:.42rem}
+.card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:var(--card);cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .15s}
+.card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.card.open{border-color:var(--accent)}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.66rem .85rem}
+.name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.03em;color:var(--fg)}
+.meta{display:flex;align-items:center;justify-content:flex-end;gap:.28rem;flex-wrap:wrap}
+.badge{display:inline-block;padding:.12rem .4rem;border:1px solid rgba(212,164,74,.3);border-radius:3px;background:rgba(212,164,74,.15);color:var(--accent2);font-family:'Cinzel',serif;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.badge.alt{border-color:rgba(142,68,173,.3);background:rgba(142,68,173,.2);color:#bb6bd9}
+.detail{display:none;border-top:1px solid var(--border);padding:.85rem}
+.card.open .detail{display:block}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.38rem 1rem;margin-bottom:.75rem;font-size:.82rem}
+.label{display:block;color:var(--fg2);font-family:'Cinzel',serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.desc{line-height:1.62;font-size:.86rem;color:var(--fg)}
+.desc p{margin:.45rem 0}
+.scores{display:grid;grid-template-columns:repeat(6,1fr);gap:.3rem;margin:.6rem 0}
+.score{text-align:center;border:1px solid var(--border);border-radius:5px;background:var(--bg2);padding:.38rem}
+.score strong{display:block;color:var(--accent2);font-family:'Cinzel',serif;font-size:.7rem}
+.empty{display:none;text-align:center;padding:3rem 1rem;color:var(--fg2)}
+.empty.visible{display:block}
+footer{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 2rem;text-align:center;color:var(--fg2);opacity:.55;border-top:1px solid var(--border);font-size:.75rem}
+.slide-left{animation:d1EnterLeft .22s ease-out both}.slide-right{animation:d1EnterRight .22s ease-out both}
+@keyframes d1EnterLeft{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes d1EnterRight{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:720px){header{align-items:stretch;height:auto;top:38px;flex-wrap:wrap;padding:.55rem}header h1{width:100%;min-width:0;font-size:.88rem}#search-box{min-width:0;max-width:none}.module-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.scores{grid-template-columns:repeat(3,1fr)}.card-head{align-items:flex-start;flex-direction:column}.meta{justify-content:flex-start}}
+@media(max-width:460px){.module-nav{justify-content:flex-start}.intro h2{font-size:1.72rem;line-height:1.08}.filter-toggle-btn{font-size:.7rem;padding:.32rem .55rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="module-nav" aria-label="Navegação entre módulos">
+  <button type="button" data-module="inicio">Início</button>
+  <button type="button" data-module="grimorio">Grimório</button>
+  <button type="button" data-module="arsenal">Arsenal</button>
+  <button type="button" data-module="bestiario">Bestiário</button>
+</nav>
+<header>
+  <h1 id="module-title">Projeto D1</h1>
+  <input id="search-box" type="search" placeholder="Buscar..." autocomplete="off" spellcheck="false">
+  <button class="filter-toggle-btn" type="button" id="clear-filters">Limpar</button>
+</header>
+<section class="intro" id="intro">
+  <h2>Referência de D&D 5e em PT-BR</h2>
+  <p>Um único sistema de consulta para mesa, com magias, equipamentos, itens mágicos e criaturas no mesmo shell.</p>
+  <div class="module-grid">
+    <button class="module-card" type="button" data-module="grimorio"><h3>&#x1F52E; Grimório</h3><p>361 magias com busca, filtros e descrição completa.</p></button>
+    <button class="module-card" type="button" data-module="arsenal"><h3>&#x2694; Arsenal</h3><p>527 equipamentos, armas, armaduras e itens mágicos.</p></button>
+    <button class="module-card" type="button" data-module="bestiario"><h3>&#x1F480; Bestiário</h3><p>345 monstros com estatísticas, ações e lore.</p></button>
+  </div>
+</section>
+<main class="app" id="app">
+  <div id="stats"></div>
+  <div class="filters" id="filters"></div>
+  <div class="list" id="list"></div>
+  <div class="empty" id="empty">Nenhum resultado encontrado.</div>
+</main>
+<footer>Projeto D1 &mdash; D&D 5e em Português Brasileiro</footer>
+<script>
+const SPELLS=__SPELLS_DATA__;
+const ITEMS=__ARSENAL_DATA__;
+const MONSTERS=__MONSTERS_DATA__;
+const ORDER=['inicio','grimorio','arsenal','bestiario'];
+const MODULES={
+  inicio:{title:'Projeto D1',placeholder:'Escolha um módulo...',data:[]},
+  grimorio:{title:'\u{1F52E} Grimório',placeholder:'Buscar magia por nome, escola ou classe...',data:SPELLS,total:'magias'},
+  arsenal:{title:'\u2694 Arsenal',placeholder:'Buscar item por nome, tipo ou fonte...',data:ITEMS,total:'itens'},
+  bestiario:{title:'\u{1F480} Bestiário',placeholder:'Buscar monstro por nome, tipo ou ND...',data:MONSTERS,total:'monstros'}
+};
+let current='inicio', query='', filter='Todos', openId=null;
+const $=sel=>document.querySelector(sel);
+const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const norm=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function setModule(name,push=true){
+  if(!MODULES[name]) name='inicio';
+  const from=ORDER.indexOf(current), to=ORDER.indexOf(name);
+  current=name; query=''; filter='Todos'; openId=null;
+  $('#search-box').value=''; $('#search-box').placeholder=MODULES[name].placeholder; $('#module-title').textContent=MODULES[name].title;
+  document.querySelectorAll('[data-module]').forEach(el=>el.classList.toggle('active',el.dataset.module===name));
+  $('#intro').classList.toggle('visible',name==='inicio'); $('#app').classList.toggle('active',name!=='inicio');
+  $('#app').classList.remove('slide-left','slide-right');
+  if(name!=='inicio') $('#app').classList.add(to>=from?'slide-right':'slide-left');
+  if(push) history.replaceState(null,'','#'+name);
+  render();
+}
+function fields(item){
+  if(current==='grimorio') return [item.name,item.school,item.level,item.classes,item.description].join(' ');
+  if(current==='arsenal') return [item.nome,item.categoria,item.tipo,item.fonte,item.raridade,item.descricao].join(' ');
+  return [item.nome,item.tipo_criatura,item.tamanho,item.nd,item.descricao,item.alinhamento].join(' ');
+}
+function filterValue(item){
+  if(current==='grimorio') return item.level==='Truque'?'Truque':(item.level?item.level+'º':'Outros');
+  if(current==='arsenal') return item.categoria||'Outros';
+  return item.tipo_criatura||'Outros';
+}
+function getFiltered(){
+  const q=norm(query);
+  return MODULES[current].data.filter(item=>(filter==='Todos'||filterValue(item)===filter)&&(!q||norm(fields(item)).includes(q)));
+}
+function renderFilters(data){
+  const values=['Todos',...Array.from(new Set(data.map(filterValue))).sort((a,b)=>String(a).localeCompare(String(b),'pt-BR',{numeric:true}))];
+  $('#filters').innerHTML=values.map(v=>`<button class="filter-btn ${v===filter?'active':''}" type="button" data-filter="${esc(v)}">${esc(v)}</button>`).join('');
+  document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{filter=btn.dataset.filter;openId=null;render();});
+}
+function render(){
+  if(current==='inicio') return;
+  const data=MODULES[current].data, filtered=getFiltered();
+  $('#stats').textContent=`${filtered.length} de ${data.length} ${MODULES[current].total}`;
+  renderFilters(data);
+  $('#empty').classList.toggle('visible',!filtered.length);
+  $('#list').innerHTML=filtered.map(renderCard).join('');
+  document.querySelectorAll('.card').forEach(card=>card.onclick=()=>{card.classList.toggle('open');openId=card.classList.contains('open')?card.dataset.id:null;});
+}
+function renderCard(item){
+  const id=item.id||item.name||item.nome;
+  const open=id===openId?' open':'';
+  if(current==='grimorio') return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.name)}</div><div class="meta"><span class="badge">${esc(item.level==='Truque'?'Truque':item.level+'º')}</span><span class="badge alt">${esc(item.school)}</span></div></div><div class="detail">${detailGrid([['Tempo',item.cast_time],['Alcance',item.range],['Componentes',item.components],['Duração',item.duration],['Classes',item.classes],['Página',pageRef(item)]])}<div class="desc">${paragraphs(item.description)}</div></div></article>`;
+  if(current==='arsenal') return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge">${esc(item.categoria)}</span>${item.tipo?`<span class="badge alt">${esc(item.tipo)}</span>`:''}</div></div><div class="detail">${detailGrid([['Tipo',item.tipo],['Fonte',item.fonte],['Preço',item.preco],['Peso',item.peso],['Raridade',item.raridade],['Página',item.referencia]])}<div class="desc">${arsenalDesc(item)}</div></div></article>`;
+  return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge">ND ${esc(item.nd)}</span><span class="badge alt">${esc(item.tipo_criatura)}</span><span class="badge">${esc(item.tamanho)}</span></div></div><div class="detail">${detailGrid([['CA',item.ca],['PV',item.pv],['Deslocamento',item.deslocamento],['Sentidos',item.sentidos],['Idiomas',item.idiomas],['Página',item.referencia]])}${scores(item.habilidades)}<div class="desc">${monsterDesc(item)}</div></div></article>`;
+}
+function detailGrid(rows){return '<div class="detail-grid">'+rows.filter(r=>r[1]).map(([l,v])=>`<div><span class="label">${esc(l)}</span>${esc(v)}</div>`).join('')+'</div>'}
+function paragraphs(text){return String(text||'').split(/\n{2,}/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('')}
+function pageRef(s){return s.page_print?`${s.page_print} (PDF: ${s.page_pdf||''})`:''}
+function arsenalDesc(item){if(item.descricao_blocos?.length){return item.descricao_blocos.map(b=>b.type==='paragraph'?`<p>${esc(b.text)}</p>`:'').join('')}return paragraphs(item.descricao)}
+function monsterDesc(m){let html=paragraphs(m.descricao);[['Habilidades Especiais',m.habilidades_especiais],['Ações',m.acoes],['Reações',m.reacoes],['Ações Lendárias',m.acoes_lendarias]].forEach(([title,list])=>{if(list?.length)html+=`<p><strong>${title}</strong></p>`+list.map(v=>`<p>${esc(v)}</p>`).join('')});return html}
+function scores(h){if(!h)return '';return '<div class="scores">'+Object.entries(h).map(([k,v])=>`<div class="score"><strong>${k}</strong>${esc(v.valor)} (${esc(v.mod)})</div>`).join('')+'</div>'}
+$('#search-box').addEventListener('input',e=>{query=e.target.value;openId=null;render();});
+$('#clear-filters').onclick=()=>{query='';filter='Todos';openId=null;$('#search-box').value='';render();};
+document.querySelectorAll('[data-module]').forEach(el=>el.onclick=()=>setModule(el.dataset.module));
+window.addEventListener('hashchange',()=>setModule(location.hash.slice(1)||'inicio',false));
+setModule(location.hash.slice(1)||'inicio',false);
+</script>
+</body>
+</html>

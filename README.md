@@ -1,9 +1,10 @@
 # Projeto D1
 
-Sistema de referência de D&D 5e em Português Brasileiro, feito para consulta rápida em mesa.
+Sistema unificado de referência de D&D 5e em Português Brasileiro, feito para consulta rápida em mesa.
 
 ## Módulos
 
+- **Início**: painel principal do Project-D1.
 - **Grimório**: magias do Livro do Jogador.
 - **Arsenal**: equipamentos, armas, armaduras e itens mágicos.
 - **Bestiário**: monstros e criaturas.
@@ -11,9 +12,11 @@ Sistema de referência de D&D 5e em Português Brasileiro, feito para consulta r
 ## Stack
 
 - HTML, CSS e JavaScript puro.
-- JSON embutido nos módulos.
+- JSON embutido no `index.html` unificado.
 - Extração de dados via Docling e Python.
 - Publicação estática pelo GitHub Pages.
+
+O site principal é o `index.html` da raiz. As pastas dos módulos preservam scripts, dados e páginas legadas de manutenção.
 
 ## Site
 

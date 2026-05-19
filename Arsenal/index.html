@@ -632,6 +632,12 @@ footer{
 <body>
 <script>
 (function(){
+  const params = new URLSearchParams(window.location.search);
+  if(!params.has('standalone')){
+    window.location.replace('../index.html#arsenal');
+    return;
+  }
+
   const dir = sessionStorage.getItem('d1NavDirection');
   sessionStorage.removeItem('d1NavDirection');
   if(dir === 'left' || dir === 'right'){
@@ -651,10 +657,10 @@ footer{
 </div>
 
 <nav class="module-nav" aria-label="Navegação entre módulos">
-  <a href="../index.html" data-order="0">Início</a>
-  <a href="../Grimorio/index.html" data-order="1">Grimório</a>
-  <a href="index.html" data-order="2" class="active" aria-current="page">Arsenal</a>
-  <a href="../Bestiario/index.html" data-order="3">Bestiário</a>
+  <a href="../index.html#inicio" data-order="0">Início</a>
+  <a href="../index.html#grimorio" data-order="1">Grimório</a>
+  <a href="../index.html#arsenal" data-order="2" class="active" aria-current="page">Arsenal</a>
+  <a href="../index.html#bestiario" data-order="3">Bestiário</a>
 </nav>
 
 <header>

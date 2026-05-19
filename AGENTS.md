@@ -2,12 +2,12 @@
 
 ## Sobre o Projeto
 
-**Projeto D1** (codinome: "Deu 1 no Dado") — sistema de referência completa de D&D 5e em Português Brasileiro. Cada módulo é independente, mas no final serão integrados em um dashboard único. Presente para o Henrique (mestre da mesa).
+**Projeto D1** (codinome: "Deu 1 no Dado") — sistema unificado de referência completa de D&D 5e em Português Brasileiro. A raiz do repo é o app principal, e as pastas dos módulos preservam dados, extração e páginas legadas de manutenção. Presente para o Henrique (mestre da mesa).
 
 ## Stack
 
-- **Frontend:** HTML/CSS/JS puro (single-file, sem frameworks)
-- **Dados:** JSON embutido no JavaScript (extraído de PDFs via Docling + Python)
+- **Frontend:** HTML/CSS/JS puro (single-file unificado, sem frameworks)
+- **Dados:** JSON embutido no JavaScript da raiz (extraído de PDFs via Docling + Python)
 - **Armazenamento:** LocalStorage (fichas de personagem)
 - **Publicação:** GitHub Pages (repo unificado `Project-D1`, branch `main`, raiz `/`)
 - **Extração:** Docling CLI (PDF→Markdown→JSON) + Python scripts
@@ -26,7 +26,9 @@
 ├── AGENTS.md              ← Este arquivo (regras do projeto)
 ├── DESIGN.md              ← Padrão visual e estrutural dos módulos
 ├── D&D Companion.md        ← Plano geral (fases e módulos)
-├── index.html              ← Portal unificado do site
+├── index.html              ← App unificado do site
+├── unified_template.html   ← Template do app unificado sem dados embutidos
+├── build_unified.py        ← Injeta Grimório/Arsenal/Bestiário no app raiz
 ├── README.md               ← Apresentação simples para GitHub
 │
 ├── Grimorio/               ← Módulo: Grimório (Fase 1)
@@ -40,7 +42,7 @@
 │   │   ├── spells_raw.json ←   Dados brutos
 │   │   ├── review_audit.json ← Relatório da revisão
 │   │   └── class_lists.json←   Magias por classe
-│   ├── index.html          ←   App publicado local
+│   ├── index.html          ←   Página legada; redireciona para ../index.html#grimorio
 │   ├── template.html
 │   ├── build_html.py
 │   ├── review_spells.py
@@ -51,7 +53,7 @@
 │   └── class_lists.json
 │
 ├── Arsenal/                ← Módulo: Arsenal (Fase 2)
-│   ├── index.html          ←   App publicado
+│   ├── index.html          ←   Página legada; redireciona para ../index.html#arsenal
 │   ├── template.html       ←   Template sem dados
 │   ├── build_html.py       ←   Injeta dados no template
 │   ├── extract_arsenal.py  ←   Parser Docling → JSON
@@ -63,7 +65,7 @@
 │   ├── arsenal_review_audit.json ← Relatório de auditoria da revisão
 │   └── docling_out/        ←   Saída do Docling (JSONs brutos)
 ├── Bestiario/              ← Módulo: Bestiário (Fase 3)
-│   ├── index.html          ←   App publicado
+│   ├── index.html          ←   Página legada; redireciona para ../index.html#bestiario
 │   ├── template.html       ←   Template sem dados
 │   ├── build_html.py       ←   Injeta dados no template
 │   ├── extract_monsters.py ←   Parser Docling → JSON
@@ -96,9 +98,9 @@
 3. 🔧 **Bestiário** — Monstros e criaturas (345 monstros, em revisão semântica)
 4. 📋 **Raças & Classes** — Detalhes e tabelas
 5. 📋 **Ficha de Personagem** — CRUD com localStorage
-6. 📋 **Dashboard** — Tudo integrado em um app único
+6. 🔧 **Dashboard/App unificado** — Grimório, Arsenal e Bestiário integrados na raiz
 
-> Cada fase é um **módulo independente** na estrutura de pastas. No final, todos são integrados no Dashboard, mas mantêm separação pra evitar conflitos.
+> O uso principal deve acontecer pelo `index.html` da raiz. As pastas dos módulos continuam separadas para extração, revisão, rebuild e manutenção dos dados; abrir `Grimorio/index.html`, `Arsenal/index.html` ou `Bestiario/index.html` redireciona para a rota correspondente do app unificado. Para depuração isolada, use `?standalone=1`.
 
 ## Convenções
 
@@ -106,7 +108,7 @@
 - **Design:** Tema escuro fantasy (cores quentes, fontes Cinzel + Lora)
 - **Referência de página:** Formato "XXX (PDF: YYY)" — livro impresso + PDF
 - **Offline-first:** Tudo funciona sem internet
-- **Single-file:** Cada módulo é um HTML autocontido (CSS + JS + dados embutidos)
+- **Single-file:** O app raiz é um HTML autocontido (CSS + JS + dados embutidos)
 - **Padrão visual:** Seguir o `DESIGN.md` para consistência entre módulos
 
 ## Workflow de Extração
@@ -115,9 +117,10 @@
 2. Extrair via Docling em HTML: `docling "<PDF>" --output /tmp/docling_out --to html`
 3. Criar script Python para parsear o HTML → JSON limpo
 4. Revisar dados (completude, erros, duplicatas)
-5. Injetar dados no template HTML via `build_html.py`
-6. Testar via `python3 -m http.server` + browser
-7. Commit + push para o repo unificado e validar GitHub Pages
+5. Injetar dados no template do módulo via `build_html.py`
+6. Regerar o app unificado com `python build_unified.py`
+7. Testar via `python3 -m http.server` + browser
+8. Commit + push para o repo unificado e validar GitHub Pages
 
 > **Nota:** Extrair em HTML (`--to html`) ao invés de Markdown (`--to md`) preserva tabelas, formatação e estrutura do documento original. Use `--to md` apenas se precisar de texto limpo simples.
 
