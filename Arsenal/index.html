@@ -44,7 +44,7 @@ header{
   justify-content:space-between;
   gap:1rem;
   position:sticky;
-  top:0;
+  top:38px;
   z-index:100;
 }
 
@@ -62,22 +62,24 @@ header h1{
 
 .module-nav{
   position:sticky;
-  top:50px;
-  z-index:90;
+  top:0;
+  z-index:120;
   display:flex;
   justify-content:center;
   gap:0.35rem;
-  padding:0.35rem 0.8rem;
-  background:rgba(13,11,14,0.96);
+  padding:0.4rem 0.8rem 0.35rem;
+  background:linear-gradient(180deg,rgba(13,11,14,0.98),rgba(26,15,37,0.96));
   border-bottom:1px solid var(--border);
   overflow-x:auto;
+  box-shadow:0 8px 18px rgba(0,0,0,0.22);
 }
 
 .module-nav a{
+  position:relative;
   flex:0 0 auto;
-  padding:0.32rem 0.55rem;
+  padding:0.3rem 0.62rem 0.42rem;
   border:1px solid transparent;
-  border-radius:4px;
+  border-radius:0;
   color:var(--fg2);
   font-family:'Cinzel',serif;
   font-size:0.66rem;
@@ -85,18 +87,55 @@ header h1{
   letter-spacing:0.08em;
   text-transform:uppercase;
   text-decoration:none;
+  transition:color 0.2s, transform 0.2s;
 }
 
 .module-nav a:hover{
   color:var(--fg);
-  background:var(--bg3);
-  border-color:var(--border);
+  transform:translateY(-1px);
 }
 
 .module-nav a.active{
-  color:#1a0f25;
+  color:var(--accent2);
+}
+
+.module-nav a::after{
+  content:"";
+  position:absolute;
+  left:0.55rem;
+  right:0.55rem;
+  bottom:0.08rem;
+  height:2px;
   background:var(--accent);
-  border-color:var(--accent);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform 0.22s ease;
+  box-shadow:0 0 10px rgba(212,164,74,0.35);
+}
+
+.module-nav a.active::after,
+.module-nav a:hover::after{
+  transform:scaleX(1);
+}
+
+body.d1-enter-left{animation:d1EnterLeft 0.22s ease-out both}
+body.d1-enter-right{animation:d1EnterRight 0.22s ease-out both}
+body.d1-exit-left{animation:d1ExitLeft 0.16s ease-in both}
+body.d1-exit-right{animation:d1ExitRight 0.16s ease-in both}
+
+@keyframes d1EnterLeft{
+  from{opacity:0;transform:translateX(-18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes d1EnterRight{
+  from{opacity:0;transform:translateX(18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes d1ExitLeft{
+  to{opacity:0;transform:translateX(-18px)}
+}
+@keyframes d1ExitRight{
+  to{opacity:0;transform:translateX(18px)}
 }
 
 #search-box{
@@ -579,9 +618,27 @@ footer{
 @media(min-width:901px){
   .spell-card:hover{transform:translateX(2px)}
 }
+
+@media(prefers-reduced-motion:reduce){
+  body.d1-enter-left,
+  body.d1-enter-right,
+  body.d1-exit-left,
+  body.d1-exit-right{animation:none}
+  .module-nav a{transition:none}
+  .module-nav a::after{transition:none}
+}
 </style>
 </head>
 <body>
+<script>
+(function(){
+  const dir = sessionStorage.getItem('d1NavDirection');
+  sessionStorage.removeItem('d1NavDirection');
+  if(dir === 'left' || dir === 'right'){
+    document.body.classList.add('d1-enter-' + dir);
+  }
+})();
+</script>
 
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
@@ -593,18 +650,18 @@ footer{
   <div class="sidebar-body" id="filters"></div>
 </div>
 
+<nav class="module-nav" aria-label="Navegação entre módulos">
+  <a href="../index.html" data-order="0">Início</a>
+  <a href="../Grimorio/index.html" data-order="1">Grimório</a>
+  <a href="index.html" data-order="2" class="active" aria-current="page">Arsenal</a>
+  <a href="../Bestiario/index.html" data-order="3">Bestiário</a>
+</nav>
+
 <header>
   <h1>&#x2694; Arsenal</h1>
   <input type="text" id="search-box" placeholder="Buscar item por nome..." autocomplete="off" spellcheck="false">
   <button class="filter-toggle-btn" onclick="toggleSidebar()">&#x2630; Filtros</button>
 </header>
-
-<nav class="module-nav" aria-label="Navegação entre módulos">
-  <a href="../index.html">Início</a>
-  <a href="../Grimorio/index.html">Grimório</a>
-  <a href="index.html" class="active" aria-current="page">Arsenal</a>
-  <a href="../Bestiario/index.html">Bestiário</a>
-</nav>
 
 <div id="stats"></div>
 
@@ -921,6 +978,24 @@ document.addEventListener('keydown', function(e){
     e.preventDefault();
     document.getElementById('search-box').focus();
   }
+});
+
+document.querySelectorAll('.module-nav a').forEach(link => {
+  link.addEventListener('click', function(e){
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const href = this.getAttribute('href');
+    if(!href || href === '#') return;
+    const active = document.querySelector('.module-nav a.active');
+    const current = Number(active ? active.dataset.order : 0);
+    const next = Number(this.dataset.order);
+    if(Number.isNaN(next) || next === current) return;
+    e.preventDefault();
+    const exitDir = next > current ? 'left' : 'right';
+    const enterDir = next > current ? 'right' : 'left';
+    sessionStorage.setItem('d1NavDirection', enterDir);
+    document.body.classList.add('d1-exit-' + exitDir);
+    window.setTimeout(() => { window.location.href = href; }, 150);
+  });
 });
 
 buildFilters();

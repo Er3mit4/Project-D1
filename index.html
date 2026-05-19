@@ -100,6 +100,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .top-nav a{
+  position:relative;
   font-family:'Cinzel',serif;
   font-size:0.68rem;
   font-weight:700;
@@ -109,12 +110,34 @@ a{color:inherit;text-decoration:none}
   padding:0.38rem 0.55rem;
   border:1px solid transparent;
   border-radius:4px;
+  transition:color 0.2s, transform 0.2s;
 }
 
 .top-nav a:hover{
   color:var(--fg);
   border-color:var(--border);
   background:var(--bg3);
+  transform:translateY(-1px);
+}
+
+body.d1-enter-left{animation:d1EnterLeft 0.22s ease-out both}
+body.d1-enter-right{animation:d1EnterRight 0.22s ease-out both}
+body.d1-exit-left{animation:d1ExitLeft 0.16s ease-in both}
+body.d1-exit-right{animation:d1ExitRight 0.16s ease-in both}
+
+@keyframes d1EnterLeft{
+  from{opacity:0;transform:translateX(-18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes d1EnterRight{
+  from{opacity:0;transform:translateX(18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes d1ExitLeft{
+  to{opacity:0;transform:translateX(-18px)}
+}
+@keyframes d1ExitRight{
+  to{opacity:0;transform:translateX(18px)}
 }
 
 main{
@@ -312,9 +335,26 @@ footer{
   }
   .top-nav a{white-space:nowrap}
 }
+
+@media(prefers-reduced-motion:reduce){
+  body.d1-enter-left,
+  body.d1-enter-right,
+  body.d1-exit-left,
+  body.d1-exit-right{animation:none}
+  .top-nav a{transition:none}
+}
 </style>
 </head>
 <body>
+<script>
+(function(){
+  const dir = sessionStorage.getItem('d1NavDirection');
+  sessionStorage.removeItem('d1NavDirection');
+  if(dir === 'left' || dir === 'right'){
+    document.body.classList.add('d1-enter-' + dir);
+  }
+})();
+</script>
 <header class="site-header">
   <div class="site-header-inner">
     <a class="brand" href="index.html" aria-label="Projeto D1">
@@ -325,10 +365,10 @@ footer{
       </span>
     </a>
     <nav class="top-nav" aria-label="Módulos">
-      <a href="index.html">Início</a>
-      <a href="Grimorio/index.html">Grimório</a>
-      <a href="Arsenal/index.html">Arsenal</a>
-      <a href="Bestiario/index.html">Bestiário</a>
+      <a href="index.html" data-order="0">Início</a>
+      <a href="Grimorio/index.html" data-order="1">Grimório</a>
+      <a href="Arsenal/index.html" data-order="2">Arsenal</a>
+      <a href="Bestiario/index.html" data-order="3">Bestiário</a>
     </nav>
   </div>
 </header>
@@ -351,21 +391,21 @@ footer{
 
   <h2 class="section-title">Módulos disponíveis</h2>
   <section class="module-grid" aria-label="Módulos do Projeto D1">
-    <a class="module-card" href="Grimorio/index.html">
+    <a class="module-card" href="Grimorio/index.html" data-order="1">
       <div>
         <h3>&#x1F52E; Grimório</h3>
         <p>Busca de magias por nome, nível, escola e classe, com descrição completa e referência de página.</p>
       </div>
       <div class="module-meta"><span class="badge">Concluído</span><span class="module-link">Abrir módulo</span></div>
     </a>
-    <a class="module-card" href="Arsenal/index.html">
+    <a class="module-card" href="Arsenal/index.html" data-order="2">
       <div>
         <h3>&#x2694; Arsenal</h3>
         <p>Equipamentos, armas, armaduras, ferramentas, veículos e itens mágicos em consulta filtrável.</p>
       </div>
       <div class="module-meta"><span class="badge">Revisado</span><span class="module-link">Abrir módulo</span></div>
     </a>
-    <a class="module-card" href="Bestiario/index.html">
+    <a class="module-card" href="Bestiario/index.html" data-order="3">
       <div>
         <h3>&#x1F480; Bestiário</h3>
         <p>Monstros e criaturas com estatísticas, características, ações e descrições narrativas.</p>
@@ -397,5 +437,19 @@ footer{
 </main>
 
 <footer>Projeto D1 &mdash; D&D 5e em Português Brasileiro</footer>
+<script>
+document.querySelectorAll('a[data-order]').forEach(link => {
+  link.addEventListener('click', function(e){
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    const href = this.getAttribute('href');
+    const next = Number(this.dataset.order);
+    if(!href || Number.isNaN(next) || next === 0) return;
+    e.preventDefault();
+    sessionStorage.setItem('d1NavDirection', 'right');
+    document.body.classList.add('d1-exit-left');
+    window.setTimeout(() => { window.location.href = href; }, 150);
+  });
+});
+</script>
 </body>
 </html>
