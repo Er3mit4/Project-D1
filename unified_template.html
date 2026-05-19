@@ -1,644 +1,1326 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html class="dark" lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projeto D1 — D&D 5e</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
-:root{--bg:#0d0b0e;--bg2:#1a1520;--bg3:#241e2c;--fg:#e8dcc8;--fg2:#a89b8a;--accent:#d4a44a;--accent2:#e8c06a;--card:#1c1724;--border:#3a2f48;--cantrip:#8e44ad;--shadow:0 2px 12px rgba(0,0,0,0.5)}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(212,164,74,0.08),transparent 32rem),radial-gradient(circle at 90% 20%,rgba(142,68,173,0.08),transparent 28rem),linear-gradient(180deg,#140f19 0%,var(--bg) 42%,#09070a 100%);color:var(--fg);font-family:'Lora',Georgia,serif;overflow-x:hidden}
-button,input{font:inherit}
-.module-nav{position:relative;z-index:130;display:flex;justify-content:center;align-items:center;gap:.35rem;height:36px;padding:0 .8rem;background:linear-gradient(180deg,#140f19 0%,#0d0b0e 100%);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.5);opacity:1}
-.module-nav button{position:relative;flex:0 0 auto;padding:.2rem .66rem .3rem;border:0;background:transparent;color:var(--fg2);font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .2s,transform .2s}
-.module-nav button:hover{color:var(--fg);transform:translateY(-1px)}
-.module-nav button.active{color:var(--accent2)}
-.module-nav button::after{content:"";position:absolute;left:.55rem;right:.55rem;bottom:.02rem;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform .22s ease;box-shadow:0 0 10px rgba(212,164,74,.35)}
-.module-nav button.active::after,.module-nav button:hover::after{transform:scaleX(1)}
-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:1rem;height:54px;padding:0 1rem;background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);border-bottom:2px solid var(--accent)}
-header h1{margin:0;min-width:12rem;font-family:'Cinzel',serif;font-size:1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-shadow:0 0 20px rgba(212,164,74,.3);white-space:nowrap}
-.search-row{flex:1;max-width:720px;margin:0 auto;display:flex;align-items:center;gap:.4rem;min-width:0}
-#search-box{flex:1;min-width:0;padding:.42rem .8rem;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--fg);font-size:.9rem;outline:none}
-#search-box:focus{border-color:var(--accent);box-shadow:0 0 8px rgba(212,164,74,.25)}
-.filter-toggle-btn{padding:.36rem .7rem;border:1px solid var(--border);border-radius:4px;background:var(--bg3);color:var(--fg2);font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
-.filter-toggle-btn:hover{background:var(--border);color:var(--fg)}
-.filter-toggle-btn:disabled{opacity:.42;cursor:not-allowed}
-.filter-toggle-btn:disabled:hover{background:var(--bg3);color:var(--fg2)}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:250;opacity:0;pointer-events:none;transition:opacity .2s}
-.overlay.show{opacity:1;pointer-events:auto}
-.sidebar{position:fixed;top:0;left:100%;width:min(360px,88vw);height:100vh;z-index:300;background:var(--bg2);border-left:2px solid var(--accent);box-shadow:-8px 0 24px rgba(0,0,0,.5);transition:left .25s ease;display:flex;flex-direction:column}
-.sidebar.open{left:calc(100% - min(360px,88vw))}
-.sidebar-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1rem;border-bottom:1px solid var(--border);flex:0 0 auto}
-.sidebar-header h2{margin:0;font-family:'Cinzel',serif;font-size:1rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
-.sidebar-close{width:2rem;height:2rem;border:0;border-radius:4px;background:var(--bg3);color:var(--fg2);font-size:1rem;cursor:pointer}
-.sidebar-close:hover{background:var(--border);color:var(--fg)}
-.sidebar-body{padding:1rem;overflow:auto}
-.intro{display:none;max-width:1100px;margin:0 auto;padding:3rem 1rem 1rem}
-.intro.visible{display:block;animation:d1EnterRight .22s ease-out both}
-.intro h2{margin:0 0 .85rem;font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}
-.intro p{max-width:42rem;margin:0 0 1.2rem;line-height:1.7}
-.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:1.4rem}
-.module-card{min-height:11rem;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:linear-gradient(180deg,rgba(36,30,44,.86),rgba(28,23,36,.94));box-shadow:var(--shadow);padding:1rem;text-align:left;color:var(--fg);cursor:pointer;transition:border-color .2s,transform .15s}
-.module-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.module-card h3{margin:0 0 .5rem;font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2)}
-.module-card p{margin:0;line-height:1.55;font-size:.86rem}
-.module-card.disabled{opacity:.45;cursor:not-allowed;border-left-color:var(--border);background:linear-gradient(180deg,rgba(25,20,30,.6),rgba(20,15,25,.75))}
-.module-card.disabled:hover{border-color:var(--border);transform:none;box-shadow:var(--shadow)}
-.module-card.disabled h3{color:var(--fg2)}
-.module-card.disabled .coming-soon{margin-top:.66rem;display:inline-block;padding:.08rem .36rem;border:1px dashed rgba(212,164,74,.4);border-radius:3px;background:rgba(212,164,74,.05);color:var(--accent2);font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.app{display:none}
-.app.active{display:block}
-#stats{text-align:center;color:var(--fg2);font-size:.75rem;padding:.55rem}
-.filters{display:flex;flex-direction:column;gap:1rem;width:100%}
-.filter-section{margin-bottom:0.75rem}
-.filter-section-title{width:100%;background:none;border:0;border-bottom:1px dashed var(--border);text-align:left;font-family:'Cinzel',serif;font-weight:700;font-size:0.72rem;color:var(--fg2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.45rem;padding-bottom:0.35rem;transition:color 0.2s}
-.filter-section.collapsible .filter-section-title{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-.filter-section.collapsible .filter-section-title:hover{color:var(--accent2)}
-.filter-section.collapsible .filter-section-title::after{content:"\25BE";color:var(--fg2);transition:transform 0.2s}
-.filter-section.collapsible.collapsed .filter-section-title::after{transform:rotate(-90deg)}
-.filter-section.collapsible.collapsed .filter-section-body{display:none}
-.type-filter-search{width:100%;margin-bottom:0.5rem;padding:0.35rem 0.55rem;font-size:0.78rem;font-family:'Lora',serif;background:var(--bg3);color:var(--fg);border:1px solid var(--border);border-radius:4px;outline:none;transition:border-color 0.2s, box-shadow 0.2s}
-.type-filter-search:focus{border-color:var(--accent);box-shadow:0 0 6px rgba(212,164,74,0.2)}
-.type-filter-search::placeholder{color:var(--fg2);opacity:0.65}
-.filter-section-btns{display:flex;flex-wrap:wrap;gap:0.3rem}
-.filter-section.collapsible .filter-section-btns{max-height:16rem;overflow-y:auto;padding-right:0.25rem}
-.filter-btn{padding:0.22rem 0.52rem;font-size:0.74rem;font-family:'Lora',serif;background:var(--bg3);color:var(--fg2);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all 0.18s ease;white-space:nowrap}
-.filter-btn:hover{background:var(--border);color:var(--fg)}
-.filter-btn.active{background:var(--accent);color:#1a0f25;border-color:var(--accent);font-weight:700}
-.filter-btn.active-trick{background:var(--cantrip);color:#fff;border-color:var(--cantrip);font-weight:700}
-.filter-btn.hidden{display:none!important}
-.cantrip-filter{border-color:rgba(142,68,173,0.35)}
-/* Personalização fina para o scrollbar dos filtros */
-.filter-section-btns::-webkit-scrollbar{width:4px}
-.filter-section-btns::-webkit-scrollbar-track{background:var(--bg2)}
-.filter-section-btns::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.filter-section-btns::-webkit-scrollbar-thumb:hover{background:var(--accent)}
-.list{max-width:900px;margin:0 auto;padding:0 .8rem 3rem;display:flex;flex-direction:column;gap:.42rem}
-.card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:var(--card);cursor:pointer;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .15s}
-.card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
-.card.open{border-color:var(--accent)}
-.card.cantrip{border-left-color:var(--cantrip)}
-.card.leveled{border-left-color:var(--accent)}
-.card-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.66rem .85rem}
-.name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.03em;color:var(--fg)}
-.meta{display:flex;align-items:center;justify-content:flex-end;gap:.28rem;flex-wrap:wrap}
-.badge{display:inline-block;padding:.12rem .4rem;border:1px solid rgba(212,164,74,.3);border-radius:3px;background:rgba(212,164,74,.15);color:var(--accent2);font-family:'Cinzel',serif;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.badge.alt{border-color:rgba(142,68,173,.3);background:rgba(142,68,173,.2);color:#bb6bd9}
-.badge-level{background:rgba(212,164,74,.15);color:var(--accent2);border-color:rgba(212,164,74,.3)}
-.badge-cantrip{background:rgba(142,68,173,.2);color:#bb6bd9;border-color:rgba(142,68,173,.3)}
-.badge-school{background:rgba(52,152,219,.12);color:#5dade2;border-color:rgba(52,152,219,.25)}
-.badge-source{background:rgba(255,255,255,.04);color:var(--fg2);border-color:var(--border)}
-.badge-nd{font-weight:700}
-.icon-badge{min-width:1.65rem;text-align:center}.icon-badge.magic{color:#bb6bd9;border-color:rgba(142,68,173,.3);background:rgba(142,68,173,.14)}
-.expand-arrow{display:inline-block;color:var(--fg2);font-size:.72rem;transition:transform .2s,color .2s}
-.card.open .expand-arrow{transform:rotate(90deg);color:var(--accent2)}
-.detail{display:none;border-top:1px solid var(--border);padding:.85rem}
-.card.open .detail{display:block}
-.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.38rem 1rem;margin-bottom:.75rem;font-size:.82rem}
-.label{display:block;color:var(--fg2);font-family:'Cinzel',serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.value{color:var(--fg)}
-.spell-classes{display:flex;gap:.25rem;flex-wrap:wrap;margin:.3rem 0 .55rem}
-.class-tag{font-size:.65rem;padding:.1rem .35rem;border-radius:3px;background:var(--bg2);color:var(--fg2);border:1px solid var(--border)}
-.class-tag.tag-Bardo{border-color:#8e44ad;color:#bb6bd9}.class-tag.tag-Bruxo{border-color:#c0392b;color:#e74c3c}.class-tag.tag-Clerigo,.class-tag.tag-Clérigo{border-color:#f1c40f;color:#f7dc6f}.class-tag.tag-Druida{border-color:#27ae60;color:#58d68d}.class-tag.tag-Feiticeiro{border-color:#e67e22;color:#f0b27a}.class-tag.tag-Mago{border-color:#3498db;color:#85c1e9}.class-tag.tag-Paladino{border-color:#d4a44a;color:#e8c06a}.class-tag.tag-Patrulheiro{border-color:#1abc9c;color:#76d7c4}
-.class-tag.tag-Arma{border-color:#c0392b;color:#e74c3c}.class-tag.tag-Armadura{border-color:#d4a44a;color:#e8c06a}.class-tag.tag-Equipamento{border-color:#3498db;color:#85c1e9}.class-tag.tag-Ferramenta{border-color:#27ae60;color:#58d68d}.class-tag.tag-Item{border-color:#8e44ad;color:#bb6bd9}.class-tag.tag-Montaria{border-color:#1abc9c;color:#76d7c4}.class-tag.tag-Veiculo,.class-tag.tag-Veículo{border-color:#e67e22;color:#f0b27a}
-.desc,.spell-desc{line-height:1.7;font-size:.85rem;color:var(--fg);margin-bottom:.55rem;padding-top:.45rem;border-top:1px dashed var(--border);overflow-x:auto}
-.desc p,.spell-desc p{margin:0 0 .6em}
-.desc ul,.spell-desc ul{margin:.4em 0 .75em 1.2em;padding:0;list-style:disc}
-.desc li,.spell-desc li{margin-bottom:.3em;line-height:1.6}
-.desc .higher-levels,.spell-desc .higher-levels{color:var(--accent2);display:inline-block;margin-top:.2em}
-.desc-block-title{font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;color:var(--accent);margin:.6rem 0 .2rem;border-bottom:1px solid var(--border);padding-bottom:.15rem}
-.monster-lore{border-top:0;padding-top:0}
-.desc-table{width:100%;border-collapse:collapse;margin:.4rem 0 .8rem;font-size:.8rem}
-.desc-table th,.desc-table td{border:1px solid var(--border);padding:.28rem .4rem;vertical-align:top}
-.desc-table th{color:var(--accent2);background:rgba(212,164,74,.08);text-align:left;text-transform:uppercase;font-size:.7rem;letter-spacing:.06em}
-.desc-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
-.spell-ref{font-size:.75rem;color:var(--fg2);text-align:right}
-.spell-ref span{display:inline-block;background:var(--bg3);padding:.15rem .5rem;border-radius:3px;border:1px solid var(--border)}
-.scores{display:grid;grid-template-columns:repeat(6,1fr);gap:.3rem;margin:.6rem 0}
-.score,.ability-score{text-align:center;border:1px solid var(--border);border-radius:4px;background:var(--bg3);padding:.35rem .2rem}
-.score strong,.ability-score-label{display:block;color:var(--fg2);font-family:'Cinzel',serif;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem}
-.ability-score-value{font-size:1rem;font-weight:700;color:var(--fg)}
-.ability-score-mod{font-size:.7rem;color:var(--accent2)}
-.empty{display:none;text-align:center;padding:3rem 1rem;color:var(--fg2)}
-.empty.visible{display:block}
-footer{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 2rem;text-align:center;color:var(--fg2);opacity:.55;border-top:1px solid var(--border);font-size:.75rem}
-.slide-left{animation:d1EnterLeft .22s ease-out both}.slide-right{animation:d1EnterRight .22s ease-out both}
-@keyframes d1EnterLeft{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
-@keyframes d1EnterRight{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
-@media(max-width:720px){header{align-items:stretch;height:auto;flex-wrap:wrap;padding:.55rem}header h1{width:100%;min-width:0;font-size:.88rem}.search-row{width:100%;max-width:none}.module-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.scores{grid-template-columns:repeat(3,1fr)}.card-head{align-items:flex-start;flex-direction:column}.meta{justify-content:flex-start}}
-@media(max-width:460px){.module-nav{justify-content:flex-start;overflow-x:auto;scrollbar-width:none}.module-nav::-webkit-scrollbar{display:none}.intro h2{font-size:1.72rem;line-height:1.08}.filter-toggle-btn{font-size:.7rem;padding:.32rem .55rem}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJETO D1 — D&D 5e em PT-BR</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Google Fonts & Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Custom Tailwind Configuration -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#e5c281",
+            "surface-tint": "#e5c281",
+            "outline-variant": "#4d463a",
+            "surface": "#141316",
+            "blood-crimson": "#632a2a",
+            "surface-container-highest": "#363437",
+            "on-primary-fixed-variant": "#5b430e",
+            "on-primary-container": "#543d08",
+            "tertiary-fixed-dim": "#ffb3b1",
+            "on-error-container": "#ffdad6",
+            "on-surface-variant": "#d0c5b5",
+            "on-background": "#e6e1e5",
+            "on-secondary-fixed": "#1f1925",
+            "on-error": "#690005",
+            "error": "#ffb4ab",
+            "surface-container-lowest": "#0f0e11",
+            "obsidian-base": "#0f0e11",
+            "on-tertiary-fixed-variant": "#713534",
+            "on-secondary-fixed-variant": "#4b4451",
+            "on-primary-fixed": "#261900",
+            "primary-container": "#c9a86a",
+            "inverse-primary": "#755a24",
+            "surface-container-low": "#1c1b1e",
+            "on-tertiary": "#551f1f",
+            "surface-container": "#201f22",
+            "inverse-on-surface": "#313033",
+            "secondary-container": "#4b4451",
+            "primary-fixed": "#ffdea4",
+            "secondary-fixed-dim": "#cdc3d3",
+            "tertiary": "#ffb5b3",
+            "tertiary-fixed": "#ffdad8",
+            "on-tertiary-container": "#692e2e",
+            "outline": "#998f81",
+            "secondary-fixed": "#e9dfef",
+            "error-container": "#93000a",
+            "secondary": "#cdc3d3",
+            "surface-dim": "#141316",
+            "brass-accent": "#c9a86a",
+            "paper-text": "#e8dcc8",
+            "ethereal-purple": "#4a3b63",
+            "on-surface": "#e6e1e5",
+            "on-secondary": "#342e3a",
+            "tertiary-container": "#e89795",
+            "on-primary": "#412d00",
+            "on-secondary-container": "#bbb2c1",
+            "primary": "#e6c383",
+            "on-tertiary-fixed": "#390a0c",
+            "surface-container-high": "#2b292d",
+            "background": "#141316",
+            "surface-variant": "#363437",
+            "surface-bright": "#3a383c",
+            "inverse-surface": "#e6e1e5",
+            "cantrip": "#8e44ad"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "container-max-width": "1280px",
+            "gutter": "24px",
+            "margin-desktop": "40px"
+          },
+          "fontFamily": {
+            "headline-lg": ["EB Garamond", "serif"],
+            "data-table": ["Hanken Grotesk", "sans-serif"],
+            "display-lg": ["EB Garamond", "serif"],
+            "title-md": ["EB Garamond", "serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["EB Garamond", "serif"],
+            "label-sm": ["Hanken Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+            "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "title-md": ["22px", {"lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom Core Design Styles -->
+  <style>
+    body {
+      background-color: #141316;
+      color: #e6e1e5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .glass-panel {
+      background: rgba(32, 31, 34, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(201, 168, 106, 0.15);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(201, 168, 106, 0.6);
+      background: rgba(32, 31, 34, 0.8);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(201, 168, 106, 0.1);
+    }
+
+    .arcane-glow {
+      text-shadow: 0 0 12px rgba(229, 194, 129, 0.3);
+    }
+
+    .hero-gradient {
+      background: radial-gradient(circle at 50% 50%, rgba(74, 59, 99, 0.15) 0%, transparent 70%);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(20, 19, 22, 1);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(201, 168, 106, 0.3);
+      border-radius: 2px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(201, 168, 106, 0.6);
+    }
+
+    /* Accordion Card Transitions */
+    .card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      background-color: #1c1b1e; /* bg-surface-container-low */
+      border: 1px solid rgba(201, 168, 106, 0.15); /* border border-primary/10 */
+    }
+    .card:hover {
+      border-color: rgba(201, 168, 106, 0.8);
+      box-shadow: 0 0 15px rgba(201, 168, 106, 0.15);
+    }
+    .card.open {
+      background-color: #2b292d; /* bg-surface-container-high */
+      border: 2px solid #e6c383; /* border-primary */
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(201, 168, 106, 0.15);
+      cursor: default;
+    }
+    .card.open::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #e6c383;
+    }
+    .card.cantrip.open::before {
+      background-color: #8e44ad; /* cantrip roxo */
+    }
+    .card.cantrip.open {
+      border-color: #8e44ad;
+    }
+
+    main {
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (min-width: 1024px) {
+      body.show-sidebar main {
+        margin-left: 20rem; /* w-80 matches 20rem */
+      }
+      #side-nav {
+        transform: translateX(-100%);
+      }
+      body.show-sidebar #side-nav {
+        transform: translateX(0);
+      }
+    }
+  </style>
 </head>
-<body>
-<nav class="module-nav" aria-label="Navegação entre módulos">
-  <button type="button" data-module="inicio">Início</button>
-  <button type="button" data-module="grimorio">Grimório</button>
-  <button type="button" data-module="arsenal">Arsenal</button>
-  <button type="button" data-module="bestiario">Bestiário</button>
-</nav>
-<header>
-  <h1 id="module-title">Projeto D1</h1>
-  <div class="search-row">
-    <input id="search-box" type="search" placeholder="Buscar..." autocomplete="off" spellcheck="false">
-    <button class="filter-toggle-btn" type="button" id="clear-filters">Limpar</button>
-    <button class="filter-toggle-btn" type="button" id="toggle-filters">Filtros</button>
-  </div>
-</header>
-<div class="overlay" id="overlay"></div>
-<aside class="sidebar" id="sidebar" aria-label="Filtros" aria-hidden="true">
-  <div class="sidebar-header">
-    <h2>Filtros</h2>
-    <button class="sidebar-close" type="button" id="close-filters" title="Fechar filtros">&#x2715;</button>
-  </div>
-  <div class="sidebar-body">
-    <div class="filters" id="filters"></div>
-  </div>
-</aside>
-<section class="intro" id="intro">
-  <h2>Referência de D&D 5e em PT-BR</h2>
-  <p>Um único sistema de consulta para mesa, com magias, equipamentos, itens mágicos e criaturas no mesmo shell.</p>
-  <div class="module-grid">
-    <button class="module-card" type="button" data-module="grimorio"><h3>&#x1F52E; Grimório</h3><p>361 magias com busca, filtros e descrição completa.</p></button>
-    <button class="module-card" type="button" data-module="arsenal"><h3>&#x2694; Arsenal</h3><p>527 equipamentos, armas, armaduras e itens mágicos.</p></button>
-    <button class="module-card" type="button" data-module="bestiario"><h3>&#x1F480; Bestiário</h3><p>345 monstros com estatísticas, ações e lore.</p></button>
-    <button class="module-card disabled" type="button" disabled><h3>&#x1F4DC; Raças & Classes</h3><p>Detalhes, regras e tabelas de raças e classes de D&D 5e.</p><span class="coming-soon">Em Breve</span></button>
-    <button class="module-card disabled" type="button" disabled><h3>&#x1F4DD; Ficha</h3><p>Criação e manutenção de fichas de personagens com armazenamento local.</p><span class="coming-soon">Em Breve</span></button>
-  </div>
-</section>
-<main class="app" id="app">
-  <div id="stats"></div>
-  <div class="list" id="list"></div>
-  <div class="empty" id="empty">Nenhum resultado encontrado.</div>
-</main>
-<footer>
-  <div>Projeto D1 &mdash; D&D 5e em Português Brasileiro</div>
-  <div style="font-size:0.62rem; margin-top:0.4rem; opacity:0.75; line-height:1.4;">
-    Todo o conteúdo conceitual, marcas registradas e propriedades intelectuais referentes a Dungeons & Dragons (D&D) são de direito exclusivo da Wizards of the Coast LLC. Este é um projeto de fã sem fins comerciais, desenvolvido para uso pessoal e facilitação das sessões de jogo.
-  </div>
-</footer>
-<script>
-const SPELLS=__SPELLS_DATA__;
-const ITEMS=__ARSENAL_DATA__;
-const MONSTERS=__MONSTERS_DATA__;
-const ORDER=['inicio','grimorio','arsenal','bestiario'];
-const MODULES={
-  inicio:{title:'Projeto D1',placeholder:'Escolha um módulo...',data:[]},
-  grimorio:{title:'\u{1F52E} Grimório',placeholder:'Buscar magia por nome, escola ou classe...',data:SPELLS,total:'magias'},
-  arsenal:{title:'\u2694 Arsenal',placeholder:'Buscar item por nome, tipo ou fonte...',data:ITEMS,total:'itens'},
-  bestiario:{title:'\u{1F480} Bestiário',placeholder:'Buscar monstro por nome, tipo ou ND...',data:MONSTERS,total:'monstros'}
-};
+<body class="bg-background text-on-surface selection:bg-primary/30 overflow-x-hidden">
 
-// Constantes Estáticas para Filtros (D&D 5e)
-const ESCOLAS = ['abjuração','adivinhação','conjuração','encantamento','evocação','ilusão','necromancia','transmutação'];
-const CLASSES_GRIMORIO = ['Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Mago','Paladino','Patrulheiro'];
-const NIVEIS = ['Truque','1° nível','2° nível','3° nível','4° nível','5° nível','6° nível','7° nível','8° nível','9° nível'];
-const TAMANHOS = ['Minúsculo','Pequeno','Médio','Grande','Enorme','Imenso'];
-const SINTONIZACOES = ['Requer sintonização','Não requer sintonização'];
-const CLASSES_ARSENAL = ['Bárbaro','Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Guerreiro','Ladino','Mago','Monge','Paladino','Patrulheiro'];
-const ND_RANGES = [
-  {label:'0',test:nd => nd === 0},
-  {label:'1/8–1/4',test:nd => nd > 0 && nd < 0.5},
-  {label:'1/2–1',test:nd => nd >= 0.5 && nd <= 1},
-  {label:'2–4',test:nd => nd >= 2 && nd <= 4},
-  {label:'5–10',test:nd => nd >= 5 && nd <= 10},
-  {label:'11–16',test:nd => nd >= 11 && nd <= 16},
-  {label:'17–21',test:nd => nd >= 17 && nd <= 21},
-  {label:'22–25',test:nd => nd >= 22 && nd <= 25},
-  {label:'26–30',test:nd => nd >= 26 && nd <= 30}
-];
-const ND_RANGE_LABELS = ND_RANGES.map(r => r.label);
-
-// Constantes Dinâmicas (extraídas dos dados do Arsenal e Bestiário)
-const CATEGORIAS = [...new Set(ITEMS.map(i => i.categoria).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-const TIPOS_ARSENAL = [...new Set(ITEMS.map(i => i.tipo).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-const FONTES_ARSENAL = [...new Set(ITEMS.map(i => i.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-const RARIDADES = [...new Set(ITEMS.map(i => i.raridade).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-
-const TIPOS_BESTIARIO = [...new Set(MONSTERS.map(m => m.tipo_criatura).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-const ALINHAMENTOS = [...new Set(MONSTERS.map(m => m.alinhamento).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-const FONTES_BESTIARIO = [...new Set(MONSTERS.map(m => m.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-
-// Estado Global de Filtros Separado por Módulo
-const activeFilters = {
-  grimorio: { nivel: new Set(), escola: new Set(), classe: new Set() },
-  arsenal: { categoria: new Set(), tipo: new Set(), fonte: new Set(), raridade: new Set(), sintonizacao: new Set(), classe: new Set() },
-  bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() }
-};
-
-let current='inicio', query='', openId=null;
-const $=sel=>document.querySelector(sel);
-const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const norm=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-function setModule(name,push=true){
-  if(!MODULES[name]) name='inicio';
-  const from=ORDER.indexOf(current), to=ORDER.indexOf(name);
-  current=name; query=''; openId=null;
-  $('#search-box').value=''; $('#search-box').placeholder=MODULES[name].placeholder; $('#module-title').textContent=MODULES[name].title;
-  $('#toggle-filters').disabled=name==='inicio';
-  if(name==='inicio') closeSidebar();
-  document.querySelectorAll('[data-module]').forEach(el=>el.classList.toggle('active',el.dataset.module===name));
-  $('#intro').classList.toggle('visible',name==='inicio'); $('#app').classList.toggle('active',name!=='inicio');
-  $('#app').classList.remove('slide-left','slide-right');
-  if(name!=='inicio') $('#app').classList.add(to>=from?'slide-right':'slide-left');
-  if(push) history.replaceState(null,'','#'+name);
-  buildFilters();
-  render();
-}
-
-function buildFilters() {
-  const container = $('#filters');
-  if (!container) return;
-  container.innerHTML = '';
-  
-  if (current === 'inicio') return;
-  
-  if (current === 'grimorio') {
-    addFilterSection(container, 'Nível', 'nivel', NIVEIS);
-    addFilterSection(container, 'Escola', 'escola', ESCOLAS);
-    addFilterSection(container, 'Classe', 'classe', CLASSES_GRIMORIO);
-  } else if (current === 'arsenal') {
-    addFilterSection(container, 'Categoria', 'categoria', CATEGORIAS);
-    addFilterSection(container, 'Tipo', 'tipo', TIPOS_ARSENAL, { collapsible: true, collapsed: true, search: true });
-    addFilterSection(container, 'Fonte', 'fonte', FONTES_ARSENAL);
-    addFilterSection(container, 'Usável por classe', 'classe', CLASSES_ARSENAL);
-    addFilterSection(container, 'Raridade', 'raridade', RARIDADES);
-    addFilterSection(container, 'Sintonização', 'sintonizacao', SINTONIZACOES);
-  } else if (current === 'bestiario') {
-    addFilterSection(container, 'Tipo', 'tipo', TIPOS_BESTIARIO, { collapsible: true, collapsed: true, search: true });
-    addFilterSection(container, 'Tamanho', 'tamanho', TAMANHOS);
-    addFilterSection(container, 'ND', 'nd', ND_RANGE_LABELS);
-    addFilterSection(container, 'Alinhamento', 'alinhamento', ALINHAMENTOS, { collapsible: true, collapsed: true });
-    addFilterSection(container, 'Fonte', 'fonte', FONTES_BESTIARIO);
-  }
-}
-
-function addFilterSection(container, title, type, values, options = {}) {
-  const section = document.createElement('div');
-  section.className = 'filter-section' + (options.collapsible ? ' collapsible' : '') + (options.collapsed ? ' collapsed' : '');
-  const btnsId = 'btns-' + type;
-  
-  const titleHtml = options.collapsible
-    ? `<button class="filter-section-title" type="button">${esc(title)}</button>`
-    : `<div class="filter-section-title">${esc(title)}</div>`;
+  <!-- Top Navigation Bar -->
+  <header class="fixed top-0 left-0 w-full h-16 z-50 bg-background/80 backdrop-blur-md border-b border-primary/20 flex items-center justify-between px-6 md:px-margin-desktop">
+    <div class="flex items-center gap-8">
+      <button type="button" data-module="inicio" class="font-headline-lg text-2xl font-bold tracking-widest text-primary hover:opacity-80 transition-all border-none bg-transparent p-0 cursor-pointer">PROJETO D1</button>
+      <nav class="hidden md:flex gap-6 items-center">
+        <button type="button" data-module="inicio" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-inicio">Início</button>
+        <button type="button" data-module="grimorio" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-grimorio">Grimório</button>
+        <button type="button" data-module="arsenal" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-arsenal">Arsenal</button>
+        <button type="button" data-module="bestiario" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-bestiario">Bestiário</button>
+      </nav>
+    </div>
     
-  const searchPlaceholder = type === 'tipo' ? 'Filtrar tipos...' : 'Filtrar...';
-  const searchHtml = options.search
-    ? `<input class="type-filter-search" id="${esc(type)}-filter-search" type="search" placeholder="${esc(searchPlaceholder)}" autocomplete="off" spellcheck="false">`
-    : '';
+    <div class="flex items-center gap-4">
+      <!-- Search Input in Header (Shown when not on Home module) -->
+      <div class="relative hidden sm:block opacity-0 transition-opacity duration-300" id="header-search-container">
+        <input class="bg-surface-container border border-primary/30 text-on-surface px-4 py-1.5 focus:outline-none focus:border-primary transition-all w-64 font-body-md text-sm rounded-sm" placeholder="Buscar no multiverso..." type="search" id="search-box" autocomplete="off" spellcheck="false"/>
+        <span class="material-symbols-outlined absolute right-2.5 top-2 text-primary/60 pointer-events-none">search</span>
+      </div>
+      
+      <!-- Filter Sidebar Toggle (Mobile Menu Trigger) -->
+      <button class="material-symbols-outlined text-primary p-2 hover:bg-surface-variant/20 rounded-full transition-all cursor-pointer bg-transparent border-none outline-none hidden" id="toggle-filters">filter_alt</button>
+    </div>
+  </header>
+
+  <!-- Dim Overlay for mobile sidebar -->
+  <div class="fixed inset-0 bg-black/60 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
+
+  <!-- Left Sidebar for Filters (SideNavBar) -->
+  <aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-80 bg-surface-container border-r border-primary/30 z-40 flex flex-col p-6 shadow-xl transition-transform duration-300 ease-in-out transform -translate-x-full" id="side-nav">
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center bg-primary/5">
+          <span class="material-symbols-outlined text-primary text-xl">filter_alt</span>
+        </div>
+        <div>
+          <h2 class="font-title-md text-lg text-brass-accent leading-none font-bold">FILTROS</h2>
+          <p class="font-label-sm text-[10px] text-on-surface-variant opacity-70 tracking-tighter uppercase">Refine sua busca arcana</p>
+        </div>
+      </div>
+    </div>
     
-  section.innerHTML = titleHtml + `<div class="filter-section-body">${searchHtml}<div class="filter-section-btns" id="${esc(btnsId)}"></div></div>`;
-  container.appendChild(section);
-  
-  if (options.collapsible) {
-    section.querySelector('.filter-section-title').onclick = () => section.classList.toggle('collapsed');
-  }
-  
-  if (options.search) {
-    section.querySelector('#' + type + '-filter-search').addEventListener('input', event => {
-      const q = norm(event.target.value);
-      section.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.toggle('hidden', q && !norm(btn.dataset.value).includes(q));
+    <!-- Dynamic Filter Sections -->
+    <div class="flex-grow overflow-y-auto pr-1 space-y-6 custom-scrollbar" id="filters"></div>
+    
+    <!-- Sidebar Footer Buttons -->
+    <div class="mt-auto pt-6 flex flex-col gap-4 border-t border-primary/10">
+      <button class="w-full py-2.5 border border-primary/30 text-primary font-label-sm tracking-widest hover:bg-primary hover:text-on-primary transition-all bg-transparent uppercase cursor-pointer text-xs" id="clear-filters">LIMPAR FILTROS</button>
+      <div class="flex items-center gap-2 text-on-surface-variant opacity-60 hover:text-primary transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">settings</span>
+        <span class="font-label-sm text-xs">Configurações offline</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Atmosphere FX -->
+  <div class="fixed inset-0 pointer-events-none opacity-25 overflow-hidden -z-10">
+    <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-ethereal-purple/10 blur-[120px]"></div>
+  </div>
+
+  <!-- Hero Background Effect -->
+  <div class="absolute inset-0 hero-gradient pointer-events-none -z-10"></div>
+
+  <!-- Main Content Canvas -->
+  <main class="min-h-screen pt-20 pb-20 md:pb-0 px-4 md:px-margin-desktop max-w-container-max-width mx-auto flex flex-col justify-between">
+    
+    <!-- Intro / Home Module View -->
+    <section class="max-w-4xl mx-auto pt-16 pb-16 text-center md:text-left hidden" id="intro">
+      <h2 class="font-display-lg text-4xl md:text-[64px] md:leading-[1.1] text-primary mb-6 arcane-glow uppercase tracking-wide">REFERÊNCIA DE D&D 5E EM PT-BR</h2>
+      <p class="font-body-lg text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-8">
+        Um único sistema de consulta para mesa, com magias, equipamentos, itens mágicos e criaturas no mesmo shell. O grimório definitivo para o mestre moderno e seus heróis.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center md:justify-start mb-16">
+        <button type="button" data-module="grimorio" class="bg-primary text-on-primary px-8 py-3 font-label-sm text-xs rounded hover:brightness-110 transition-all flex items-center gap-2 cursor-pointer border-none font-bold uppercase tracking-wider">
+          COMEÇAR AVENTURA <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+        </button>
+        <button type="button" class="border border-primary/40 text-primary px-8 py-3 font-label-sm text-xs rounded hover:bg-primary/10 transition-all bg-transparent cursor-pointer font-bold uppercase tracking-wider" onclick="alert('PROJETO D1 v2.0 - Desenvolvido para facilitar a consulta rápida de regras, magias, arsenal e monstros de D&D 5e totalmente em português.')">
+          SAIBA MAIS
+        </button>
+      </div>
+
+      <!-- Bento Grid Main Content -->
+      <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-gutter text-left mb-16">
+        <!-- Grimório Card -->
+        <div data-module="grimorio" class="md:col-span-6 lg:col-span-8 glass-panel p-gutter rounded-xl flex flex-col justify-between group h-80 relative overflow-hidden cursor-pointer">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brass-accent to-transparent"></div>
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-4xl text-primary">auto_stories</span>
+              <h3 class="font-headline-lg text-2xl text-primary uppercase tracking-wider">GRIMÓRIO</h3>
+            </div>
+            <p class="font-body-md text-base text-on-surface-variant max-w-md">361 magias com busca, filtros avançados e descrição completa traduzida para o português brasileiro.</p>
+          </div>
+          <div class="flex items-end justify-between">
+            <div class="flex gap-2">
+              <span class="bg-blood-crimson/30 text-error font-label-sm text-[10px] px-2 py-0.5 rounded border border-error/20 font-bold">V</span>
+              <span class="bg-ethereal-purple/30 text-secondary font-label-sm text-[10px] px-2 py-0.5 rounded border border-secondary/20 font-bold">S</span>
+              <span class="bg-primary/30 text-primary font-label-sm text-[10px] px-2 py-0.5 rounded border border-primary/20 font-bold">M</span>
+            </div>
+            <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">CONSULTAR <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+          </div>
+        </div>
+
+        <!-- Bestiário Card -->
+        <div data-module="bestiario" class="md:col-span-6 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between group h-80 relative overflow-hidden cursor-pointer">
+          <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-transparent"></div>
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-4xl text-primary">skull</span>
+              <h3 class="font-headline-lg text-2xl text-primary uppercase tracking-wider">BESTIÁRIO</h3>
+            </div>
+            <p class="font-body-md text-base text-on-surface-variant">345 monstros com estatísticas, ações, resistências e lore detalhada.</p>
+          </div>
+          <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all self-end">ESTUDAR CRIATURAS <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+        </div>
+
+        <!-- Arsenal Card -->
+        <div data-module="arsenal" class="md:col-span-3 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between group h-64 cursor-pointer">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-symbols-outlined text-3xl text-primary">swords</span>
+              <h4 class="font-title-md text-xl text-primary uppercase font-bold">ARSENAL</h4>
+            </div>
+            <p class="font-body-md text-sm text-on-surface-variant">527 equipamentos, armas, armaduras e itens mágicos raros.</p>
+          </div>
+          <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">VER ITENS <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+        </div>
+
+        <!-- Raças & Classes Card (disabled) -->
+        <div class="md:col-span-3 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between h-64 opacity-65 border-dashed cursor-not-allowed">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-symbols-outlined text-3xl text-on-surface-variant">group</span>
+              <h4 class="font-title-md text-xl text-on-surface-variant uppercase font-bold">RAÇAS &amp; CLASSES</h4>
+            </div>
+            <p class="font-body-md text-sm text-on-surface-variant/65">Detalhes, regras e tabelas de raças e classes oficiais de D&amp;D 5e.</p>
+          </div>
+          <span class="font-label-sm text-[10px] text-primary border border-primary/45 px-2 py-0.5 self-start rounded font-bold uppercase">EM BREVE</span>
+        </div>
+
+        <!-- Ficha Card (disabled) -->
+        <div class="md:col-span-6 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between h-64 opacity-65 border-dashed cursor-not-allowed">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-symbols-outlined text-3xl text-on-surface-variant">person</span>
+              <h4 class="font-title-md text-xl text-on-surface-variant uppercase font-bold">FICHA DIGITAL</h4>
+            </div>
+            <p class="font-body-md text-sm text-on-surface-variant/65">Criação e manutenção de fichas de personagens com armazenamento local seguro.</p>
+          </div>
+          <span class="font-label-sm text-[10px] text-primary border border-primary/45 px-2 py-0.5 self-start rounded font-bold uppercase">EM BREVE</span>
+        </div>
+      </div>
+
+      <!-- Decorative Illustration Section -->
+      <div class="w-full h-80 relative overflow-hidden rounded-xl border border-primary/20 mb-12">
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background z-10"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-20">
+          <span class="font-label-sm text-xs text-primary tracking-[0.3em] mb-3 uppercase font-bold">Tradição &amp; Tecnologia</span>
+          <h3 class="font-headline-lg text-xl md:text-3xl text-on-surface max-w-2xl font-medium leading-relaxed">O conhecimento de séculos, destilado em uma interface moderna para suas sessões.</h3>
+        </div>
+        <div class="absolute inset-0 bg-[#141316]/40 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#141316]/90"></div>
+        <div class="w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-surface-container/50 to-background flex items-center justify-center opacity-65">
+          <span class="material-symbols-outlined text-9xl text-primary/10">shield</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Content Module View (Grimorio, Arsenal, Bestiario) -->
+    <section class="flex-grow pt-8 pb-16 hidden" id="app">
+      <div class="max-w-5xl mx-auto">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-primary/10 pb-6">
+          <div>
+            <h2 class="font-display-lg text-4xl text-primary mb-2 uppercase tracking-wide" id="module-title-display">Grimório Arcano</h2>
+            <p class="font-body-lg text-base text-on-surface-variant max-w-2xl" id="module-description-display">Um compêndio digital de saberes místicos e encantamentos transcendentais para a 5ª Edição.</p>
+          </div>
+          <div class="text-right whitespace-nowrap">
+            <span class="font-label-sm text-xs text-primary/60 uppercase tracking-widest font-bold" id="stats">0 de 0 itens</span>
+          </div>
+        </div>
+
+        <!-- Cards List -->
+        <div class="space-y-4" id="list"></div>
+
+        <!-- Empty State -->
+        <div class="hidden text-center py-20 text-on-surface-variant flex flex-col items-center justify-center gap-4" id="empty">
+          <span class="material-symbols-outlined text-6xl text-primary/30">search_off</span>
+          <div>
+            <h4 class="font-headline-lg text-xl text-primary uppercase">Nenhum Registro Encontrado</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1">Refine seus termos de busca ou limpe seus filtros ativos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 border-t border-primary/10 mt-16 max-w-container-max-width mx-auto px-6 flex flex-col items-center text-center gap-6">
+      <h2 class="font-headline-lg text-2xl text-primary tracking-widest font-bold m-0">PROJETO D1</h2>
+      <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+        <a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all no-underline" href="#" onclick="alert('Sistema off-line contendo grimório, bestiário e arsenal integrados para D&D 5e em PT-BR.')">Termos de Uso</a>
+        <a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all no-underline" href="#" onclick="alert('Este aplicativo funciona offline-first. Todos os dados são armazenados localmente e processados no navegador.')">Privacidade</a>
+        <a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all no-underline" href="#" onclick="alert('Desenvolvido como ferramenta de apoio ao Mestre para campanhas de RPG. Agradecimentos à biblioteca élfica e a todos os colaboradores da tradução.')">Créditos</a>
+      </div>
+      <p class="font-body-md text-xs text-on-surface-variant opacity-60 max-w-3xl leading-relaxed m-0">
+        Projeto D1 — D&amp;D 5e em Português Brasileiro. Todo o conteúdo conceitual, marcas registradas e propriedades intelectuais referentes a Dungeons &amp; Dragons (D&amp;D) são de direito exclusivo da Wizards of the Coast LLC. Este é um projeto de fã sem fins comerciais.
+      </p>
+    </footer>
+
+    <!-- Bottom Navigation Bar for Mobile -->
+    <div class="fixed bottom-0 left-0 w-full h-16 bg-background/95 backdrop-blur-md border-t border-primary/20 z-50 flex md:hidden items-center justify-around px-4 shadow-lg" id="mobile-nav">
+      <button type="button" data-module="inicio" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-inicio">
+        <span class="material-symbols-outlined text-xl">home</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Início</span>
+      </button>
+      <button type="button" data-module="grimorio" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-grimorio">
+        <span class="material-symbols-outlined text-xl">auto_stories</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Grimório</span>
+      </button>
+      <button type="button" data-module="arsenal" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-arsenal">
+        <span class="material-symbols-outlined text-xl">swords</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Arsenal</span>
+      </button>
+      <button type="button" data-module="bestiario" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-bestiario">
+        <span class="material-symbols-outlined text-xl">skull</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Bestiário</span>
+      </button>
+    </div>
+  </main>
+
+  <script>
+    // Injected Data Payloads (replaced by Python build script)
+    const SPELLS = __SPELLS_DATA__;
+    const ITEMS = __ARSENAL_DATA__;
+    const MONSTERS = __MONSTERS_DATA__;
+    
+    const ORDER = ['inicio', 'grimorio', 'arsenal', 'bestiario'];
+    
+    const MODULES = {
+      inicio: {
+        title: 'Projeto D1',
+        description: 'Um único sistema de consulta para mesa, com magias, equipamentos, itens mágicos e criaturas no mesmo shell.',
+        placeholder: 'Escolha um módulo...',
+        data: []
+      },
+      grimorio: {
+        title: 'Grimório Arcano',
+        description: 'Um compêndio digital de saberes místicos e encantamentos transcendentais para a 5ª Edição.',
+        placeholder: 'Buscar magia por nome, escola ou classe...',
+        data: SPELLS,
+        total: 'magias'
+      },
+      arsenal: {
+        title: 'Arsenal do Mestre',
+        description: 'Catálogo de armas, armaduras, ferramentas e artefatos mágicos raros para as suas campanhas.',
+        placeholder: 'Buscar item por nome, tipo ou raridade...',
+        data: ITEMS,
+        total: 'itens'
+      },
+      bestiario: {
+        title: 'Bestiário Primordial',
+        description: 'Catálogo abrangente de monstros lendários e criaturas primordiais com fichas completas.',
+        placeholder: 'Buscar monstro por nome, tipo ou ND...',
+        data: MONSTERS,
+        total: 'monstros'
+      }
+    };
+
+    // Filter Constant Mappings
+    const ESCOLAS = ['abjuração', 'adivinhação', 'conjuração', 'encantamento', 'evocação', 'ilusão', 'necromancia', 'transmutação'];
+    const CLASSES_GRIMORIO = ['Bardo', 'Bruxo', 'Clérigo', 'Druida', 'Feiticeiro', 'Mago', 'Paladino', 'Patrulheiro'];
+    const NIVEIS = ['Truque', '1° nível', '2° nível', '3° nível', '4° nível', '5° nível', '6° nível', '7° nível', '8° nível', '9° nível'];
+    const TAMANHOS = ['Minúsculo', 'Pequeno', 'Médio', 'Grande', 'Enorme', 'Imenso'];
+    const SINTONIZACOES = ['Requer sintonização', 'Não requer sintonização'];
+    const CLASSES_ARSENAL = ['Bárbaro', 'Bardo', 'Bruxo', 'Clérigo', 'Druida', 'Feiticeiro', 'Guerreiro', 'Ladino', 'Mago', 'Monge', 'Paladino', 'Patrulheiro'];
+    const ND_RANGES = [
+      {label: '0', test: nd => nd === 0},
+      {label: '1/8–1/4', test: nd => nd > 0 && nd < 0.5},
+      {label: '1/2–1', test: nd => nd >= 0.5 && nd <= 1},
+      {label: '2–4', test: nd => nd >= 2 && nd <= 4},
+      {label: '5–10', test: nd => nd >= 5 && nd <= 10},
+      {label: '11–16', test: nd => nd >= 11 && nd <= 16},
+      {label: '17–21', test: nd => nd >= 17 && nd <= 21},
+      {label: '22–25', test: nd => nd >= 22 && nd <= 25},
+      {label: '26–30', test: nd => nd >= 26 && nd <= 30}
+    ];
+    const ND_RANGE_LABELS = ND_RANGES.map(r => r.label);
+
+    // Dynamic Filter Extraction
+    const CATEGORIAS = [...new Set(ITEMS.map(i => i.categoria).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const TIPOS_ARSENAL = [...new Set(ITEMS.map(i => i.tipo).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const FONTES_ARSENAL = [...new Set(ITEMS.map(i => i.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const RARIDADES = [...new Set(ITEMS.map(i => i.raridade).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    
+    const TIPOS_BESTIARIO = [...new Set(MONSTERS.map(m => m.tipo_criatura).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const ALINHAMENTOS = [...new Set(MONSTERS.map(m => m.alinhamento).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const FONTES_BESTIARIO = [...new Set(MONSTERS.map(m => m.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+
+    // Global Active Filters State
+    const activeFilters = {
+      grimorio: { nivel: new Set(), escola: new Set(), classe: new Set() },
+      arsenal: { categoria: new Set(), tipo: new Set(), fonte: new Set(), raridade: new Set(), sintonizacao: new Set(), classe: new Set() },
+      bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() }
+    };
+
+    let current = 'inicio', query = '', openId = null;
+    
+    const $ = sel => document.querySelector(sel);
+    const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const norm = v => String(v ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    function setModule(name, push = true) {
+      if (!MODULES[name]) name = 'inicio';
+      current = name;
+      query = '';
+      openId = null;
+      
+      const searchBox = $('#search-box');
+      searchBox.value = '';
+      searchBox.placeholder = MODULES[name].placeholder;
+      
+      // Update displayed titles
+      $('#module-title-display').textContent = MODULES[name].title;
+      $('#module-description-display').textContent = MODULES[name].description;
+      
+      // Toggle views visibility
+      if (name === 'inicio') {
+        $('#intro').classList.remove('hidden');
+        $('#app').classList.add('hidden');
+        $('#header-search-container').classList.add('opacity-0', 'pointer-events-none');
+        $('#toggle-filters').classList.add('hidden');
+        document.body.classList.remove('show-sidebar');
+        closeSidebar();
+      } else {
+        $('#intro').classList.add('hidden');
+        $('#app').classList.remove('hidden');
+        $('#header-search-container').classList.remove('opacity-0', 'pointer-events-none');
+        $('#toggle-filters').classList.remove('hidden');
+        document.body.classList.add('show-sidebar');
+      }
+      
+      // Update Navigation Indicator
+      document.querySelectorAll('[data-module]').forEach(el => {
+        const isCurrent = el.dataset.module === name;
+        el.classList.toggle('active', isCurrent);
+        
+        // Navigation links styling toggling
+        if (el.tagName === 'BUTTON' && el.id && el.id.startsWith('nav-')) {
+          if (isCurrent) {
+            el.classList.add('text-primary', 'border-b-2', 'border-primary', 'pb-1');
+            el.classList.remove('text-on-surface-variant');
+          } else {
+            el.classList.remove('text-primary', 'border-b-2', 'border-primary', 'pb-1');
+            el.classList.add('text-on-surface-variant');
+          }
+        }
+        
+        // Mobile bottom nav buttons styling toggling
+        if (el.tagName === 'BUTTON' && el.id && el.id.startsWith('mobile-nav-')) {
+          if (isCurrent) {
+            el.classList.add('text-primary');
+            el.classList.remove('text-on-surface-variant');
+          } else {
+            el.classList.remove('text-primary');
+            el.classList.add('text-on-surface-variant');
+          }
+        }
       });
-    });
-  }
-  
-  const btnsContainer = section.querySelector('#' + btnsId);
-  values.forEach(value => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    
-    // Tratamento especial para exibição de botões
-    if (current === 'grimorio' && type === 'nivel') {
-      btn.textContent = value === 'Truque' ? '★' : value.replace(' nível', '');
-      if (value === 'Truque') btn.classList.add('cantrip-filter');
-    } else {
-      if (current === 'grimorio' && type === 'escola') {
-        btn.textContent = value.charAt(0).toUpperCase() + value.slice(1);
-      } else {
-        btn.textContent = value;
+      
+      if (push) {
+        history.replaceState(null, '', '#' + name);
       }
+      
+      buildFilters();
+      render();
     }
-    
-    btn.dataset.filter = type;
-    btn.dataset.value = value;
-    
-    // Restaurar estado ativo do botão
-    const activeSet = activeFilters[current][type];
-    if (activeSet.has(value)) {
-      if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
-        btn.classList.add('active-trick');
-      } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
-        btn.classList.add('active-trick');
-      } else {
-        btn.classList.add('active');
-      }
-    }
-    
-    btn.onclick = () => toggleFilter(type, value, btn);
-    btnsContainer.appendChild(btn);
-  });
-}
 
-function toggleFilter(type, value, btn) {
-  const activeSet = activeFilters[current][type];
-  if (activeSet.has(value)) {
-    activeSet.delete(value);
-    btn.classList.remove('active', 'active-trick');
-  } else {
-    activeSet.add(value);
-    if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
-      btn.classList.add('active-trick');
-    } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
-      btn.classList.add('active-trick');
-    } else {
-      btn.classList.add('active');
+    function buildFilters() {
+      const container = $('#filters');
+      if (!container) return;
+      container.innerHTML = '';
+      
+      if (current === 'inicio') return;
+      
+      if (current === 'grimorio') {
+        addFilterSection(container, 'Nível', 'nivel', NIVEIS);
+        addFilterSection(container, 'Escola', 'escola', ESCOLAS);
+        addFilterSection(container, 'Classe', 'classe', CLASSES_GRIMORIO);
+      } else if (current === 'arsenal') {
+        addFilterSection(container, 'Categoria', 'categoria', CATEGORIAS);
+        addFilterSection(container, 'Tipo', 'tipo', TIPOS_ARSENAL, { collapsible: true, collapsed: true, search: true });
+        addFilterSection(container, 'Fonte', 'fonte', FONTES_ARSENAL);
+        addFilterSection(container, 'Usável por classe', 'classe', CLASSES_ARSENAL);
+        addFilterSection(container, 'Raridade', 'raridade', RARIDADES);
+        addFilterSection(container, 'Sintonização', 'sintonizacao', SINTONIZACOES);
+      } else if (current === 'bestiario') {
+        addFilterSection(container, 'Tipo', 'tipo', TIPOS_BESTIARIO, { collapsible: true, collapsed: true, search: true });
+        addFilterSection(container, 'Tamanho', 'tamanho', TAMANHOS);
+        addFilterSection(container, 'ND', 'nd', ND_RANGE_LABELS);
+        addFilterSection(container, 'Alinhamento', 'alinhamento', ALINHAMENTOS, { collapsible: true, collapsed: true });
+        addFilterSection(container, 'Fonte', 'fonte', FONTES_BESTIARIO);
+      }
     }
-  }
-  openId = null;
-  render();
-}
-function fields(item){
-  if(current==='grimorio') {
-    return [
-      item.name,
-      item.school,
-      item.level === 'Truque' ? 'Truque' : item.level + 'º nível',
-      item.classes,
-      item.description
-    ].join(' ');
-  }
-  if(current==='arsenal') {
-    return [
-      item.nome, item.categoria, item.tipo, item.fonte, item.raridade, item.descricao,
-      item.preco, item.peso, item.dano, item.ca, item.proficiência_requerida,
-      (item.propriedades || []).join(' '), (item.classes || []).join(' ')
-    ].join(' ');
-  }
-  return [
-    item.nome, item.tipo_criatura, item.tamanho, item.alinhamento,
-    item.ca, item.pv, item.pv_dados, item.deslocamento,
-    item.testes_resistencia, item.pericias, item.resistencia_dano, item.imunidade_dano,
-    item.imunidade_condicao, item.sentidos, item.idiomas,
-    item.nd, item.xp, item.fonte, item.descricao,
-    (item.habilidades_especiais || []).join(' '),
-    (item.acoes || []).join(' '),
-    (item.acoes_lendarias || []).join(' '),
-    (item.reacoes || []).join(' ')
-  ].join(' ');
-}
 
-function getFiltered(){
-  const q=norm(query);
-  const data = MODULES[current].data;
-  
-  const filtered = data.filter(item => {
-    // 1. Busca textual geral
-    if (q && !norm(fields(item)).includes(q)) return false;
-    
-    // 2. Filtros avançados por módulo
-    if (current === 'grimorio') {
-      const f = activeFilters.grimorio;
+    function addFilterSection(container, title, type, values, options = {}) {
+      const section = document.createElement('div');
+      section.className = 'filter-section select-none' + (options.collapsible ? ' border-b border-primary/10 pb-4' : '');
       
-      // Nível
-      if (f.nivel.size) {
-        const levelVal = item.level === 'Truque' ? 'Truque' : (item.level ? item.level + '° nível' : 'Outros');
-        if (!f.nivel.has(levelVal)) return false;
+      // Dynamic Section ID
+      const btnsId = 'btns-' + type;
+      
+      // Title Block
+      let titleHtml = '';
+      if (options.collapsible) {
+        titleHtml = `
+          <button class="w-full flex items-center justify-between font-label-sm text-xs text-primary uppercase tracking-widest py-2 bg-transparent border-none text-left cursor-pointer focus:outline-none" type="button" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="flex items-center gap-2 font-bold"><span class="material-symbols-outlined text-sm">expand_more</span> ${esc(title)}</span>
+          </button>
+        `;
+      } else {
+        titleHtml = `
+          <div class="font-label-sm text-xs text-primary uppercase tracking-widest font-bold mb-3 flex items-center gap-2 border-b border-primary/10 pb-1.5">${esc(title)}</div>
+        `;
       }
       
-      // Escola
-      if (f.escola.size && !f.escola.has(String(item.school || '').toLowerCase())) return false;
+      const searchPlaceholder = type === 'tipo' ? 'Filtrar tipos...' : 'Filtrar...';
+      const searchHtml = options.search
+        ? `<input class="bg-surface-container border border-primary/30 text-on-surface text-xs px-3 py-1.5 focus:outline-none focus:border-primary transition-all w-full rounded-sm mb-3" id="${esc(type)}-filter-search" type="search" placeholder="${esc(searchPlaceholder)}" autocomplete="off" spellcheck="false">`
+        : '';
+        
+      section.innerHTML = titleHtml + `<div class="filter-section-body space-y-3">${searchHtml}<div class="flex flex-wrap gap-1.5" id="${esc(btnsId)}"></div></div>`;
+      container.appendChild(section);
       
-      // Classe
-      if (f.classe.size) {
-        const itemClasses = String(item.classes || '').split(',').map(c => c.trim()).filter(Boolean);
-        const hasClass = itemClasses.some(c => f.classe.has(c));
-        if (!hasClass) return false;
-      }
-    } 
-    else if (current === 'arsenal') {
-      const f = activeFilters.arsenal;
-      
-      // Categoria
-      if (f.categoria.size && !f.categoria.has(item.categoria)) return false;
-      
-      // Tipo
-      if (f.tipo.size && !f.tipo.has(item.tipo)) return false;
-      
-      // Fonte
-      if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
-      
-      // Classe
-      if (f.classe.size) {
-        const classes = item.classes || [];
-        const hasClass = [...f.classe].some(c => classes.includes(c));
-        if (!hasClass) return false;
-      }
-      
-      // Raridade
-      if (f.raridade.size && !f.raridade.has(item.raridade)) return false;
-      
-      // Sintonização
-      if (f.sintonizacao.size) {
-        const attunementVal = item.sintonizacao ? 'Requer sintonização' : 'Não requer sintonização';
-        if (!f.sintonizacao.has(attunementVal)) return false;
-      }
-    } 
-    else if (current === 'bestiario') {
-      const f = activeFilters.bestiario;
-      
-      // Tipo
-      if (f.tipo.size && !f.tipo.has(item.tipo_criatura)) return false;
-      
-      // Tamanho
-      if (f.tamanho.size && !f.tamanho.has(item.tamanho)) return false;
-      
-      // ND (por faixas personalizadas)
-      if (f.nd.size) {
-        const ndVal = parseNd(item.nd);
-        const matchesRange = [...f.nd].some(label => {
-          const range = ND_RANGES.find(r => r.label === label);
-          return range && range.test(ndVal);
+      if (options.search) {
+        section.querySelector('#' + type + '-filter-search').addEventListener('input', event => {
+          const q = norm(event.target.value);
+          section.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('hidden', q && !norm(btn.dataset.value).includes(q));
+          });
         });
-        if (!matchesRange) return false;
       }
       
-      // Alinhamento
-      if (f.alinhamento.size && !f.alinhamento.has(item.alinhamento)) return false;
+      const btnsContainer = section.querySelector('#' + btnsId);
+      values.forEach(value => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn bg-surface-container-low border border-primary/10 py-1 px-2.5 rounded-sm font-label-sm text-[10px] text-on-surface-variant hover:border-primary/45 transition-colors cursor-pointer text-left focus:outline-none';
+        
+        // Differentiate filters visually
+        if (current === 'grimorio' && type === 'nivel') {
+          btn.textContent = value === 'Truque' ? '★' : value.replace(' nível', '');
+        } else {
+          if (current === 'grimorio' && type === 'escola') {
+            btn.textContent = value.charAt(0).toUpperCase() + value.slice(1);
+          } else {
+            btn.textContent = value;
+          }
+        }
+        
+        btn.dataset.filter = type;
+        btn.dataset.value = value;
+        
+        // Restore active buttons state
+        const activeSet = activeFilters[current][type];
+        if (activeSet.has(value)) {
+          if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
+            btn.classList.add('bg-cantrip/20', 'border-cantrip', 'text-cantrip', 'font-bold');
+            btn.classList.remove('text-on-surface-variant');
+          } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
+            btn.classList.add('bg-cantrip/20', 'border-cantrip', 'text-cantrip', 'font-bold');
+            btn.classList.remove('text-on-surface-variant');
+          } else {
+            btn.classList.add('bg-primary/20', 'border-primary', 'text-primary', 'font-bold');
+            btn.classList.remove('text-on-surface-variant');
+          }
+        }
+        
+        btn.onclick = () => toggleFilter(type, value, btn);
+        btnsContainer.appendChild(btn);
+      });
+    }
+
+    function toggleFilter(type, value, btn) {
+      const activeSet = activeFilters[current][type];
+      if (activeSet.has(value)) {
+        activeSet.delete(value);
+        btn.classList.remove('bg-primary/20', 'border-primary', 'text-primary', 'bg-cantrip/20', 'border-cantrip', 'text-cantrip', 'font-bold');
+        btn.classList.add('text-on-surface-variant');
+      } else {
+        activeSet.add(value);
+        btn.classList.remove('text-on-surface-variant');
+        if (current === 'grimorio' && type === 'nivel' && value === 'Truque') {
+          btn.classList.add('bg-cantrip/20', 'border-cantrip', 'text-cantrip', 'font-bold');
+        } else if (current === 'arsenal' && type === 'categoria' && value === 'Item mágico') {
+          btn.classList.add('bg-cantrip/20', 'border-cantrip', 'text-cantrip', 'font-bold');
+        } else {
+          btn.classList.add('bg-primary/20', 'border-primary', 'text-primary', 'font-bold');
+        }
+      }
+      openId = null;
+      render();
+    }
+
+    function fields(item) {
+      if (current === 'grimorio') {
+        return [
+          item.name,
+          item.school,
+          item.level === 'Truque' ? 'Truque' : item.level + 'º nível',
+          item.classes,
+          item.description
+        ].join(' ');
+      }
+      if (current === 'arsenal') {
+        return [
+          item.nome, item.categoria, item.tipo, item.fonte, item.raridade, item.descricao,
+          item.preco, item.peso, item.dano, item.ca, item.proficiência_requerida,
+          (item.propriedades || []).join(' '), (item.classes || []).join(' ')
+        ].join(' ');
+      }
+      return [
+        item.nome, item.tipo_criatura, item.tamanho, item.alinhamento,
+        item.ca, item.pv, item.pv_dados, item.deslocamento,
+        item.testes_resistencia, item.pericias, item.resistencia_dano, item.imunidade_dano,
+        item.imunidade_condicao, item.sentidos, item.idiomas,
+        item.nd, item.xp, item.fonte, item.descricao,
+        (item.habilidades_especiais || []).join(' '),
+        (item.acoes || []).join(' '),
+        (item.acoes_lendarias || []).join(' '),
+        (item.reacoes || []).join(' ')
+      ].join(' ');
+    }
+
+    function getFiltered() {
+      const q = norm(query);
+      const data = MODULES[current].data;
       
-      // Fonte
-      if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
+      const filtered = data.filter(item => {
+        // 1. Text Search
+        if (q && !norm(fields(item)).includes(q)) return false;
+        
+        // 2. Advanced Filters
+        if (current === 'grimorio') {
+          const f = activeFilters.grimorio;
+          if (f.nivel.size) {
+            const levelVal = item.level === 'Truque' ? 'Truque' : (item.level ? item.level + '° nível' : 'Outros');
+            if (!f.nivel.has(levelVal)) return false;
+          }
+          if (f.escola.size && !f.escola.has(String(item.school || '').toLowerCase())) return false;
+          if (f.classe.size) {
+            const itemClasses = String(item.classes || '').split(',').map(c => c.trim()).filter(Boolean);
+            const hasClass = itemClasses.some(c => f.classe.has(c));
+            if (!hasClass) return false;
+          }
+        } 
+        else if (current === 'arsenal') {
+          const f = activeFilters.arsenal;
+          if (f.categoria.size && !f.categoria.has(item.categoria)) return false;
+          if (f.tipo.size && !f.tipo.has(item.tipo)) return false;
+          if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
+          if (f.classe.size) {
+            const classes = item.classes || [];
+            const hasClass = [...f.classe].some(c => classes.includes(c));
+            if (!hasClass) return false;
+          }
+          if (f.raridade.size && !f.raridade.has(item.raridade)) return false;
+          if (f.sintonizacao.size) {
+            const attunementVal = item.sintonizacao ? 'Requer sintonização' : 'Não requer sintonização';
+            if (!f.sintonizacao.has(attunementVal)) return false;
+          }
+        } 
+        else if (current === 'bestiario') {
+          const f = activeFilters.bestiario;
+          if (f.tipo.size && !f.tipo.has(item.tipo_criatura)) return false;
+          if (f.tamanho.size && !f.tamanho.has(item.tamanho)) return false;
+          if (f.nd.size) {
+            const ndVal = parseNd(item.nd);
+            const matchesRange = [...f.nd].some(label => {
+              const range = ND_RANGES.find(r => r.label === label);
+              return range && range.test(ndVal);
+            });
+            if (!matchesRange) return false;
+          }
+          if (f.alinhamento.size && !f.alinhamento.has(item.alinhamento)) return false;
+          if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
+        }
+        return true;
+      });
+      
+      // 3. Sorting
+      if (current === 'grimorio') {
+        return filtered.sort((a,b) => a.name.localeCompare(b.name,'pt-BR'));
+      }
+      if (current === 'arsenal') {
+        return filtered.sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR'));
+      }
+      if (current === 'bestiario') {
+        return filtered.sort((a,b) => {
+          const ndA = parseNd(a.nd);
+          const ndB = parseNd(b.nd);
+          if (ndA !== ndB) return ndA - ndB;
+          return a.nome.localeCompare(b.nome,'pt-BR');
+        });
+      }
+      return filtered;
     }
-    
-    return true;
-  });
-  
-  // 3. Ordenação
-  if (current === 'grimorio') {
-    return filtered.sort((a,b) => a.name.localeCompare(b.name,'pt-BR'));
-  }
-  if (current === 'arsenal') {
-    return filtered.sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR'));
-  }
-  if (current === 'bestiario') {
-    return filtered.sort((a,b) => {
-      const ndA = parseNd(a.nd);
-      const ndB = parseNd(b.nd);
-      if(ndA !== ndB) return ndA - ndB;
-      return a.nome.localeCompare(b.nome,'pt-BR');
+
+    function clearAllFilters() {
+      query = '';
+      openId = null;
+      $('#search-box').value = '';
+      if (current !== 'inicio') {
+        for (const key in activeFilters[current]) {
+          activeFilters[current][key].clear();
+        }
+      }
+      buildFilters();
+      render();
+    }
+
+    function render() {
+      if (current === 'inicio') return;
+      const data = MODULES[current].data, filtered = getFiltered();
+      $('#stats').textContent = `${filtered.length} de ${data.length} ${MODULES[current].total}`;
+      
+      const emptyState = $('#empty');
+      const listContainer = $('#list');
+      
+      if (!filtered.length) {
+        emptyState.classList.remove('hidden');
+        listContainer.innerHTML = '';
+      } else {
+        emptyState.classList.add('hidden');
+        listContainer.innerHTML = filtered.map(renderCard).join('');
+        
+        // Add Dynamic Accordion Toggle
+        document.querySelectorAll('.card').forEach(card => {
+          card.onclick = (e) => {
+            // Avoid triggering toggle if clicking inside an expanded detail interactive element
+            if (e.target.closest('.detail a, .detail button, .detail table')) return;
+            
+            const isAlreadyOpen = card.classList.contains('open');
+            
+            // Accordion: Close other cards first
+            document.querySelectorAll('.card').forEach(c => {
+              c.classList.remove('open');
+              const d = c.querySelector('.detail');
+              if (d) d.classList.add('hidden');
+              const arrow = c.querySelector('.expand-arrow');
+              if (arrow) arrow.classList.remove('rotate-90');
+            });
+            
+            if (!isAlreadyOpen) {
+              card.classList.add('open');
+              const d = card.querySelector('.detail');
+              if (d) d.classList.remove('hidden');
+              const arrow = card.querySelector('.expand-arrow');
+              if (arrow) arrow.classList.add('rotate-90');
+              openId = card.dataset.id;
+              
+              // Scroll Smoothly to Card with 50ms delay
+              setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }, 60);
+            } else {
+              openId = null;
+            }
+          };
+        });
+      }
+    }
+
+    function renderCard(item) {
+      const id = item.id || item.name || item.nome;
+      const open = id === openId ? ' open' : '';
+      if (current === 'grimorio') return renderSpellCard(item, id, open);
+      if (current === 'arsenal') return renderArsenalCard(item, id, open);
+      return renderMonsterCard(item, id, open);
+    }
+
+    function renderSpellCard(item, id, open) {
+      const isCantrip = item.level === 'Truque';
+      const cls = isCantrip ? 'cantrip' : 'leveled';
+      const badgeTxt = isCantrip ? '★' : `${item.level}º`;
+      const classes = classTags(String(item.classes || '').split(',').map(v => v.trim()).filter(Boolean));
+      
+      // Determine school color border style
+      let schoolBadgeColor = 'border-primary/30 text-on-surface-variant bg-primary/5';
+      const schoolNorm = norm(item.school);
+      if (schoolNorm.includes('abjura')) schoolBadgeColor = 'border-blood-crimson/40 text-error bg-blood-crimson/10';
+      else if (schoolNorm.includes('encanta')) schoolBadgeColor = 'border-ethereal-purple/40 text-secondary bg-ethereal-purple/10';
+      else if (schoolNorm.includes('evoca')) schoolBadgeColor = 'border-primary/40 text-primary bg-primary/10';
+      
+      return `
+        <article class="card ${cls}${open}" data-id="${esc(id)}">
+          <div class="card-head p-4 md:p-6 flex items-center justify-between group">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border ${isCantrip ? 'border-cantrip/20 bg-cantrip/5 text-cantrip' : 'border-primary/20 bg-primary/5 text-primary'} font-headline-lg text-base md:text-xl font-bold rounded-sm">${esc(badgeTxt)}</span>
+              <h3 class="font-headline-lg text-base md:text-xl text-on-surface uppercase ${open ? 'text-primary' : 'group-hover:text-primary'} transition-colors m-0">${esc(item.name)}</h3>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+              <span class="px-2.5 py-1 border ${schoolBadgeColor} font-label-sm uppercase tracking-widest text-[9px] md:text-[10px] rounded-full whitespace-nowrap">${esc(item.school)}</span>
+              <span class="material-symbols-outlined text-primary expand-arrow text-sm md:text-base transition-transform duration-300 ${open ? 'rotate-90' : 'group-hover:translate-x-1'}">arrow_forward_ios</span>
+            </div>
+          </div>
+          <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
+            <!-- Spell Stats Grid -->
+            <div class="px-4 md:px-8 pb-6 pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-b border-primary/10">
+              <div>
+                <span class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase block mb-1">Tempo de Conjuração</span>
+                <p class="font-body-md text-sm md:text-base text-on-surface m-0">${esc(item.cast_time)}</p>
+              </div>
+              <div>
+                <span class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase block mb-1">Alcance</span>
+                <p class="font-body-md text-sm md:text-base text-on-surface m-0">${esc(item.range)}</p>
+              </div>
+              <div>
+                <span class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase block mb-1">Componentes</span>
+                <p class="font-body-md text-sm md:text-base text-on-surface m-0">${esc(item.components)}</p>
+              </div>
+              <div>
+                <span class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase block mb-1">Duração</span>
+                <p class="font-body-md text-sm md:text-base text-on-surface m-0">${esc(item.duration)}</p>
+              </div>
+            </div>
+            
+            <!-- Tags (Classes) -->
+            <div class="px-4 md:px-8 py-3 flex flex-wrap gap-2">
+              ${classes}
+            </div>
+            
+            <!-- Description Body -->
+            <div class="px-4 md:px-8 pb-6 pt-4 spell-desc text-on-surface-variant leading-relaxed font-body-md text-sm md:text-base space-y-4">
+              ${richText(item.description)}
+            </div>
+            
+            <!-- Page reference -->
+            ${refBadge(pageRef(item))}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderArsenalCard(item, id, open) {
+      const isMagic = item.categoria === 'Item mágico';
+      const cls = isMagic ? 'cantrip' : 'leveled';
+      const tags = classTags([...(item.propriedades || []), ...(item.sintonizacao ? ['Sintonização'] : [])]);
+      
+      return `
+        <article class="card ${cls}${open}" data-id="${esc(id)}">
+          <div class="card-head p-4 md:p-6 flex items-center justify-between group">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border ${isMagic ? 'border-cantrip/20 bg-cantrip/5 text-cantrip' : 'border-primary/20 bg-primary/5 text-primary'} rounded-full">
+                <span class="material-symbols-outlined text-xl md:text-2xl">${categoryIcon(item.categoria)}</span>
+              </span>
+              <div>
+                <h3 class="font-headline-lg text-base md:text-xl text-on-surface uppercase ${open ? 'text-primary' : 'group-hover:text-primary'} transition-colors m-0">${esc(item.nome)}</h3>
+                <p class="font-label-sm text-[9px] md:text-[10px] text-on-surface-variant tracking-wider uppercase m-0 mt-1">${esc(item.categoria)}${item.raridade ? `, ${esc(item.raridade)}` : ''}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+              <span class="px-2.5 py-1 border border-primary/30 text-on-surface-variant font-label-sm uppercase tracking-widest text-[9px] md:text-[10px] bg-primary/5 rounded-full whitespace-nowrap">${esc(sourceLabel(item.fonte))}</span>
+              <span class="material-symbols-outlined text-primary expand-arrow text-sm md:text-base transition-transform duration-300 ${open ? 'rotate-90' : 'group-hover:translate-x-1'}">arrow_forward_ios</span>
+            </div>
+          </div>
+          <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
+            <!-- Details Grid -->
+            <div class="px-4 md:px-8 pb-6 pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-primary/10">
+              ${arsenalRows(item).filter(r => r[1]).map(([label, val]) => `
+                <div class="bg-surface-container-low p-2.5 rounded border border-primary/10">
+                  <span class="block font-label-sm text-[9px] md:text-[10px] text-on-surface-variant uppercase mb-1">${esc(label)}</span>
+                  <span class="font-headline-lg text-base md:text-lg text-primary">${esc(val)}</span>
+                </div>
+              `).join('')}
+            </div>
+            
+            <!-- Tags (Classes, Propriedades, Sintonização) -->
+            <div class="px-4 md:px-8 py-3 flex flex-wrap gap-2">
+              ${tags}
+            </div>
+            
+            <!-- Description -->
+            <div class="px-4 md:px-8 pb-6 pt-4 spell-desc text-on-surface-variant leading-relaxed font-body-md text-sm md:text-base space-y-4">
+              ${arsenalDesc(item)}
+            </div>
+            
+            <!-- Page Reference -->
+            ${refBadge(item.referencia)}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMonsterCard(item, id, open) {
+      const nd = parseNd(item.nd);
+      const cls = nd >= 17 ? 'cantrip' : 'leveled';
+      
+      return `
+        <article class="card ${cls}${open}" data-id="${esc(id)}">
+          <div class="card-head p-4 md:p-6 flex items-center justify-between group">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-error/20 font-headline-lg text-error bg-blood-crimson/10 font-bold rounded-sm text-xs md:text-sm whitespace-nowrap">ND ${esc(formatNd(item.nd))}</span>
+              <div>
+                <h3 class="font-headline-lg text-base md:text-xl text-on-surface uppercase ${open ? 'text-primary' : 'group-hover:text-primary'} transition-colors m-0">${esc(item.nome)}</h3>
+                <p class="font-label-sm text-[9px] md:text-[10px] text-on-surface-variant tracking-wider uppercase m-0 mt-1">${esc(item.tipo_criatura || '')}${item.tamanho ? `, ${esc(item.tamanho)}` : ''} &bull; ${esc(item.alinhamento || '')}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+              <span class="px-2.5 py-1 border border-primary/30 text-on-surface-variant font-label-sm uppercase tracking-widest text-[9px] md:text-[10px] bg-primary/5 rounded-full whitespace-nowrap">${esc(sourceLabel(item.fonte))}</span>
+              <span class="material-symbols-outlined text-primary expand-arrow text-sm md:text-base transition-transform duration-300 ${open ? 'rotate-90' : 'group-hover:translate-x-1'}">arrow_forward_ios</span>
+            </div>
+          </div>
+          <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
+            <!-- Lore Description (if exists) -->
+            ${monsterLore(item)}
+            
+            <!-- Hit Points and AC -->
+            <div class="px-4 md:px-8 pt-4 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="flex items-center gap-3 bg-surface-container-low p-2.5 rounded border border-primary/10">
+                <span class="material-symbols-outlined text-primary text-xl md:text-2xl">shield</span>
+                <div>
+                  <span class="block font-label-sm text-[9px] md:text-[10px] text-on-surface-variant uppercase">Classe de Armadura (CA)</span>
+                  <span class="font-headline-lg text-base md:text-lg text-primary">${esc(item.ca)}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 bg-surface-container-low p-2.5 rounded border border-primary/10">
+                <span class="material-symbols-outlined text-error text-xl md:text-2xl">favorite</span>
+                <div>
+                  <span class="block font-label-sm text-[9px] md:text-[10px] text-on-surface-variant uppercase">Pontos de Vida (PV)</span>
+                  <span class="font-headline-lg text-base md:text-lg text-error">${item.pv_dados ? `${item.pv} (${esc(item.pv_dados)})` : esc(item.pv)}</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Attributes Grid (STR, DEX, CON, INT, WIS, CHA) -->
+            <div class="px-4 md:px-8 py-3">
+              ${scores(item.habilidades)}
+            </div>
+            
+            <!-- Details Grid for stats -->
+            <div class="px-4 md:px-8 py-4 grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-b border-primary/10">
+              ${monsterRowsFiltered(item).map(([label, val]) => `
+                <div>
+                  <span class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase block mb-1">${esc(label)}</span>
+                  <p class="font-body-md text-on-surface m-0 text-xs md:text-sm">${esc(val)}</p>
+                </div>
+              `).join('')}
+            </div>
+            
+            <!-- Actions and Abilities -->
+            <div class="px-4 md:px-8 pb-6 pt-4 space-y-4 text-sm md:text-base">
+              ${monsterDesc(item)}
+            </div>
+            
+            <!-- Page Reference -->
+            ${refBadge(item.referencia)}
+          </div>
+        </article>
+      `;
+    }
+
+    function monsterRowsFiltered(monster) {
+      return [
+        ['Deslocamento', monster.deslocamento],
+        ['Testes de Resistência', monster.testes_resistencia],
+        ['Perícias', monster.pericias],
+        ['Resistência a Dano', monster.resistencia_dano],
+        ['Imunidade a Dano', monster.imunidade_dano],
+        ['Imunidade a Condição', monster.imunidade_condicao],
+        ['Sentidos', monster.sentidos],
+        ['Idiomas', monster.idiomas]
+      ].filter(r => r[1]);
+    }
+
+    function detailGrid(rows) {
+      return '<div class="grid grid-cols-2 gap-4 pb-4 border-b border-primary/10">' + rows.filter(r => r[1]).map(([l, v]) => `<div><span class="font-label-sm text-[10px] text-primary/60 uppercase block mb-1">${esc(l)}</span><span class="font-body-md text-on-surface">${esc(v)}</span></div>`).join('') + '</div>';
+    }
+
+    function paragraphs(text) {
+      return String(text || '').split(/\n{2,}/).filter(Boolean).map(p => `<p class="font-body-md text-on-surface-variant leading-relaxed">${esc(p)}</p>`).join('');
+    }
+
+    function richText(text) {
+      const raw = String(text || '').trim();
+      if (!raw) return '';
+      const blocks = raw.split(/\n{2,}/).filter(Boolean);
+      let html = '', list = [];
+      const flush = () => {
+        if (list.length) {
+          html += `<ul class="list-disc pl-6 space-y-1.5 mb-4 text-on-surface-variant font-body-md">${list.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`;
+          list = [];
+        }
+      };
+      
+      for (const block of blocks) {
+        const value = block.trim();
+        if (/^[-•]\s+/.test(value)) {
+          list.push(value.replace(/^[-•]\s+/, ''));
+          continue;
+        }
+        flush();
+        if (value.startsWith('*') && value.endsWith('*')) {
+          html += `<p class="italic border-l-2 border-primary/30 pl-4 bg-primary/5 py-2 font-body-md text-on-surface-variant rounded-sm">${esc(value.slice(1, -1))}</p>`;
+        } else {
+          html += `<p class="font-body-md text-on-surface-variant leading-relaxed mb-4">${esc(value)}</p>`;
+        }
+      }
+      flush();
+      return html;
+    }
+
+    function pageRef(s) {
+      return s.page_print ? `${s.page_print} (PDF: ${s.page_pdf || ''})` : '';
+    }
+
+    function refBadge(ref) {
+      return ref ? `<div class="px-6 md:px-8 pb-6 text-right"><span class="inline-block bg-surface-container border border-primary/20 px-3 py-1.5 text-xs text-primary/80 rounded-sm font-label-sm font-bold uppercase">&📖 ${esc(ref)}</span></div>` : '';
+    }
+
+    function classTags(tags) {
+      const clean = tags.filter(Boolean);
+      if (!clean.length) return '';
+      return '<div class="flex flex-wrap gap-2">' + clean.map(tag => `<span class="px-2.5 py-0.5 border border-primary/30 rounded-sm text-[10px] text-primary font-label-sm bg-primary/5 uppercase font-bold">${esc(tag)}</span>`).join('') + '</div>';
+    }
+
+    function tagClass(tag) {
+      if (tag === 'Item mágico') return 'Item';
+      return String(tag).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '-');
+    }
+
+    function sourceLabel(source) {
+      if (source === 'Livro do Jogador') return 'LJ';
+      if (source === 'Guia do Mestre') return 'GM';
+      if (source === 'Guia de Xanathar para Todas as Coisas') return 'Xanathar';
+      return source || '';
+    }
+
+    function categoryIcon(category) {
+      return {
+        'Arma': 'swords',
+        'Armadura': 'shield_person',
+        'Equipamento': 'category',
+        'Ferramenta': 'construction',
+        'Item mágico': 'magic_button',
+        'Montaria': 'pets',
+        'Veículo': 'sailing',
+        'Veículo e montaria': 'sailing'
+      }[category] || 'category';
+    }
+
+    function arsenalRows(item) {
+      return [
+        ['Tipo', item.tipo],
+        ['Fonte', item.fonte],
+        ['Proficiência', item.proficiência_requerida],
+        ['Preço', item.preco],
+        ['Peso', item.peso],
+        ['Dano', item.dano],
+        ['CA', item.ca],
+        ['Força Mínima', item.forca_minima],
+        ['Furtividade', item.furtividade],
+        ['Raridade', item.raridade],
+        ['Sintonização', item.sintonizacao ? 'Requer' : null],
+        ['Deslocamento', item.deslocamento],
+        ['Velocidade', item.velocidade],
+        ['Carga', item.capacidade_carga]
+      ];
+    }
+
+    function arsenalDesc(item) {
+      if (item.descricao_blocos?.length) {
+        return item.descricao_blocos.map(block => {
+          if (block.type === 'paragraph') return `<p class="font-body-md text-on-surface-variant leading-relaxed mb-4">${esc(block.text)}</p>`;
+          if (block.type === 'list') return `<ul class="list-disc pl-6 space-y-1.5 mb-4 text-on-surface-variant font-body-md">${(block.items || []).map(v => `<li>${esc(v)}</li>`).join('')}</ul>`;
+          if (block.type === 'table') return tableHtml(block);
+          return '';
+        }).join('');
+      }
+      return richText(item.descricao);
+    }
+
+    function tableHtml(block) {
+      const headers = block.headers || [], rows = block.rows || [];
+      return `
+        <div class="overflow-x-auto w-full mb-6">
+          <table class="w-full text-left text-xs font-data-table border-collapse border border-primary/20 rounded-sm">
+            <thead>
+              <tr class="bg-primary/5 text-primary uppercase font-bold border-b border-primary/20">
+                ${headers.map(h => `<th class="p-3 font-bold">${esc(h)}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-primary/10">
+              ${rows.map(row => `
+                <tr class="hover:bg-primary/5 transition-colors">
+                  ${row.map(v => `<td class="p-3 text-on-surface-variant">${esc(v)}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function parseNd(nd) {
+      if (!nd) return -1;
+      const s = String(nd);
+      if (s.includes('/')) {
+        const [a, b] = s.split('/').map(Number);
+        return b ? a / b : -1;
+      }
+      const n = Number(s.replace(',', '.'));
+      return Number.isFinite(n) ? n : -1;
+    }
+
+    function formatNd(nd) {
+      return nd ? String(nd).trim() : '—';
+    }
+
+    function monsterLore(monster) {
+      return monster.descricao ? `<div class="px-6 md:px-8 pt-4 pb-4 border-b border-primary/10 italic text-on-surface-variant/80 font-body-md">${paragraphs(monster.descricao)}</div>` : '';
+    }
+
+    function monsterDesc(m) {
+      let html = '';
+      [['Habilidades Especiais', m.habilidades_especiais], ['Ações', m.acoes], ['Ações Lendárias', m.acoes_lendarias], ['Reações', m.reacoes]].forEach(([title, list]) => {
+        if (list?.length) {
+          html += `
+            <div class="border-t border-primary/10 pt-6">
+              <div class="font-headline-lg text-lg text-primary uppercase mb-3 font-bold tracking-widest border-b border-primary/10 pb-1.5">${esc(title)}</div>
+              <div class="space-y-4 font-body-md text-on-surface-variant leading-relaxed">
+                ${list.map(v => `<p class="m-0">${esc(v)}</p>`).join('')}
+              </div>
+            </div>
+          `;
+        }
+      });
+      
+      if (!html && m.descricao_blocos?.length) {
+        html = `
+          <div class="border-t border-primary/10 pt-6 space-y-4">
+            ${m.descricao_blocos.map(block => block.type === 'paragraph' ? `<p class="font-body-md text-on-surface-variant leading-relaxed m-0">${esc(block.text)}</p>` : block.type === 'list' ? `<ul class="list-disc pl-6 space-y-1.5 text-on-surface-variant font-body-md">${(block.items || []).map(v => `<li>${esc(v)}</li>`).join('')}</ul>` : '').join('')}
+          </div>
+        `;
+      }
+      return html;
+    }
+
+    function scores(h) {
+      if (!h) return '';
+      return `
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 my-2 select-none">
+          ${['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR'].map(k => h[k] ? `
+            <div class="text-center border border-primary/15 bg-surface-container-low p-1.5 md:p-2 rounded-sm select-none">
+              <div class="font-label-sm text-[9px] md:text-[10px] text-primary/60 uppercase tracking-widest block mb-0.5 font-bold">${k}</div>
+              <div class="font-headline-lg text-sm md:text-lg font-bold text-on-surface">${esc(h[k].valor)}</div>
+              <div class="font-data-table text-[10px] md:text-xs text-primary/80 font-medium">${esc(h[k].mod)}</div>
+            </div>
+          ` : '').join('')}
+        </div>
+      `;
+    }
+
+    // Live Search input event listener
+    $('#search-box').addEventListener('input', e => {
+      query = e.target.value;
+      openId = null;
+      render();
     });
-  }
-  return filtered;
-}
 
-function clearAllFilters() {
-  query = '';
-  openId = null;
-  $('#search-box').value = '';
-  if (current !== 'inicio') {
-    for (const key in activeFilters[current]) {
-      activeFilters[current][key].clear();
+    // Reset Filters trigger
+    $('#clear-filters').onclick = clearAllFilters;
+
+    // Sidebar controllers for mobile
+    function openSidebar() {
+      if (current === 'inicio') return;
+      const sideNav = $('#side-nav');
+      sideNav.classList.remove('-translate-x-full');
+      $('#overlay').classList.add('opacity-100', 'pointer-events-auto');
+      $('#overlay').classList.remove('opacity-0', 'pointer-events-none');
     }
-  }
-  buildFilters();
-  render();
-}
 
-function render(){
-  if(current==='inicio') return;
-  const data=MODULES[current].data, filtered=getFiltered();
-  $('#stats').textContent=`${filtered.length} de ${data.length} ${MODULES[current].total}`;
-  $('#empty').classList.toggle('visible',!filtered.length);
-  $('#list').innerHTML=filtered.map(renderCard).join('');
-  document.querySelectorAll('.card').forEach(card=>card.onclick=()=>{card.classList.toggle('open');openId=card.classList.contains('open')?card.dataset.id:null;});
-}
-function renderCard(item){
-  const id=item.id||item.name||item.nome;
-  const open=id===openId?' open':'';
-  if(current==='grimorio') return renderSpellCard(item,id,open);
-  if(current==='arsenal') return renderArsenalCard(item,id,open);
-  return renderMonsterCard(item,id,open);
-}
-function renderSpellCard(item,id,open){
-  const isCantrip=item.level==='Truque';
-  const cls=isCantrip?'cantrip':'leveled';
-  const badgeCls=isCantrip?'badge-cantrip':'badge-level';
-  const badgeTxt=isCantrip?'Truque':`${item.level}º`;
-  const classes=classTags(String(item.classes||'').split(',').map(v=>v.trim()).filter(Boolean));
-  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.name)}</div><div class="meta"><span class="badge ${badgeCls}">${esc(badgeTxt)}</span><span class="badge badge-school">${esc(item.school)}</span><span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${detailGrid([['Tempo',item.cast_time],['Alcance',item.range],['Componentes',item.components],['Duração',item.duration]])}${classes}<div class="spell-desc">${richText(item.description)}</div>${refBadge(pageRef(item))}</div></article>`;
-}
-function renderArsenalCard(item,id,open){
-  const isMagic=item.categoria==='Item mágico';
-  const cls=isMagic?'cantrip':'leveled';
-  const rarity=item.raridade?`<span class="badge badge-level">${esc(item.raridade)}</span>`:'';
-  const attunement=item.sintonizacao?'<span class="badge badge-school" title="Requer sintonização">&#9670;</span>':'';
-  const tags=classTags([...(item.propriedades||[]),...(item.sintonizacao?['Sintonização']:[])]);
-  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge icon-badge ${isMagic?'magic':''}" title="${esc(item.categoria)}">${categoryIcon(item.categoria)}</span><span class="badge badge-source" title="${esc(item.fonte)}">${esc(sourceLabel(item.fonte))}</span>${rarity}${attunement}<span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${detailGrid(arsenalRows(item))}${tags}<div class="spell-desc">${arsenalDesc(item)}</div>${refBadge(item.referencia)}</div></article>`;
-}
-function renderMonsterCard(item,id,open){
-  const nd=parseNd(item.nd);
-  const cls=nd>=17?'cantrip':'leveled';
-  const ndC=ndColor(item.nd);
-  const tipoC=tipoColor(item.tipo_criatura);
-  const source=sourceLabel(item.fonte);
-  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge badge-nd" style="background:${ndC.bg};color:${ndC.fg};border-color:${ndC.border}">ND ${esc(formatNd(item.nd))}</span><span class="badge" style="background:${tipoC.bg};color:${tipoC.fg};border-color:${tipoC.border}">${esc(item.tipo_criatura||'')}</span><span class="badge badge-source">${esc(item.tamanho||'')}</span><span class="badge badge-source" title="${esc(item.fonte||'')}">${esc(source)}</span><span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${monsterLore(item)}${detailGrid(monsterRows(item))}${scores(item.habilidades)}${monsterDesc(item)}${refBadge(item.referencia)}</div></article>`;
-}
-function detailGrid(rows){return '<div class="detail-grid">'+rows.filter(r=>r[1]).map(([l,v])=>`<div><span class="label">${esc(l)}</span><br><span class="value">${esc(v)}</span></div>`).join('')+'</div>'}
-function paragraphs(text){return String(text||'').split(/\n{2,}/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('')}
-function richText(text){
-  const raw=String(text||'').trim();
-  if(!raw) return '';
-  const blocks=raw.split(/\n{2,}/).filter(Boolean);
-  let html='', list=[];
-  const flush=()=>{if(list.length){html+=`<ul>${list.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;list=[];}};
-  for(const block of blocks){
-    const value=block.trim();
-    if(/^[-•]\s+/.test(value)){list.push(value.replace(/^[-•]\s+/,''));continue;}
-    flush();
-    html+=`<p>${esc(value)}</p>`;
-  }
-  flush();
-  return html;
-}
-function pageRef(s){return s.page_print?`${s.page_print} (PDF: ${s.page_pdf||''})`:''}
-function refBadge(ref){return ref?`<div class="spell-ref"><span>&#x1F4D6; ${esc(ref)}</span></div>`:''}
-function classTags(tags){
-  const clean=tags.filter(Boolean);
-  if(!clean.length) return '';
-  return '<div class="spell-classes">'+clean.map(tag=>`<span class="class-tag tag-${tagClass(tag)}">${esc(tag)}</span>`).join('')+'</div>';
-}
-function tagClass(tag){
-  if(tag==='Item mágico') return 'Item';
-  return String(tag).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-');
-}
-function sourceLabel(source){
-  if(source==='Livro do Jogador') return 'LJ';
-  if(source==='Guia do Mestre') return 'GM';
-  if(source==='Guia de Xanathar para Todas as Coisas') return 'Xanathar';
-  return source||'';
-}
-function categoryIcon(category){
-  return {'Arma':'&#9876;','Armadura':'&#128737;','Equipamento':'&#9671;','Ferramenta':'&#9881;','Item mágico':'&#10022;','Montaria':'&#9822;','Veículo':'&#9973;','Veículo e montaria':'&#9973;'}[category]||'&#9671;';
-}
-function arsenalRows(item){
-  return [['Tipo',item.tipo],['Fonte',item.fonte],['Proficiência',item.proficiência_requerida],['Classes',item.classes&&item.classes.length?item.classes.join(', '):null],['Preço',item.preco],['Peso',item.peso],['Dano',item.dano],['CA',item.ca],['Força',item.forca_minima],['Furtividade',item.furtividade],['Raridade',item.raridade],['Sintonização',item.sintonizacao?'Requer':null],['Deslocamento',item.deslocamento],['Velocidade',item.velocidade],['Carga',item.capacidade_carga]];
-}
-function arsenalDesc(item){
-  if(item.descricao_blocos?.length){
-    return item.descricao_blocos.map(block=>{
-      if(block.type==='paragraph') return `<p>${esc(block.text)}</p>`;
-      if(block.type==='list') return `<ul>${(block.items||[]).map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;
-      if(block.type==='table') return tableHtml(block);
-      return '';
-    }).join('');
-  }
-  return richText(item.descricao);
-}
-function tableHtml(block){
-  const headers=block.headers||[], rows=block.rows||[];
-  return `<table class="desc-table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
-}
-function parseNd(nd){if(!nd)return -1;const s=String(nd);if(s.includes('/')){const [a,b]=s.split('/').map(Number);return b?a/b:-1;}const n=Number(s.replace(',','.'));return Number.isFinite(n)?n:-1}
-function formatNd(nd){return nd?String(nd).trim():'—'}
-function ndColor(nd){const value=parseNd(nd);if(value>=17)return {bg:'rgba(142,68,173,.2)',fg:'#bb6bd9',border:'rgba(142,68,173,.35)'};if(value>=5)return {bg:'rgba(212,164,74,.15)',fg:'var(--accent2)',border:'rgba(212,164,74,.35)'};return {bg:'rgba(255,255,255,.04)',fg:'var(--fg2)',border:'var(--border)'}}
-function tipoColor(tipo){const key=norm(tipo);if(key.includes('dragao'))return {bg:'rgba(192,57,43,.14)',fg:'#e74c3c',border:'rgba(192,57,43,.35)'};if(key.includes('morto'))return {bg:'rgba(142,68,173,.14)',fg:'#bb6bd9',border:'rgba(142,68,173,.35)'};if(key.includes('corruptor'))return {bg:'rgba(230,126,34,.14)',fg:'#f0b27a',border:'rgba(230,126,34,.35)'};return {bg:'rgba(52,152,219,.12)',fg:'#85c1e9',border:'rgba(52,152,219,.25)'}}
-function monsterRows(monster){
-  const ndDisplay=formatNd(monster.nd);
-  const xpDisplay=monster.xp?`${ndDisplay} (${monster.xp} XP)`:ndDisplay;
-  return [['Tipo',monster.tipo_criatura],['Tamanho',monster.tamanho],['Alinhamento',monster.alinhamento],['CA',monster.ca],['PV',monster.pv_dados?`${monster.pv} (${monster.pv_dados})`:monster.pv],['Deslocamento',monster.deslocamento],['ND (XP)',xpDisplay],['Testes de Resistência',monster.testes_resistencia],['Perícias',monster.pericias],['Resistência a Dano',monster.resistencia_dano],['Imunidade a Dano',monster.imunidade_dano],['Imunidade a Condição',monster.imunidade_condicao],['Sentidos',monster.sentidos],['Idiomas',monster.idiomas],['Fonte',monster.fonte]];
-}
-function monsterLore(monster){return monster.descricao?`<div class="spell-desc monster-lore">${paragraphs(monster.descricao)}</div>`:''}
-function monsterDesc(m){
-  let html='';
-  [['Habilidades Especiais',m.habilidades_especiais],['Ações',m.acoes],['Ações Lendárias',m.acoes_lendarias],['Reações',m.reacoes]].forEach(([title,list])=>{
-    if(list?.length) html+=`<div class="spell-desc"><div class="desc-block-title">${esc(title)}</div>${list.map(v=>`<p>${esc(v)}</p>`).join('')}</div>`;
-  });
-  if(!html&&m.descricao_blocos?.length) html=`<div class="spell-desc">${m.descricao_blocos.map(block=>block.type==='paragraph'?`<p>${esc(block.text)}</p>`:block.type==='list'?`<ul>${(block.items||[]).map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:'').join('')}</div>`;
-  return html;
-}
-function scores(h){if(!h)return '';return '<div class="scores">'+['FOR','DES','CON','INT','SAB','CAR'].map(k=>h[k]?`<div class="ability-score"><div class="ability-score-label">${k}</div><div class="ability-score-value">${esc(h[k].valor)}</div><div class="ability-score-mod">(${esc(h[k].mod)})</div></div>`:'').join('')+'</div>'}
-$('#search-box').addEventListener('input',e=>{query=e.target.value;openId=null;render();});
-$('#clear-filters').onclick=clearAllFilters;
-function openSidebar(){
-  if(current==='inicio') return;
-  $('#sidebar').classList.add('open');
-  $('#sidebar').style.left='calc(100% - min(360px,88vw))';
-  $('#overlay').classList.add('show');
-  $('#sidebar').setAttribute('aria-hidden','false');
-}
-function closeSidebar(){
-  $('#sidebar').classList.remove('open');
-  $('#sidebar').style.left='';
-  $('#overlay').classList.remove('show');
-  $('#sidebar').setAttribute('aria-hidden','true');
-}
-$('#toggle-filters').onclick=openSidebar;
-$('#close-filters').onclick=closeSidebar;
-$('#overlay').onclick=closeSidebar;
-document.querySelectorAll('[data-module]').forEach(el=>el.onclick=()=>setModule(el.dataset.module));
-window.addEventListener('hashchange',()=>setModule(location.hash.slice(1)||'inicio',false));
-setModule(location.hash.slice(1)||'inicio',false);
-</script>
+    function closeSidebar() {
+      const sideNav = $('#side-nav');
+      sideNav.classList.add('-translate-x-full');
+      $('#overlay').classList.add('opacity-0', 'pointer-events-none');
+      $('#overlay').classList.remove('opacity-100', 'pointer-events-auto');
+    }
+
+    $('#toggle-filters').onclick = openSidebar;
+    $('#overlay').onclick = closeSidebar;
+
+    // Bind module changes to all navigation elements
+    document.querySelectorAll('[data-module]').forEach(el => {
+      el.onclick = () => setModule(el.dataset.module);
+    });
+
+    // Handle hashrouting
+    window.addEventListener('hashchange', () => {
+      setModule(location.hash.slice(1) || 'inicio', false);
+    });
+
+    // Bootstrapping the default view
+    setModule(location.hash.slice(1) || 'inicio', false);
+  </script>
 </body>
 </html>
