@@ -1122,7 +1122,7 @@ document.addEventListener('keydown', function(e){
 
 document.querySelectorAll('.module-nav a').forEach(link => {
   link.addEventListener('click', function(e){
-    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const href = this.getAttribute('href');
     if(!href || href === '#') return;
     const active = document.querySelector('.module-nav a.active');
@@ -1130,11 +1130,16 @@ document.querySelectorAll('.module-nav a').forEach(link => {
     const next = Number(this.dataset.order);
     if(Number.isNaN(next) || next === current) return;
     e.preventDefault();
+    const target = new URL(href, window.location.href).href;
     const exitDir = next > current ? 'left' : 'right';
     const enterDir = next > current ? 'right' : 'left';
-    sessionStorage.setItem('d1NavDirection', enterDir);
-    document.body.classList.add('d1-exit-' + exitDir);
-    window.setTimeout(() => { window.location.href = href; }, 150);
+    try{
+      sessionStorage.setItem('d1NavDirection', enterDir);
+      document.body.classList.add('d1-exit-' + exitDir);
+      window.setTimeout(() => { window.location.href = target; }, 150);
+    } catch(err){
+      window.location.href = target;
+    }
   });
 });
 
