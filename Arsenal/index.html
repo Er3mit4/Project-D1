@@ -60,6 +60,45 @@ header h1{
   flex-shrink:0;
 }
 
+.module-nav{
+  position:sticky;
+  top:50px;
+  z-index:90;
+  display:flex;
+  justify-content:center;
+  gap:0.35rem;
+  padding:0.35rem 0.8rem;
+  background:rgba(13,11,14,0.96);
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+}
+
+.module-nav a{
+  flex:0 0 auto;
+  padding:0.32rem 0.55rem;
+  border:1px solid transparent;
+  border-radius:4px;
+  color:var(--fg2);
+  font-family:'Cinzel',serif;
+  font-size:0.66rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+
+.module-nav a:hover{
+  color:var(--fg);
+  background:var(--bg3);
+  border-color:var(--border);
+}
+
+.module-nav a.active{
+  color:#1a0f25;
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
 #search-box{
   flex:1;
   max-width:500px;
@@ -531,6 +570,7 @@ footer{
     font-size:0.75rem;
     padding:0.3rem 0.5rem;
   }
+  .module-nav{justify-content:flex-start}
   .spell-header{flex-direction:column;align-items:flex-start}
   .spell-meta{justify-content:flex-start}
   .detail-grid{grid-template-columns:1fr}
@@ -558,6 +598,13 @@ footer{
   <input type="text" id="search-box" placeholder="Buscar item por nome..." autocomplete="off" spellcheck="false">
   <button class="filter-toggle-btn" onclick="toggleSidebar()">&#x2630; Filtros</button>
 </header>
+
+<nav class="module-nav" aria-label="Navegação entre módulos">
+  <a href="../">Início</a>
+  <a href="../Grimorio/">Grimório</a>
+  <a href="./" class="active" aria-current="page">Arsenal</a>
+  <a href="../Bestiario/">Bestiário</a>
+</nav>
 
 <div id="stats"></div>
 

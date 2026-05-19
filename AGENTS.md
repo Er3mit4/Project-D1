@@ -9,14 +9,14 @@
 - **Frontend:** HTML/CSS/JS puro (single-file, sem frameworks)
 - **Dados:** JSON embutido no JavaScript (extraído de PDFs via Docling + Python)
 - **Armazenamento:** LocalStorage (fichas de personagem)
-- **Publicação:** GitHub Pages (branch `gh-pages`)
+- **Publicação:** GitHub Pages (repo unificado `Project-D1`, branch `main`, raiz `/`)
 - **Extração:** Docling CLI (PDF→Markdown→JSON) + Python scripts
 
 ## Repositório
 
-- **GitHub:** github.com/Er3mit4/grimoire-dd5e
-- **URL:** er3mit4.github.io/grimoire-dd5e
-- **Branch principal:** `gh-pages`
+- **GitHub:** github.com/Er3mit4/Project-D1
+- **URL:** er3mit4.github.io/Project-D1
+- **Branch principal:** `main`
 - **Pasta local:** `~/Projeto D1/`
 
 ## Estrutura de Pastas
@@ -26,6 +26,8 @@
 ├── AGENTS.md              ← Este arquivo (regras do projeto)
 ├── DESIGN.md              ← Padrão visual e estrutural dos módulos
 ├── D&D Companion.md        ← Plano geral (fases e módulos)
+├── index.html              ← Portal unificado do site
+├── README.md               ← Apresentação simples para GitHub
 │
 ├── Grimorio/               ← Módulo: Grimório (Fase 1)
 │   ├── grimoire-dd5e-gh-pages/ ← Espelho/publicação gh-pages
@@ -115,7 +117,7 @@
 4. Revisar dados (completude, erros, duplicatas)
 5. Injetar dados no template HTML via `build_html.py`
 6. Testar via `python3 -m http.server` + browser
-7. Commit + push pro GitHub Pages
+7. Commit + push para o repo unificado e validar GitHub Pages
 
 > **Nota:** Extrair em HTML (`--to html`) ao invés de Markdown (`--to md`) preserva tabelas, formatação e estrutura do documento original. Use `--to md` apenas se precisar de texto limpo simples.
 

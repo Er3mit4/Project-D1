@@ -4,8 +4,9 @@
 
 ## Links
 
-- 🔮 **Grimório (v1):** [er3mit4.github.io/grimoire-dd5e](https://er3mit4.github.io/grimoire-dd5e/)
-- 📂 **Repositório:** [github.com/Er3mit4/grimoire-dd5e](https://github.com/Er3mit4/grimoire-dd5e)
+- 🎲 **Site unificado:** [er3mit4.github.io/Project-D1](https://er3mit4.github.io/Project-D1/)
+- 📂 **Repositório:** [github.com/Er3mit4/Project-D1](https://github.com/Er3mit4/Project-D1)
+- 🔮 **Grimório legado:** [er3mit4.github.io/grimoire-dd5e](https://er3mit4.github.io/grimoire-dd5e/)
 - 📁 **Pasta local:** `~/Projeto D1/` (WSL)
 - 📖 **PDF base:** `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf`
 
@@ -23,7 +24,7 @@
 
 ---
 
-## Fase 2 — Arsenal 📋 (planejado)
+## Fase 2 — Arsenal ✅ (revisado)
 
 - Itens mágicos, armas, armaduras, equipamentos
 - Poções, scrolls, artefatos
@@ -32,7 +33,7 @@
 
 ---
 
-## Fase 3 — Bestiário 📋 (planejado)
+## Fase 3 — Bestiário ✅ (revisado)
 
 - Monstros e criaturas com ficha completa
 - Filtros por tipo, ND (CR), ambiente, tamanho
@@ -72,7 +73,7 @@
 - **HTML estático** — funciona offline, sem servidor
 - **Dados embutidos** em JSON (extraídos dos PDFs via Docling + Python)
 - **LocalStorage** para salvar fichas de personagem
-- **Repo único** no GitHub quando tudo estiver completo e estável
+- **Repo unificado** no GitHub: `Er3mit4/Project-D1`
 - **Hermes/Codex** para implementação direta e revisão
 
 ## Livros necessários
@@ -90,4 +91,4 @@
 
 ---
 
-*Última atualização: 18/05/2026*
+*Última atualização: 19/05/2026*

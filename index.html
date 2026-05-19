@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projeto D1 — D&D 5e</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root{
+  --bg:#0d0b0e;
+  --bg2:#1a1520;
+  --bg3:#241e2c;
+  --fg:#e8dcc8;
+  --fg2:#a89b8a;
+  --accent:#d4a44a;
+  --accent2:#e8c06a;
+  --card:#1c1724;
+  --border:#3a2f48;
+  --cantrip:#8e44ad;
+  --shadow:0 2px 12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(212,164,74,0.08), transparent 32rem),
+    radial-gradient(circle at 90% 20%, rgba(142,68,173,0.08), transparent 28rem),
+    linear-gradient(180deg,#140f19 0%,var(--bg) 42%,#09070a 100%);
+  color:var(--fg);
+  font-family:'Lora',Georgia,serif;
+  overflow-x:hidden;
+}
+
+a{color:inherit;text-decoration:none}
+
+.site-header{
+  border-bottom:2px solid var(--accent);
+  background:linear-gradient(180deg,#1a0f25 0%,#0d0b0e 100%);
+  box-shadow:0 10px 30px rgba(0,0,0,0.28);
+}
+
+.site-header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  min-height:58px;
+  padding:0.7rem 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:0.65rem;
+  min-width:0;
+}
+
+.brand-mark{
+  width:2rem;
+  height:2rem;
+  border:1px solid rgba(212,164,74,0.45);
+  border-radius:7px;
+  display:grid;
+  place-items:center;
+  color:var(--accent2);
+  background:rgba(212,164,74,0.08);
+  box-shadow:0 0 18px rgba(212,164,74,0.12);
+  font-family:'Cinzel',serif;
+  font-weight:900;
+}
+
+.brand h1{
+  margin:0;
+  font-family:'Cinzel',serif;
+  font-size:1rem;
+  font-weight:900;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  text-shadow:0 0 20px rgba(212,164,74,0.3);
+}
+
+.brand small{
+  display:block;
+  color:var(--fg2);
+  font-size:0.72rem;
+  margin-top:0.12rem;
+}
+
+.top-nav{
+  display:flex;
+  gap:0.35rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.top-nav a{
+  font-family:'Cinzel',serif;
+  font-size:0.68rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--fg2);
+  padding:0.38rem 0.55rem;
+  border:1px solid transparent;
+  border-radius:4px;
+}
+
+.top-nav a:hover{
+  color:var(--fg);
+  border-color:var(--border);
+  background:var(--bg3);
+}
+
+main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:3.2rem 1rem 3rem;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(280px,0.95fr);
+  gap:2rem;
+  align-items:end;
+  margin-bottom:2.2rem;
+}
+
+.hero h2{
+  margin:0 0 0.85rem;
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,5vw,4.1rem);
+  line-height:0.98;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--accent2);
+  overflow-wrap:break-word;
+}
+
+.hero p{
+  margin:0;
+  max-width:40rem;
+  color:var(--fg);
+  font-size:1rem;
+  line-height:1.7;
+}
+
+.summary-panel{
+  min-width:0;
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  background:rgba(28,23,36,0.74);
+  box-shadow:var(--shadow);
+  border-radius:8px;
+  padding:1rem;
+}
+
+.summary-panel h3{
+  margin:0 0 0.8rem;
+  font-family:'Cinzel',serif;
+  font-size:0.82rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--accent2);
+}
+
+.quick-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.5rem;
+}
+
+.quick-stat{
+  padding:0.7rem;
+  border:1px solid rgba(58,47,72,0.72);
+  border-radius:6px;
+  background:rgba(13,11,14,0.45);
+}
+
+.quick-stat strong{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-size:1.2rem;
+  color:var(--accent2);
+}
+
+.quick-stat span{
+  color:var(--fg2);
+  font-size:0.72rem;
+}
+
+.section-title{
+  margin:0 0 0.8rem;
+  font-family:'Cinzel',serif;
+  font-size:0.86rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--fg2);
+}
+
+.module-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.85rem;
+}
+
+.module-card{
+  min-height:12.5rem;
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  border-radius:8px;
+  background:linear-gradient(180deg,rgba(36,30,44,0.86),rgba(28,23,36,0.94));
+  box-shadow:var(--shadow);
+  padding:1rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;
+}
+
+a.module-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(0,0,0,0.42);
+}
+
+.module-card.soon{
+  opacity:0.56;
+  border-left-color:var(--border);
+}
+
+.module-card h3{
+  margin:0 0 0.45rem;
+  font-family:'Cinzel',serif;
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent2);
+}
+
+.module-card p{
+  margin:0;
+  color:var(--fg);
+  line-height:1.55;
+  font-size:0.86rem;
+}
+
+.module-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.75rem;
+  margin-top:1.1rem;
+}
+
+.badge{
+  font-family:'Cinzel',serif;
+  font-size:0.64rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:0.15rem 0.42rem;
+  border:1px solid rgba(212,164,74,0.3);
+  border-radius:3px;
+  color:var(--accent2);
+  background:rgba(212,164,74,0.15);
+}
+
+.module-link{
+  color:var(--fg2);
+  font-size:0.76rem;
+}
+
+footer{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1.5rem 1rem 2rem;
+  text-align:center;
+  color:var(--fg2);
+  opacity:0.55;
+  border-top:1px solid var(--border);
+  font-size:0.75rem;
+}
+
+@media(max-width:820px){
+  .site-header-inner{align-items:flex-start;flex-direction:column}
+  .top-nav{justify-content:flex-start}
+  .hero{grid-template-columns:1fr;align-items:start}
+  .module-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:560px){
+  main{padding-top:2rem}
+  .hero h2{
+    font-size:1.72rem;
+    line-height:1.08;
+    letter-spacing:0.04em;
+  }
+  .hero p{font-size:0.94rem}
+  .quick-stats{grid-template-columns:1fr}
+  .top-nav{
+    width:100%;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:0.1rem;
+  }
+  .top-nav a{white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="./" aria-label="Projeto D1">
+      <span class="brand-mark">D1</span>
+      <span>
+        <h1>Projeto D1</h1>
+        <small>Deu 1 no Dado</small>
+      </span>
+    </a>
+    <nav class="top-nav" aria-label="Módulos">
+      <a href="./">Início</a>
+      <a href="Grimorio/">Grimório</a>
+      <a href="Arsenal/">Arsenal</a>
+      <a href="Bestiario/">Bestiário</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <h2>Referência de D&D 5e em PT-BR</h2>
+      <p>Um conjunto de consultas rápidas para mesa, com magias, equipamentos, itens mágicos e criaturas reunidos em um só ponto de entrada.</p>
+    </div>
+    <aside class="summary-panel" aria-label="Resumo do acervo">
+      <h3>Acervo atual</h3>
+      <div class="quick-stats">
+        <div class="quick-stat"><strong>361</strong><span>magias</span></div>
+        <div class="quick-stat"><strong>527</strong><span>itens</span></div>
+        <div class="quick-stat"><strong>345</strong><span>monstros</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <h2 class="section-title">Módulos disponíveis</h2>
+  <section class="module-grid" aria-label="Módulos do Projeto D1">
+    <a class="module-card" href="Grimorio/">
+      <div>
+        <h3>&#x1F52E; Grimório</h3>
+        <p>Busca de magias por nome, nível, escola e classe, com descrição completa e referência de página.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Concluído</span><span class="module-link">Abrir módulo</span></div>
+    </a>
+    <a class="module-card" href="Arsenal/">
+      <div>
+        <h3>&#x2694; Arsenal</h3>
+        <p>Equipamentos, armas, armaduras, ferramentas, veículos e itens mágicos em consulta filtrável.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Revisado</span><span class="module-link">Abrir módulo</span></div>
+    </a>
+    <a class="module-card" href="Bestiario/">
+      <div>
+        <h3>&#x1F480; Bestiário</h3>
+        <p>Monstros e criaturas com estatísticas, características, ações e descrições narrativas.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Revisado</span><span class="module-link">Abrir módulo</span></div>
+    </a>
+    <article class="module-card soon">
+      <div>
+        <h3>Raças & Classes</h3>
+        <p>Raças, classes, subclasses e progressões por nível para consulta durante criação e evolução.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Em breve</span></div>
+    </article>
+    <article class="module-card soon">
+      <div>
+        <h3>Ficha</h3>
+        <p>Ficha de personagem local com edição, importação e vínculos com magias e equipamentos.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Em breve</span></div>
+    </article>
+    <article class="module-card soon">
+      <div>
+        <h3>Dashboard</h3>
+        <p>Visão integrada para mesa, personagens e referências rápidas em uma experiência única.</p>
+      </div>
+      <div class="module-meta"><span class="badge">Em breve</span></div>
+    </article>
+  </section>
+</main>
+
+<footer>Projeto D1 &mdash; D&D 5e em Português Brasileiro</footer>
+</body>
+</html>
