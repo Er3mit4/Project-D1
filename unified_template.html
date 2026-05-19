@@ -389,8 +389,8 @@
       <div class="w-full h-80 relative overflow-hidden rounded-xl border border-primary/20 mb-12">
         <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background z-10"></div>
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-20">
-          <span class="font-label-sm text-xs text-primary tracking-[0.3em] mb-3 uppercase font-bold">Tradição &amp; Tecnologia</span>
-          <h3 class="font-headline-lg text-xl md:text-3xl text-on-surface max-w-2xl font-medium leading-relaxed">O conhecimento de séculos, destilado em uma interface moderna para suas sessões.</h3>
+          <span class="font-label-sm text-xs text-primary tracking-[0.3em] mb-3 uppercase font-bold">Deu 1 no Dado?</span>
+          <h3 class="font-headline-lg text-lg md:text-2xl text-on-surface max-w-2xl font-medium leading-relaxed">Porque a vida é curta demais para passar 15 minutos caçando regra em PDF enquanto os jogadores planejam o próximo TPK.</h3>
         </div>
         <div class="absolute inset-0 bg-[#141316]/40 mix-blend-multiply"></div>
         <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#141316]/90"></div>
@@ -412,6 +412,12 @@
           <div class="text-right whitespace-nowrap">
             <span class="font-label-sm text-xs text-primary/60 uppercase tracking-widest font-bold" id="stats">0 de 0 itens</span>
           </div>
+        </div>
+
+        <!-- Mobile Search Bar (Only shown on small screens) -->
+        <div class="block sm:hidden relative mb-6" id="mobile-search-container">
+          <input class="bg-surface-container border border-primary/30 text-on-surface pl-4 pr-10 py-2.5 focus:outline-none focus:border-primary transition-all w-full font-body-md text-sm rounded-sm" placeholder="Buscar no compêndio..." type="search" id="search-box-mobile" autocomplete="off" spellcheck="false"/>
+          <span class="material-symbols-outlined absolute right-3 top-3 text-primary/60 pointer-events-none">search</span>
         </div>
 
         <!-- Cards List -->
@@ -553,6 +559,12 @@
       searchBox.value = '';
       searchBox.placeholder = MODULES[name].placeholder;
       
+      const mobileSearch = $('#search-box-mobile');
+      if (mobileSearch) {
+        mobileSearch.value = '';
+        mobileSearch.placeholder = MODULES[name].placeholder;
+      }
+      
       // Update displayed titles
       $('#module-title-display').textContent = MODULES[name].title;
       $('#module-description-display').textContent = MODULES[name].description;
@@ -570,7 +582,13 @@
         $('#app').classList.remove('hidden');
         $('#header-search-container').classList.remove('opacity-0', 'pointer-events-none');
         $('#toggle-filters').classList.remove('hidden');
-        document.body.classList.add('show-sidebar');
+        
+        // Show sidebar by default only on desktop screens (min-width: 1024px)
+        if (window.innerWidth < 1024) {
+          document.body.classList.remove('show-sidebar');
+        } else {
+          document.body.classList.add('show-sidebar');
+        }
       }
       
       // Update Navigation Indicator
@@ -842,6 +860,8 @@
       query = '';
       openId = null;
       $('#search-box').value = '';
+      const mob = $('#search-box-mobile');
+      if (mob) mob.value = '';
       if (current !== 'inicio') {
         for (const key in activeFilters[current]) {
           activeFilters[current][key].clear();
@@ -1294,11 +1314,27 @@
     }
 
     // Live Search input event listener
-    $('#search-box').addEventListener('input', e => {
+    const handleSearch = e => {
       query = e.target.value;
       openId = null;
+      
+      // Keep both search boxes synchronized
+      if (e.target.id === 'search-box') {
+        const mob = $('#search-box-mobile');
+        if (mob) mob.value = query;
+      } else {
+        const dsk = $('#search-box');
+        if (dsk) dsk.value = query;
+      }
+      
       render();
-    });
+    };
+
+    $('#search-box').addEventListener('input', handleSearch);
+    const mobileSearch = $('#search-box-mobile');
+    if (mobileSearch) {
+      mobileSearch.addEventListener('input', handleSearch);
+    }
 
     // Reset Filters trigger
     $('#clear-filters').onclick = clearAllFilters;
