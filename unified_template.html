@@ -38,23 +38,51 @@ header h1{margin:0;min-width:12rem;font-family:'Cinzel',serif;font-size:1rem;fon
 .filter-btn{padding:.26rem .5rem;border:1px solid var(--border);border-radius:4px;background:var(--bg3);color:var(--fg2);font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .filter-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0f25}
 .list{max-width:900px;margin:0 auto;padding:0 .8rem 3rem;display:flex;flex-direction:column;gap:.42rem}
-.card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:var(--card);cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .15s}
+.card{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:var(--card);cursor:pointer;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .15s}
 .card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
 .card.open{border-color:var(--accent)}
+.card.cantrip{border-left-color:var(--cantrip)}
+.card.leveled{border-left-color:var(--accent)}
 .card-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.66rem .85rem}
 .name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.03em;color:var(--fg)}
 .meta{display:flex;align-items:center;justify-content:flex-end;gap:.28rem;flex-wrap:wrap}
 .badge{display:inline-block;padding:.12rem .4rem;border:1px solid rgba(212,164,74,.3);border-radius:3px;background:rgba(212,164,74,.15);color:var(--accent2);font-family:'Cinzel',serif;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .badge.alt{border-color:rgba(142,68,173,.3);background:rgba(142,68,173,.2);color:#bb6bd9}
+.badge-level{background:rgba(212,164,74,.15);color:var(--accent2);border-color:rgba(212,164,74,.3)}
+.badge-cantrip{background:rgba(142,68,173,.2);color:#bb6bd9;border-color:rgba(142,68,173,.3)}
+.badge-school{background:rgba(52,152,219,.12);color:#5dade2;border-color:rgba(52,152,219,.25)}
+.badge-source{background:rgba(255,255,255,.04);color:var(--fg2);border-color:var(--border)}
+.badge-nd{font-weight:700}
+.icon-badge{min-width:1.65rem;text-align:center}.icon-badge.magic{color:#bb6bd9;border-color:rgba(142,68,173,.3);background:rgba(142,68,173,.14)}
+.expand-arrow{display:inline-block;color:var(--fg2);font-size:.72rem;transition:transform .2s,color .2s}
+.card.open .expand-arrow{transform:rotate(90deg);color:var(--accent2)}
 .detail{display:none;border-top:1px solid var(--border);padding:.85rem}
 .card.open .detail{display:block}
 .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.38rem 1rem;margin-bottom:.75rem;font-size:.82rem}
 .label{display:block;color:var(--fg2);font-family:'Cinzel',serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.desc{line-height:1.62;font-size:.86rem;color:var(--fg)}
-.desc p{margin:.45rem 0}
+.value{color:var(--fg)}
+.spell-classes{display:flex;gap:.25rem;flex-wrap:wrap;margin:.3rem 0 .55rem}
+.class-tag{font-size:.65rem;padding:.1rem .35rem;border-radius:3px;background:var(--bg2);color:var(--fg2);border:1px solid var(--border)}
+.class-tag.tag-Bardo{border-color:#8e44ad;color:#bb6bd9}.class-tag.tag-Bruxo{border-color:#c0392b;color:#e74c3c}.class-tag.tag-Clerigo,.class-tag.tag-Clérigo{border-color:#f1c40f;color:#f7dc6f}.class-tag.tag-Druida{border-color:#27ae60;color:#58d68d}.class-tag.tag-Feiticeiro{border-color:#e67e22;color:#f0b27a}.class-tag.tag-Mago{border-color:#3498db;color:#85c1e9}.class-tag.tag-Paladino{border-color:#d4a44a;color:#e8c06a}.class-tag.tag-Patrulheiro{border-color:#1abc9c;color:#76d7c4}
+.class-tag.tag-Arma{border-color:#c0392b;color:#e74c3c}.class-tag.tag-Armadura{border-color:#d4a44a;color:#e8c06a}.class-tag.tag-Equipamento{border-color:#3498db;color:#85c1e9}.class-tag.tag-Ferramenta{border-color:#27ae60;color:#58d68d}.class-tag.tag-Item{border-color:#8e44ad;color:#bb6bd9}.class-tag.tag-Montaria{border-color:#1abc9c;color:#76d7c4}.class-tag.tag-Veiculo,.class-tag.tag-Veículo{border-color:#e67e22;color:#f0b27a}
+.desc,.spell-desc{line-height:1.7;font-size:.85rem;color:var(--fg);margin-bottom:.55rem;padding-top:.45rem;border-top:1px dashed var(--border);overflow-x:auto}
+.desc p,.spell-desc p{margin:0 0 .6em}
+.desc ul,.spell-desc ul{margin:.4em 0 .75em 1.2em;padding:0;list-style:disc}
+.desc li,.spell-desc li{margin-bottom:.3em;line-height:1.6}
+.desc .higher-levels,.spell-desc .higher-levels{color:var(--accent2);display:inline-block;margin-top:.2em}
+.desc-block-title{font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;color:var(--accent);margin:.6rem 0 .2rem;border-bottom:1px solid var(--border);padding-bottom:.15rem}
+.monster-lore{border-top:0;padding-top:0}
+.desc-table{width:100%;border-collapse:collapse;margin:.4rem 0 .8rem;font-size:.8rem}
+.desc-table th,.desc-table td{border:1px solid var(--border);padding:.28rem .4rem;vertical-align:top}
+.desc-table th{color:var(--accent2);background:rgba(212,164,74,.08);text-align:left;text-transform:uppercase;font-size:.7rem;letter-spacing:.06em}
+.desc-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.spell-ref{font-size:.75rem;color:var(--fg2);text-align:right}
+.spell-ref span{display:inline-block;background:var(--bg3);padding:.15rem .5rem;border-radius:3px;border:1px solid var(--border)}
 .scores{display:grid;grid-template-columns:repeat(6,1fr);gap:.3rem;margin:.6rem 0}
-.score{text-align:center;border:1px solid var(--border);border-radius:5px;background:var(--bg2);padding:.38rem}
-.score strong{display:block;color:var(--accent2);font-family:'Cinzel',serif;font-size:.7rem}
+.score,.ability-score{text-align:center;border:1px solid var(--border);border-radius:4px;background:var(--bg3);padding:.35rem .2rem}
+.score strong,.ability-score-label{display:block;color:var(--fg2);font-family:'Cinzel',serif;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem}
+.ability-score-value{font-size:1rem;font-weight:700;color:var(--fg)}
+.ability-score-mod{font-size:.7rem;color:var(--accent2)}
 .empty{display:none;text-align:center;padding:3rem 1rem;color:var(--fg2)}
 .empty.visible{display:block}
 footer{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 2rem;text-align:center;color:var(--fg2);opacity:.55;border-top:1px solid var(--border);font-size:.75rem}
@@ -152,16 +180,108 @@ function render(){
 function renderCard(item){
   const id=item.id||item.name||item.nome;
   const open=id===openId?' open':'';
-  if(current==='grimorio') return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.name)}</div><div class="meta"><span class="badge">${esc(item.level==='Truque'?'Truque':item.level+'º')}</span><span class="badge alt">${esc(item.school)}</span></div></div><div class="detail">${detailGrid([['Tempo',item.cast_time],['Alcance',item.range],['Componentes',item.components],['Duração',item.duration],['Classes',item.classes],['Página',pageRef(item)]])}<div class="desc">${paragraphs(item.description)}</div></div></article>`;
-  if(current==='arsenal') return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge">${esc(item.categoria)}</span>${item.tipo?`<span class="badge alt">${esc(item.tipo)}</span>`:''}</div></div><div class="detail">${detailGrid([['Tipo',item.tipo],['Fonte',item.fonte],['Preço',item.preco],['Peso',item.peso],['Raridade',item.raridade],['Página',item.referencia]])}<div class="desc">${arsenalDesc(item)}</div></div></article>`;
-  return `<article class="card${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge">ND ${esc(item.nd)}</span><span class="badge alt">${esc(item.tipo_criatura)}</span><span class="badge">${esc(item.tamanho)}</span></div></div><div class="detail">${detailGrid([['CA',item.ca],['PV',item.pv],['Deslocamento',item.deslocamento],['Sentidos',item.sentidos],['Idiomas',item.idiomas],['Página',item.referencia]])}${scores(item.habilidades)}<div class="desc">${monsterDesc(item)}</div></div></article>`;
+  if(current==='grimorio') return renderSpellCard(item,id,open);
+  if(current==='arsenal') return renderArsenalCard(item,id,open);
+  return renderMonsterCard(item,id,open);
 }
-function detailGrid(rows){return '<div class="detail-grid">'+rows.filter(r=>r[1]).map(([l,v])=>`<div><span class="label">${esc(l)}</span>${esc(v)}</div>`).join('')+'</div>'}
+function renderSpellCard(item,id,open){
+  const isCantrip=item.level==='Truque';
+  const cls=isCantrip?'cantrip':'leveled';
+  const badgeCls=isCantrip?'badge-cantrip':'badge-level';
+  const badgeTxt=isCantrip?'Truque':`${item.level}º`;
+  const classes=classTags(String(item.classes||'').split(',').map(v=>v.trim()).filter(Boolean));
+  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.name)}</div><div class="meta"><span class="badge ${badgeCls}">${esc(badgeTxt)}</span><span class="badge badge-school">${esc(item.school)}</span><span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${detailGrid([['Tempo',item.cast_time],['Alcance',item.range],['Componentes',item.components],['Duração',item.duration]])}${classes}<div class="spell-desc">${richText(item.description)}</div>${refBadge(pageRef(item))}</div></article>`;
+}
+function renderArsenalCard(item,id,open){
+  const isMagic=item.categoria==='Item mágico';
+  const cls=isMagic?'cantrip':'leveled';
+  const rarity=item.raridade?`<span class="badge badge-level">${esc(item.raridade)}</span>`:'';
+  const attunement=item.sintonizacao?'<span class="badge badge-school" title="Requer sintonização">&#9670;</span>':'';
+  const tags=classTags([...(item.propriedades||[]),...(item.sintonizacao?['Sintonização']:[])]);
+  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge icon-badge ${isMagic?'magic':''}" title="${esc(item.categoria)}">${categoryIcon(item.categoria)}</span><span class="badge badge-source" title="${esc(item.fonte)}">${esc(sourceLabel(item.fonte))}</span>${rarity}${attunement}<span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${detailGrid(arsenalRows(item))}${tags}<div class="spell-desc">${arsenalDesc(item)}</div>${refBadge(item.referencia)}</div></article>`;
+}
+function renderMonsterCard(item,id,open){
+  const nd=parseNd(item.nd);
+  const cls=nd>=17?'cantrip':'leveled';
+  const ndC=ndColor(item.nd);
+  const tipoC=tipoColor(item.tipo_criatura);
+  const source=sourceLabel(item.fonte);
+  return `<article class="card ${cls}${open}" data-id="${esc(id)}"><div class="card-head"><div class="name">${esc(item.nome)}</div><div class="meta"><span class="badge badge-nd" style="background:${ndC.bg};color:${ndC.fg};border-color:${ndC.border}">ND ${esc(formatNd(item.nd))}</span><span class="badge" style="background:${tipoC.bg};color:${tipoC.fg};border-color:${tipoC.border}">${esc(item.tipo_criatura||'')}</span><span class="badge badge-source">${esc(item.tamanho||'')}</span><span class="badge badge-source" title="${esc(item.fonte||'')}">${esc(source)}</span><span class="expand-arrow">&#x25B6;</span></div></div><div class="detail">${monsterLore(item)}${detailGrid(monsterRows(item))}${scores(item.habilidades)}${monsterDesc(item)}${refBadge(item.referencia)}</div></article>`;
+}
+function detailGrid(rows){return '<div class="detail-grid">'+rows.filter(r=>r[1]).map(([l,v])=>`<div><span class="label">${esc(l)}</span><br><span class="value">${esc(v)}</span></div>`).join('')+'</div>'}
 function paragraphs(text){return String(text||'').split(/\n{2,}/).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('')}
+function richText(text){
+  const raw=String(text||'').trim();
+  if(!raw) return '';
+  const blocks=raw.split(/\n{2,}/).filter(Boolean);
+  let html='', list=[];
+  const flush=()=>{if(list.length){html+=`<ul>${list.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;list=[];}};
+  for(const block of blocks){
+    const value=block.trim();
+    if(/^[-•]\s+/.test(value)){list.push(value.replace(/^[-•]\s+/,''));continue;}
+    flush();
+    html+=`<p>${esc(value)}</p>`;
+  }
+  flush();
+  return html;
+}
 function pageRef(s){return s.page_print?`${s.page_print} (PDF: ${s.page_pdf||''})`:''}
-function arsenalDesc(item){if(item.descricao_blocos?.length){return item.descricao_blocos.map(b=>b.type==='paragraph'?`<p>${esc(b.text)}</p>`:'').join('')}return paragraphs(item.descricao)}
-function monsterDesc(m){let html=paragraphs(m.descricao);[['Habilidades Especiais',m.habilidades_especiais],['Ações',m.acoes],['Reações',m.reacoes],['Ações Lendárias',m.acoes_lendarias]].forEach(([title,list])=>{if(list?.length)html+=`<p><strong>${title}</strong></p>`+list.map(v=>`<p>${esc(v)}</p>`).join('')});return html}
-function scores(h){if(!h)return '';return '<div class="scores">'+Object.entries(h).map(([k,v])=>`<div class="score"><strong>${k}</strong>${esc(v.valor)} (${esc(v.mod)})</div>`).join('')+'</div>'}
+function refBadge(ref){return ref?`<div class="spell-ref"><span>&#x1F4D6; ${esc(ref)}</span></div>`:''}
+function classTags(tags){
+  const clean=tags.filter(Boolean);
+  if(!clean.length) return '';
+  return '<div class="spell-classes">'+clean.map(tag=>`<span class="class-tag tag-${tagClass(tag)}">${esc(tag)}</span>`).join('')+'</div>';
+}
+function tagClass(tag){
+  if(tag==='Item mágico') return 'Item';
+  return String(tag).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-');
+}
+function sourceLabel(source){
+  if(source==='Livro do Jogador') return 'LJ';
+  if(source==='Guia do Mestre') return 'GM';
+  if(source==='Guia de Xanathar para Todas as Coisas') return 'Xanathar';
+  return source||'';
+}
+function categoryIcon(category){
+  return {'Arma':'&#9876;','Armadura':'&#128737;','Equipamento':'&#9671;','Ferramenta':'&#9881;','Item mágico':'&#10022;','Montaria':'&#9822;','Veículo':'&#9973;','Veículo e montaria':'&#9973;'}[category]||'&#9671;';
+}
+function arsenalRows(item){
+  return [['Tipo',item.tipo],['Fonte',item.fonte],['Proficiência',item.proficiência_requerida],['Classes',item.classes&&item.classes.length?item.classes.join(', '):null],['Preço',item.preco],['Peso',item.peso],['Dano',item.dano],['CA',item.ca],['Força',item.forca_minima],['Furtividade',item.furtividade],['Raridade',item.raridade],['Sintonização',item.sintonizacao?'Requer':null],['Deslocamento',item.deslocamento],['Velocidade',item.velocidade],['Carga',item.capacidade_carga]];
+}
+function arsenalDesc(item){
+  if(item.descricao_blocos?.length){
+    return item.descricao_blocos.map(block=>{
+      if(block.type==='paragraph') return `<p>${esc(block.text)}</p>`;
+      if(block.type==='list') return `<ul>${(block.items||[]).map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;
+      if(block.type==='table') return tableHtml(block);
+      return '';
+    }).join('');
+  }
+  return richText(item.descricao);
+}
+function tableHtml(block){
+  const headers=block.headers||[], rows=block.rows||[];
+  return `<table class="desc-table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+function parseNd(nd){if(!nd)return -1;const s=String(nd);if(s.includes('/')){const [a,b]=s.split('/').map(Number);return b?a/b:-1;}const n=Number(s.replace(',','.'));return Number.isFinite(n)?n:-1}
+function formatNd(nd){return nd?String(nd).trim():'—'}
+function ndColor(nd){const value=parseNd(nd);if(value>=17)return {bg:'rgba(142,68,173,.2)',fg:'#bb6bd9',border:'rgba(142,68,173,.35)'};if(value>=5)return {bg:'rgba(212,164,74,.15)',fg:'var(--accent2)',border:'rgba(212,164,74,.35)'};return {bg:'rgba(255,255,255,.04)',fg:'var(--fg2)',border:'var(--border)'}}
+function tipoColor(tipo){const key=norm(tipo);if(key.includes('dragao'))return {bg:'rgba(192,57,43,.14)',fg:'#e74c3c',border:'rgba(192,57,43,.35)'};if(key.includes('morto'))return {bg:'rgba(142,68,173,.14)',fg:'#bb6bd9',border:'rgba(142,68,173,.35)'};if(key.includes('corruptor'))return {bg:'rgba(230,126,34,.14)',fg:'#f0b27a',border:'rgba(230,126,34,.35)'};return {bg:'rgba(52,152,219,.12)',fg:'#85c1e9',border:'rgba(52,152,219,.25)'}}
+function monsterRows(monster){
+  const ndDisplay=formatNd(monster.nd);
+  const xpDisplay=monster.xp?`${ndDisplay} (${monster.xp} XP)`:ndDisplay;
+  return [['Tipo',monster.tipo_criatura],['Tamanho',monster.tamanho],['Alinhamento',monster.alinhamento],['CA',monster.ca],['PV',monster.pv_dados?`${monster.pv} (${monster.pv_dados})`:monster.pv],['Deslocamento',monster.deslocamento],['ND (XP)',xpDisplay],['Testes de Resistência',monster.testes_resistencia],['Perícias',monster.pericias],['Resistência a Dano',monster.resistencia_dano],['Imunidade a Dano',monster.imunidade_dano],['Imunidade a Condição',monster.imunidade_condicao],['Sentidos',monster.sentidos],['Idiomas',monster.idiomas],['Fonte',monster.fonte]];
+}
+function monsterLore(monster){return monster.descricao?`<div class="spell-desc monster-lore">${paragraphs(monster.descricao)}</div>`:''}
+function monsterDesc(m){
+  let html='';
+  [['Habilidades Especiais',m.habilidades_especiais],['Ações',m.acoes],['Ações Lendárias',m.acoes_lendarias],['Reações',m.reacoes]].forEach(([title,list])=>{
+    if(list?.length) html+=`<div class="spell-desc"><div class="desc-block-title">${esc(title)}</div>${list.map(v=>`<p>${esc(v)}</p>`).join('')}</div>`;
+  });
+  if(!html&&m.descricao_blocos?.length) html=`<div class="spell-desc">${m.descricao_blocos.map(block=>block.type==='paragraph'?`<p>${esc(block.text)}</p>`:block.type==='list'?`<ul>${(block.items||[]).map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:'').join('')}</div>`;
+  return html;
+}
+function scores(h){if(!h)return '';return '<div class="scores">'+['FOR','DES','CON','INT','SAB','CAR'].map(k=>h[k]?`<div class="ability-score"><div class="ability-score-label">${k}</div><div class="ability-score-value">${esc(h[k].valor)}</div><div class="ability-score-mod">(${esc(h[k].mod)})</div></div>`:'').join('')+'</div>'}
 $('#search-box').addEventListener('input',e=>{query=e.target.value;openId=null;render();});
 $('#clear-filters').onclick=()=>{query='';filter='Todos';openId=null;$('#search-box').value='';render();};
 document.querySelectorAll('[data-module]').forEach(el=>el.onclick=()=>setModule(el.dataset.module));
