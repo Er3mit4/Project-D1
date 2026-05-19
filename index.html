@@ -440,14 +440,19 @@ footer{
 <script>
 document.querySelectorAll('a[data-order]').forEach(link => {
   link.addEventListener('click', function(e){
-    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const href = this.getAttribute('href');
     const next = Number(this.dataset.order);
     if(!href || Number.isNaN(next) || next === 0) return;
     e.preventDefault();
-    sessionStorage.setItem('d1NavDirection', 'right');
-    document.body.classList.add('d1-exit-left');
-    window.setTimeout(() => { window.location.href = href; }, 150);
+    const target = new URL(href, window.location.href).href;
+    try{
+      sessionStorage.setItem('d1NavDirection', 'right');
+      document.body.classList.add('d1-exit-left');
+      window.setTimeout(() => { window.location.href = target; }, 150);
+    } catch(err){
+      window.location.href = target;
+    }
   });
 });
 </script>
