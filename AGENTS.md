@@ -88,24 +88,24 @@
 | Livro | Path | Status |
 |-------|------|--------|
 | Livro do Jogador | `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf` | ✅ Magias extraídas |
-| Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf` | 🔧 Monstros extraídos/revisados (345) |
+| Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf` | ✅ Monstros extraídos/revisados (345) |
 | Guia do Mestre | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-do-mestre-biblioteca-elfica.pdf` | ✅ Itens extraídos/revisados (Arsenal) |
 
 ## Fases do Projeto
 
 1. ✅ **Grimório** — Buscador de magias (361 magias, concluído)
-2. 🔧 **Arsenal** — Itens, armas, armaduras, equipamentos (527 itens, revisado semanticamente)
-3. 🔧 **Bestiário** — Monstros e criaturas (345 monstros, em revisão semântica)
+2. ✅ **Arsenal** — Itens, armas, armaduras, equipamentos (527 itens, concluído)
+3. ✅ **Bestiário** — Monstros e criaturas (345 monstros, concluído)
 4. 📋 **Raças & Classes** — Detalhes e tabelas
 5. 📋 **Ficha de Personagem** — CRUD com localStorage
-6. 🔧 **Dashboard/App unificado** — Grimório, Arsenal e Bestiário integrados na raiz
+6. ✅ **Dashboard/App unificado** — Grimório, Arsenal e Bestiário integrados na raiz (concluído)
 
 > O uso principal deve acontecer pelo `index.html` da raiz. As pastas dos módulos continuam separadas para extração, revisão, rebuild e manutenção dos dados; abrir `Grimorio/index.html`, `Arsenal/index.html` ou `Bestiario/index.html` redireciona para a rota correspondente do app unificado. Para depuração isolada, use `?standalone=1`.
 
 ## Convenções
 
 - **Idioma:** Toda a interface em PT-BR
-- **Design:** Tema escuro fantasy (cores quentes, fontes Cinzel + Lora)
+- **Design:** Tema escuro fantasy premium (Tailwind CSS CDN + fontes EB Garamond e Hanken Grotesk, glassmorphism e cores harmônicas baseadas em latão/ouro)
 - **Referência de página:** Formato "XXX (PDF: YYY)" — livro impresso + PDF
 - **Offline-first:** Tudo funciona sem internet
 - **Single-file:** O app raiz é um HTML autocontido (CSS + JS + dados embutidos)
@@ -193,4 +193,4 @@ build_html.py -> index.html
 
 ---
 
-*Última atualização: 19/05/2026*
+*Última atualização: 20/05/2026*
