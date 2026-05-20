@@ -46,6 +46,7 @@
 │   ├── template.html
 │   ├── build_html.py
 │   ├── review_spells.py
+│   ├── align_spell_pages.py ← Auditoria e alinhamento de paginação via PDF
 │   ├── spells_raw.json
 │   ├── spells_reviewed.json
 │   ├── spells.json
@@ -59,6 +60,7 @@
 │   ├── extract_arsenal.py  ←   Parser Docling → JSON
 │   ├── review_arsenal.py   ←   Revisão semântica/auditoria do JSON
 │   ├── validate_arsenal.py ←   Validação estrutural/sentinelas
+│   ├── align_arsenal_pages.py ← Auditoria e alinhamento de paginação via PDF
 │   ├── arsenal_raw.json    ←   Saída bruta do parser
 │   ├── arsenal_reviewed.json ← JSON revisado semanticamente
 │   ├── arsenal.json        ←   Dados finais dos itens
@@ -70,6 +72,7 @@
 │   ├── build_html.py       ←   Injeta dados no template
 │   ├── extract_monsters.py ←   Parser Docling → JSON
 │   ├── review_monsters.py  ←   Revisão semântica/auditoria do JSON
+│   ├── align_monsters_pages.py ← Auditoria e alinhamento de paginação via PDF
 │   ├── monstros_raw.json   ←   Saída bruta do parser
 │   ├── monstros_reviewed.json ← JSON revisado semanticamente
 │   ├── monstros.json       ←   Dados finais dos monstros
@@ -176,6 +179,42 @@ build_html.py -> index.html
 ```
 
 > Para futuras fases, adapte os nomes dos arquivos, mas preserve a ideia: parser gera base bruta, mini-agente corrige a estrutura semântica, scripts determinísticos validam o resultado.
+
+## Ferramenta de Alinhamento de Paginação
+
+Cada módulo com dados extraídos de PDF possui um script `align_*_pages.py` para auditar e corrigir automaticamente os campos `pagina_livro`, `pagina_pdf` e `referencia` nos JSONs.
+
+| Script | Módulo | PDFs de Origem |
+|--------|--------|----------------|
+| `Grimorio/align_spell_pages.py` | Grimório | Livro do Jogador (págs 210–289) |
+| `Arsenal/align_arsenal_pages.py` | Arsenal | Livro do Jogador (143–165) + Guia do Mestre (148–232) |
+| `Bestiario/align_monsters_pages.py` | Bestiário | Manual dos Monstros (10–354) |
+
+**Como usar:**
+
+```bash
+# Auditoria sem alterações (modo seguro)
+python Grimorio/align_spell_pages.py
+python Arsenal/align_arsenal_pages.py
+python Bestiario/align_monsters_pages.py
+
+# Com detalhes item a item
+python Arsenal/align_arsenal_pages.py --verbose
+
+# Aplicar correções nos JSONs
+python Arsenal/align_arsenal_pages.py --apply
+python Bestiario/align_monsters_pages.py --apply
+```
+
+**Decisões de projeto:**
+
+- **Cache em memória:** O texto das páginas do PDF é pré-carregado uma única vez antes da varredura, eliminando leitura repetitiva de disco (O(N) em vez de O(N×M)).
+- **Pontuação por múltiplos critérios:** Nome exato em linha isolada recebe pontuação máxima; correspondências parciais, raridade, tipo, categoria e outros campos somam pontos extras. Isso reduz falsos positivos.
+- **Normalização de hífens:** Nomes com artefatos de OCR (`"Kuo -toa"`, `"Yuan -ti"`) são normalizados (`"KUO-TOA"`) antes da busca, sem alterar o dado original.
+- **Guard `MAX_TRUSTED_DIFF = 5`:** Correções com desvio maior que 5 páginas são marcadas como `[SKIP]` (possível falso positivo — ex.: nome encontrado em índice ou tabela do capítulo) e não são aplicadas automaticamente.
+- **Dupla cobertura:** Quando `--apply` é usado, ambos `*.json` e `*_reviewed.json` são atualizados simultaneamente.
+
+> Rode os scripts sempre que reextrair ou reimportar dados de um módulo, e sempre após suspeitar de desalinhamento de paginação.
 
 ## Workflow de Código
 
