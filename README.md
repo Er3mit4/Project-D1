@@ -1,6 +1,6 @@
 # Projeto D1
 
-Sistema unificado de referência completa de D&D 5e em Português Brasileiro, desenvolvido para consulta rápida e dinâmica durante as sessões de RPG. O aplicativo consolida Grimório, Arsenal e Bestiário em uma SPA responsiva de alta performance.
+Sistema unificado de referência completa de D&D 5e em Português Brasileiro, desenvolvido para consulta rápida e dinâmica durante as sessões de RPG. O aplicativo consolida Grimório, Arsenal, Bestiário e Raças & Classes em uma SPA responsiva de alta performance.
 
 ## Módulos Integrados
 
@@ -8,6 +8,7 @@ Sistema unificado de referência completa de D&D 5e em Português Brasileiro, de
 - **Grimório**: Consulta rápida e detalhada de 361 magias do Livro do Jogador.
 - **Arsenal**: Equipamentos, armas, armaduras e 527 itens mágicos do Guia do Mestre e Livro do Jogador.
 - **Bestiário**: Ficha completa e estatísticas de combate de 345 monstros do Manual dos Monstros.
+- **Raças & Classes**: Referência de criação de personagem com 9 raças, 12 classes, progressões 1–20, habilidades e 71 subclasses do Livro do Jogador e Guia de Xanathar.
 
 ## Stack e Arquitetura
 
@@ -18,6 +19,8 @@ Sistema unificado de referência completa de D&D 5e em Português Brasileiro, de
 - **Hospedagem:** Publicação estática rápida pelo GitHub Pages.
 
 O site principal é gerado na raiz (`index.html`) por meio do script de build (`build_unified.py`) a partir do template (`unified_template.html`). As pastas dos módulos contêm os códigos de extração, auditoria de dados e arquivos legados.
+
+Para atualizar o módulo de Raças & Classes, mantenha o fluxo local em `RacasClasses/`: extração/revisão dos JSONs, validação com `python RacasClasses\review_racas_classes.py` e rebuild do app unificado com `python build_unified.py`.
 
 ## Acesso Oficial
 

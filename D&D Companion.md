@@ -41,11 +41,13 @@
 
 ---
 
-## Fase 4 — Raças & Classes 📋 (planejado)
+## Fase 4 — Raças & Classes ✅ (integrado)
 
-- Detalhes de raças, subclasses, habilidades
-- Tabelas de características por nível
-- **Fonte:** Livro do Jogador
+- 9 raças e 12 classes estruturadas para consulta no app unificado
+- Habilidades raciais, sub-raças, proficiências, equipamentos iniciais e progressões 1–20
+- 71 subclasses com mecânicas relevantes em cards expansíveis
+- Tabelas internas para progressão de classe, níveis de subclasse e ancestralidade dracônica
+- **Fonte:** Livro do Jogador + Guia de Xanathar
 
 ---
 
@@ -62,7 +64,7 @@
 ## Fase 6 — Dashboard Completo ✅ (concluído)
 
 - Tela inicial com design bento fantasy e estatísticas gerais
-- Todos os módulos integrados em uma única SPA (Grimório, Arsenal e Bestiário)
+- Todos os módulos integrados em uma única SPA (Grimório, Arsenal, Bestiário e Raças & Classes)
 - Navegação instantânea e responsiva por hash routing
 - Barra de filtros lateral à direita integrada com controle de layout dinâmico
 - Busca sincronizada em tempo real (desktop no header, mobile no corpo)
@@ -83,6 +85,7 @@
 - ✅ Livro do Jogador (magias extraídas)
 - ✅ Guia do Mestre (itens mágicos e equipamentos extraídos)
 - ✅ Manual dos Monstros (monstros extraídos e revisados)
+- ✅ Guia de Xanathar (subclasses integradas em Raças & Classes)
 
 ## Ferramentas
 

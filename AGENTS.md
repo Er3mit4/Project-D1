@@ -28,7 +28,7 @@
 ├── D&D Companion.md        ← Plano geral (fases e módulos)
 ├── index.html              ← App unificado do site
 ├── unified_template.html   ← Template do app unificado sem dados embutidos
-├── build_unified.py        ← Injeta Grimório/Arsenal/Bestiário no app raiz
+├── build_unified.py        ← Injeta Grimório/Arsenal/Bestiário/Raças & Classes no app raiz
 ├── README.md               ← Apresentação simples para GitHub
 │
 ├── Grimorio/               ← Módulo: Grimório (Fase 1)
@@ -82,6 +82,17 @@
 │   ├── docling_out/        ←   Saída do Docling (JSONs brutos)
 │   └── docling_html_out/   ←   Saída do Docling em HTML para auditoria
 ├── RacasClasses/           ← Módulo: Raças & Classes (Fase 4)
+│   ├── index.html          ←   Página legada; redireciona para ../index.html#racasclasses
+│   ├── template.html       ←   Template sem dados
+│   ├── build_html.py       ←   Injeta dados no template legado
+│   ├── extract_racas_classes.py ← Parser Livro do Jogador → JSON
+│   ├── extract_xanathar.py ← Parser Guia de Xanathar → JSON
+│   ├── merge_sources.py    ← Consolida Livro do Jogador + Xanathar
+│   ├── review_racas_classes.py ← Validação estrutural do módulo
+│   ├── mechanics_data.py   ← Complemento mecânico curado para cards
+│   ├── racas_classes_raw.json ← Saída consolidada bruta
+│   ├── racas_classes_reviewed.json ← JSON revisado
+│   └── racas_classes.json  ← Dados finais de raças/classes
 ├── Ficha/                  ← Módulo: Ficha de Personagem (Fase 5)
 └── Dashboard/              ← Módulo: Dashboard integrado (Fase 6)
 ```
@@ -93,16 +104,16 @@
 | Livro do Jogador | `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf` | ✅ Magias extraídas |
 | Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf` | ✅ Monstros extraídos/revisados (345) |
 | Guia do Mestre | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-do-mestre-biblioteca-elfica.pdf` | ✅ Itens extraídos/revisados (Arsenal) |
-| Guia de Xanathar | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-de-xanathar-para-todas-as-coisas-fundo-branco-biblioteca-elfica.pdf` | 🔄 Subclasses e opções de Raças & Classes em integração |
+| Guia de Xanathar | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-de-xanathar-para-todas-as-coisas-fundo-branco-biblioteca-elfica.pdf` | ✅ Subclasses integradas em Raças & Classes |
 
 ## Fases do Projeto
 
 1. ✅ **Grimório** — Buscador de magias (361 magias, concluído)
 2. ✅ **Arsenal** — Itens, armas, armaduras, equipamentos (527 itens, concluído)
 3. ✅ **Bestiário** — Monstros e criaturas (345 monstros, concluído)
-4. 🔄 **Raças & Classes** — Detalhes, subclasses e tabelas em integração
+4. ✅ **Raças & Classes** — Detalhes, subclasses, mecânicas e tabelas integradas
 5. 📋 **Ficha de Personagem** — CRUD com localStorage
-6. ✅ **Dashboard/App unificado** — Grimório, Arsenal e Bestiário integrados na raiz (concluído)
+6. ✅ **Dashboard/App unificado** — Grimório, Arsenal, Bestiário e Raças & Classes integrados na raiz (concluído)
 
 > O uso principal deve acontecer pelo `index.html` da raiz. As pastas dos módulos continuam separadas para extração, revisão, rebuild e manutenção dos dados; abrir `Grimorio/index.html`, `Arsenal/index.html` ou `Bestiario/index.html` redireciona para a rota correspondente do app unificado. Para depuração isolada, use `?standalone=1`.
 

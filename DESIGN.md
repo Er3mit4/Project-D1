@@ -433,9 +433,10 @@ Toda entidade no sistema (Magias, Itens, Monstros) herda uma estrutura de chaves
 ### 8.2 Compilação Automática (`build_unified.py`)
 
 A SPA da raiz (`index.html`) é gerada automaticamente pelo script python injetando os dados dos JSONs revisados no template puro (`unified_template.html`). O script mapeia os arquivos locais:
-- `Grimorio/spells_reviewed.json`
-- `Arsenal/arsenal_reviewed.json`
+- `Grimorio/spells.json`
+- `Arsenal/arsenal.json`
 - `Bestiario/monstros.json`
+- `RacasClasses/racas_classes.json`
 
 Gerando variáveis globais javascript compactadas e injetadas no corpo do script para funcionamento offline instantâneo (Offline-First).
 
@@ -454,6 +455,8 @@ Gerando variáveis globais javascript compactadas e injetadas no corpo do script
 - [ ] Badges e detail grid estruturados de forma responsiva.
 - [ ] Tabelas internas de descrição adaptam-se com scroll horizontal e bordas de latão.
 - [ ] Ficha de monstros exibe as seis colunas de atributos rebaixáveis graciosamente para celular.
+- [ ] Módulos com conteúdo de criação de personagem exibem mecânicas essenciais no card, mantendo referências de página apenas como consulta opcional.
+- [ ] Progressões de classe, progressões de subclasse e listas comparativas usam tabelas responsivas quando a informação for tabular.
 - [ ] Acordeão de card único com centralização suave de scroll na página.
 - [ ] Interface 100% traduzida em PT-BR.
 - [ ] Validação por compilação determinística local (`python build_unified.py`).
