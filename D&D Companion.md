@@ -59,36 +59,38 @@
 
 ---
 
-## Fase 6 — Dashboard Completo 📋 (planejado)
+## Fase 6 — Dashboard Completo ✅ (concluído)
 
-- Tela inicial com todos os módulos integrados
-- Personagem → magias, itens, equipamentos vinculados
-- Quick reference pra mesa (regras rápidas, condições, etc.)
+- Tela inicial com design bento fantasy e estatísticas gerais
+- Todos os módulos integrados em uma única SPA (Grimório, Arsenal e Bestiário)
+- Navegação instantânea e responsiva por hash routing
+- Barra de filtros lateral à direita integrada com controle de layout dinâmico
+- Busca sincronizada em tempo real (desktop no header, mobile no corpo)
 
 ---
 
 ## Arquitetura
 
-- **Módulos independentes** — cada fase é uma pasta separada (`Grimorio/`, `Arsenal/`, etc.)
-- **HTML estático** — funciona offline, sem servidor
-- **Dados embutidos** em JSON (extraídos dos PDFs via Docling + Python)
-- **LocalStorage** para salvar fichas de personagem
+- **App unificado** — SPA estática na raiz (`index.html`), compilada a partir de `unified_template.html`
+- **Módulos legados** — preservam scripts, dados e páginas legadas de manutenção para extração e rebuild
+- **Design System moderno** — Tailwind CSS CDN + fontes `EB Garamond` e `Hanken Grotesk`
+- **Offline-first** — funciona offline, sem servidor externo, com dados JSON embutidos
 - **Repo unificado** no GitHub: `Er3mit4/Project-D1`
 - **Assistente de IA / Codex** para implementação direta e revisão
 
 ## Livros necessários
 
-- ✅ Livro do Jogador (magias já extraídas)
-- 📖 Manual dos Monstros
-- 📖 Guia do Mestre (itens mágicos, tesouros)
+- ✅ Livro do Jogador (magias extraídas)
+- ✅ Guia do Mestre (itens mágicos e equipamentos extraídos)
+- ✅ Manual dos Monstros (monstros extraídos e revisados)
 
 ## Ferramentas
 
 - Extração: Docling CLI (local, GPU) + Python scripts
-- Código: Assistente de IA / Codex implementa diretamente no workspace
+- Compilação: Script `build_unified.py` para injetar os dados no template da raiz
 - Versionamento: Git + GitHub (conta: Er3mit4)
 - Publicação: GitHub Pages
 
 ---
 
-*Última atualização: 19/05/2026*
+*Última atualização: 20/05/2026*
