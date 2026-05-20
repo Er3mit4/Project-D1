@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raças & Classes — Projeto D1</title>
+  <style>
+    body{margin:0;background:#141316;color:#e6e1e5;font-family:system-ui,sans-serif}
+    main{max-width:860px;margin:0 auto;padding:2rem 1rem}
+    a{color:#e6c383}
+    pre{white-space:pre-wrap;background:#201f22;border:1px solid rgba(230,195,131,.25);padding:1rem;overflow:auto}
+  </style>
+</head>
+<body>
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if(!params.has('standalone')){
+    window.location.replace('../index.html#racasclasses');
+  }
+})();
+</script>
+<main>
+  <h1>Raças &amp; Classes</h1>
+  <p>Esta página legada existe para manutenção do módulo. O uso principal fica no app unificado.</p>
+  <p><a href="../index.html#racasclasses">Abrir no app unificado</a></p>
+  <pre id="summary"></pre>
+</main>
+<script>
+const RACAS_CLASSES = __RACAS_CLASSES_DATA__;
+document.getElementById('summary').textContent =
+  `${RACAS_CLASSES.racas.length} raças\n${RACAS_CLASSES.classes.length} classes\n${RACAS_CLASSES.meta.total_subclasses} subclasses`;
+</script>
+</body>
+</html>

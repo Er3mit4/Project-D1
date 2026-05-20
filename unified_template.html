@@ -241,6 +241,7 @@
         <button type="button" data-module="grimorio" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-grimorio">Grimório</button>
         <button type="button" data-module="arsenal" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-arsenal">Arsenal</button>
         <button type="button" data-module="bestiario" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-bestiario">Bestiário</button>
+        <button type="button" data-module="racasclasses" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-racasclasses">Raças &amp; Classes</button>
       </nav>
     </div>
     
@@ -360,16 +361,16 @@
           <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">VER ITENS <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
         </div>
 
-        <!-- Raças & Classes Card (disabled) -->
-        <div class="md:col-span-3 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between h-64 opacity-65 border-dashed cursor-not-allowed">
+        <!-- Raças & Classes Card -->
+        <div data-module="racasclasses" class="md:col-span-3 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between h-64 cursor-pointer">
           <div>
             <div class="flex items-center gap-3 mb-3">
-              <span class="material-symbols-outlined text-3xl text-on-surface-variant">group</span>
-              <h4 class="font-title-md text-xl text-on-surface-variant uppercase font-bold">RAÇAS &amp; CLASSES</h4>
+              <span class="material-symbols-outlined text-3xl text-primary">groups</span>
+              <h4 class="font-title-md text-xl text-primary uppercase font-bold">RAÇAS &amp; CLASSES</h4>
             </div>
-            <p class="font-body-md text-sm text-on-surface-variant/65">Detalhes, regras e tabelas de raças e classes oficiais de D&amp;D 5e.</p>
+            <p class="font-body-md text-sm text-on-surface-variant">Raças base, sub-raças, classes e progressões 1–20 para criação de personagens.</p>
           </div>
-          <span class="font-label-sm text-[10px] text-primary border border-primary/45 px-2 py-0.5 self-start rounded font-bold uppercase">EM BREVE</span>
+          <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">CONHECER CAMINHOS <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
         </div>
 
         <!-- Ficha Card (disabled) -->
@@ -465,6 +466,10 @@
         <span class="material-symbols-outlined text-xl">skull</span>
         <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Bestiário</span>
       </button>
+      <button type="button" data-module="racasclasses" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-racasclasses">
+        <span class="material-symbols-outlined text-xl">groups</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Raças</span>
+      </button>
     </div>
   </main>
 
@@ -473,8 +478,9 @@
     const SPELLS = __SPELLS_DATA__;
     const ITEMS = __ARSENAL_DATA__;
     const MONSTERS = __MONSTERS_DATA__;
+    const RACAS_CLASSES = __RACAS_CLASSES_DATA__;
     
-    const ORDER = ['inicio', 'grimorio', 'arsenal', 'bestiario'];
+    const ORDER = ['inicio', 'grimorio', 'arsenal', 'bestiario', 'racasclasses'];
     
     const MODULES = {
       inicio: {
@@ -503,6 +509,13 @@
         placeholder: 'Buscar monstro por nome, tipo ou ND...',
         data: MONSTERS,
         total: 'monstros'
+      },
+      racasclasses: {
+        title: 'Raças & Classes',
+        description: 'Referência de criação de personagem com raças, sub-raças, classes, progressões e subclasses.',
+        placeholder: 'Buscar raça, classe, habilidade, subclasse ou fonte...',
+        data: RACAS_CLASSES.items || [],
+        total: 'registros'
       }
     };
 
@@ -535,13 +548,21 @@
     const TIPOS_BESTIARIO = [...new Set(MONSTERS.map(m => m.tipo_criatura).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const ALINHAMENTOS = [...new Set(MONSTERS.map(m => m.alinhamento).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const FONTES_BESTIARIO = [...new Set(MONSTERS.map(m => m.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const RACAS_TAMANHOS = [...new Set((RACAS_CLASSES.racas || []).map(r => r.tamanho).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const RACAS_FONTES = [...new Set((RACAS_CLASSES.items || []).flatMap(i => String(i.fonte_sigla || i.fonte || '').split('+')).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
+    const DADOS_VIDA = [...new Set((RACAS_CLASSES.classes || []).map(c => c.dado_de_vida).filter(Boolean))].sort((a,b) => Number(a.slice(1)) - Number(b.slice(1)));
+    const SAVES_CLASSES = ['Força', 'Destreza', 'Constituição', 'Inteligência', 'Sabedoria', 'Carisma'];
+    const SUBCLASS_SOURCE_MODES = ['LJ only', 'LJ + XGE'];
 
     // Global Active Filters State
     const activeFilters = {
       grimorio: { nivel: new Set(), escola: new Set(), classe: new Set() },
       arsenal: { categoria: new Set(), tipo: new Set(), fonte: new Set(), raridade: new Set(), sintonizacao: new Set(), classe: new Set() },
-      bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() }
+      bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() },
+      racasclasses: { modo: new Set(), tamanho: new Set(), visao: new Set(), dado: new Set(), save: new Set(), fonte: new Set(), subclasses: new Set() }
     };
+
+    let racasClassesTab = 'racas';
 
     let current = 'inicio', query = '', openId = null;
     
@@ -651,6 +672,14 @@
         addFilterSection(container, 'ND', 'nd', ND_RANGE_LABELS);
         addFilterSection(container, 'Alinhamento', 'alinhamento', ALINHAMENTOS, { collapsible: true, collapsed: true });
         addFilterSection(container, 'Fonte', 'fonte', FONTES_BESTIARIO);
+      } else if (current === 'racasclasses') {
+        addFilterSection(container, 'Modo', 'modo', ['Raças', 'Classes']);
+        addFilterSection(container, 'Tamanho', 'tamanho', RACAS_TAMANHOS);
+        addFilterSection(container, 'Visão no Escuro', 'visao', ['Sim', 'Não']);
+        addFilterSection(container, 'Dado de Vida', 'dado', DADOS_VIDA);
+        addFilterSection(container, 'Teste de Resistência', 'save', SAVES_CLASSES);
+        addFilterSection(container, 'Subclasses', 'subclasses', SUBCLASS_SOURCE_MODES);
+        addFilterSection(container, 'Fonte', 'fonte', RACAS_FONTES);
       }
     }
 
@@ -769,6 +798,17 @@
           (item.propriedades || []).join(' '), (item.classes || []).join(' ')
         ].join(' ');
       }
+      if (current === 'racasclasses') {
+        return [
+          item.nome, item.tipo, item.descricao_lore, item.aumento_atributos, item.tamanho,
+          item.deslocamento, item.dado_de_vida, item.fonte, item.fonte_sigla,
+          (item.idiomas || []).join(' '), (item.testes_resistencia || []).join(' '),
+          (item.habilidades_raciais || []).map(h => `${h.nome} ${h.descricao}`).join(' '),
+          (item.habilidades_classe || []).map(h => `${h.nivel} ${h.nome} ${h.descricao}`).join(' '),
+          (item.sub_racas || []).map(s => `${s.nome} ${s.aumento_atributos} ${(s.habilidades || []).map(h => `${h.nome} ${h.descricao}`).join(' ')}`).join(' '),
+          (item.sub_classes || []).map(s => `${s.nome} ${s.fonte_sigla} ${s.descricao} ${(s.habilidades || []).map(h => `${h.nome} ${h.descricao}`).join(' ')}`).join(' ')
+        ].join(' ');
+      }
       return [
         item.nome, item.tipo_criatura, item.tamanho, item.alinhamento,
         item.ca, item.pv, item.pv_dados, item.deslocamento,
@@ -835,6 +875,38 @@
           if (f.alinhamento.size && !f.alinhamento.has(item.alinhamento)) return false;
           if (f.fonte.size && !f.fonte.has(item.fonte)) return false;
         }
+        else if (current === 'racasclasses') {
+          const f = activeFilters.racasclasses;
+          if (racasClassesTab === 'racas' && item.tipo !== 'Raça') return false;
+          if (racasClassesTab === 'classes' && item.tipo !== 'Classe') return false;
+          if (f.modo.size) {
+            if (f.modo.has('Raças') && item.tipo !== 'Raça') return false;
+            if (f.modo.has('Classes') && item.tipo !== 'Classe') return false;
+          }
+          if (f.tamanho.size && item.tipo === 'Raça' && !f.tamanho.has(item.tamanho)) return false;
+          if (f.visao.size && item.tipo === 'Raça') {
+            const value = item.visao_no_escuro ? 'Sim' : 'Não';
+            if (!f.visao.has(value)) return false;
+          }
+          if (f.dado.size && item.tipo === 'Classe' && !f.dado.has(item.dado_de_vida)) return false;
+          if (f.save.size && item.tipo === 'Classe') {
+            const saves = item.testes_resistencia || [];
+            if (![...f.save].some(save => saves.includes(save))) return false;
+          }
+          if (f.subclasses.size && item.tipo === 'Classe') {
+            const hasXge = (item.sub_classes || []).some(sub => sub.fonte_sigla === 'XGE');
+            const mode = hasXge ? 'LJ + XGE' : 'LJ only';
+            if (!f.subclasses.has(mode)) return false;
+          }
+          if (f.fonte.size) {
+            const sources = String(item.fonte_sigla || item.fonte || '').split('+');
+            const nestedSources = [
+              ...(item.sub_racas || []).map(s => s.fonte_sigla),
+              ...(item.sub_classes || []).map(s => s.fonte_sigla)
+            ].filter(Boolean);
+            if (![...f.fonte].some(src => sources.includes(src) || nestedSources.includes(src))) return false;
+          }
+        }
         return true;
       });
       
@@ -852,6 +924,9 @@
           if (ndA !== ndB) return ndA - ndB;
           return a.nome.localeCompare(b.nome,'pt-BR');
         });
+      }
+      if (current === 'racasclasses') {
+        return filtered.sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR'));
       }
       return filtered;
     }
@@ -884,13 +959,23 @@
         listContainer.innerHTML = '';
       } else {
         emptyState.classList.add('hidden');
-        listContainer.innerHTML = filtered.map(renderCard).join('');
+        listContainer.innerHTML = (current === 'racasclasses' ? renderRacasClassesHeader() : '') + filtered.map(renderCard).join('');
+        if (current === 'racasclasses') {
+          document.querySelectorAll('[data-rc-tab]').forEach(btn => {
+            btn.onclick = e => {
+              e.stopPropagation();
+              racasClassesTab = btn.dataset.rcTab;
+              openId = null;
+              render();
+            };
+          });
+        }
         
         // Add Dynamic Accordion Toggle
         document.querySelectorAll('.card').forEach(card => {
           card.onclick = (e) => {
-            // Avoid triggering toggle if clicking inside an expanded detail interactive element
-            if (e.target.closest('.detail a, .detail button, .detail table')) return;
+            // Keep nested interactive content from toggling the parent card.
+            if (e.target.closest('.detail a, .detail button, .detail table, .detail details, .detail summary')) return;
             
             const isAlreadyOpen = card.classList.contains('open');
             
@@ -928,6 +1013,7 @@
       const open = id === openId ? ' open' : '';
       if (current === 'grimorio') return renderSpellCard(item, id, open);
       if (current === 'arsenal') return renderArsenalCard(item, id, open);
+      if (current === 'racasclasses') return renderRacasClassesCard(item, id, open);
       return renderMonsterCard(item, id, open);
     }
 
@@ -1112,6 +1198,246 @@
       `;
     }
 
+    function renderRacasClassesHeader() {
+      const raceActive = racasClassesTab === 'racas';
+      const classActive = racasClassesTab === 'classes';
+      return `
+        <div class="flex flex-wrap items-center gap-2 mb-6 border border-primary/15 bg-surface-container-low/70 p-2 rounded-sm">
+          <button type="button" data-rc-tab="racas" class="px-4 py-2 rounded-sm font-label-sm text-xs uppercase tracking-widest border ${raceActive ? 'bg-primary text-on-primary border-primary font-bold' : 'border-primary/20 text-on-surface-variant bg-transparent hover:text-primary hover:border-primary/50'} transition-all cursor-pointer">Raças</button>
+          <button type="button" data-rc-tab="classes" class="px-4 py-2 rounded-sm font-label-sm text-xs uppercase tracking-widest border ${classActive ? 'bg-primary text-on-primary border-primary font-bold' : 'border-primary/20 text-on-surface-variant bg-transparent hover:text-primary hover:border-primary/50'} transition-all cursor-pointer">Classes</button>
+          <span class="ml-auto font-label-sm text-[10px] text-on-surface-variant uppercase tracking-widest">${esc((RACAS_CLASSES.meta || {}).total_subclasses || 0)} subclasses</span>
+        </div>
+      `;
+    }
+
+    function renderRacasClassesCard(item, id, open) {
+      return item.tipo === 'Classe'
+        ? renderClasseCard(item, id, open)
+        : renderRacaCard(item, id, open);
+    }
+
+    function renderRacaCard(item, id, open) {
+      const subCount = (item.sub_racas || []).length;
+      const cls = item.visao_no_escuro ? 'cantrip' : 'leveled';
+      return `
+        <article class="card ${cls}${open}" data-id="${esc(id)}">
+          <div class="card-head p-4 md:p-6 flex items-center justify-between group">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-primary/20 bg-primary/5 text-primary rounded-full">
+                <span class="material-symbols-outlined text-xl md:text-2xl">groups</span>
+              </span>
+              <div>
+                <h3 class="font-headline-lg text-base md:text-xl text-on-surface uppercase ${open ? 'text-primary' : 'group-hover:text-primary'} transition-colors m-0">${esc(item.nome)}</h3>
+                <p class="font-label-sm text-[9px] md:text-[10px] text-on-surface-variant tracking-wider uppercase m-0 mt-1">${esc(item.tamanho)} &bull; ${esc(item.deslocamento)}${subCount ? ` &bull; ${subCount} sub-raças` : ''}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+              <span class="px-2.5 py-1 border border-primary/30 text-on-surface-variant font-label-sm uppercase tracking-widest text-[9px] md:text-[10px] bg-primary/5 rounded-full whitespace-nowrap">${esc(item.fonte_sigla || sourceLabel(item.fonte))}</span>
+              <span class="material-symbols-outlined text-primary expand-arrow text-sm md:text-base transition-transform duration-300 ${open ? 'rotate-90' : 'group-hover:translate-x-1'}">arrow_forward_ios</span>
+            </div>
+          </div>
+          <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
+            <div class="px-4 md:px-8 pb-6 pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-primary/10">
+              ${[
+                ['Atributos', item.aumento_atributos],
+                ['Tamanho', item.tamanho],
+                ['Deslocamento', item.deslocamento],
+                ['Visão no Escuro', item.visao_no_escuro ? 'Sim' : 'Não'],
+                ['Idiomas', (item.idiomas || []).join(', ')],
+                ['Fonte', item.fonte]
+              ].filter(([, val]) => val).map(([label, val]) => `
+                <div class="bg-surface-container-low p-2.5 rounded border border-primary/10">
+                  <span class="block font-label-sm text-[9px] md:text-[10px] text-on-surface-variant uppercase mb-1">${esc(label)}</span>
+                  <span class="font-headline-lg text-base md:text-lg text-primary">${esc(val)}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="px-4 md:px-8 pb-6 pt-4 spell-desc text-on-surface-variant leading-relaxed font-body-md text-sm md:text-base space-y-4">
+              ${richText(item.descricao_lore)}
+              ${traitList('Habilidades Raciais', item.habilidades_raciais)}
+              ${subRaceList(item.sub_racas)}
+            </div>
+            ${refBadge(item.referencia)}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderClasseCard(item, id, open) {
+      const xgeCount = (item.sub_classes || []).filter(s => s.fonte_sigla === 'XGE').length;
+      return `
+        <article class="card leveled${open}" data-id="${esc(id)}">
+          <div class="card-head p-4 md:p-6 flex items-center justify-between group">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-error/20 font-headline-lg text-error bg-blood-crimson/10 font-bold rounded-sm text-sm md:text-base">${esc(item.dado_de_vida)}</span>
+              <div>
+                <h3 class="font-headline-lg text-base md:text-xl text-on-surface uppercase ${open ? 'text-primary' : 'group-hover:text-primary'} transition-colors m-0">${esc(item.nome)}</h3>
+                <p class="font-label-sm text-[9px] md:text-[10px] text-on-surface-variant tracking-wider uppercase m-0 mt-1">${esc((item.sub_classes || []).length)} subclasses${xgeCount ? ` &bull; ${xgeCount} XGE` : ''}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+              <span class="px-2.5 py-1 border border-primary/30 text-on-surface-variant font-label-sm uppercase tracking-widest text-[9px] md:text-[10px] bg-primary/5 rounded-full whitespace-nowrap">${esc(item.fonte_sigla || sourceLabel(item.fonte))}</span>
+              <span class="material-symbols-outlined text-primary expand-arrow text-sm md:text-base transition-transform duration-300 ${open ? 'rotate-90' : 'group-hover:translate-x-1'}">arrow_forward_ios</span>
+            </div>
+          </div>
+          <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
+            <div class="px-4 md:px-8 pb-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-primary/10">
+              ${[
+                ['Dado de Vida', item.dado_de_vida],
+                ['Resistências', (item.testes_resistencia || []).join(', ')],
+                ['Perícias', item.pericias_opcoes],
+                ['Armaduras', item.proficiencias_armadura],
+                ['Armas', item.proficiencias_armas],
+                ['Ferramentas', item.proficiencias_ferramentas],
+                ['Equipamento inicial', item.equipamento_inicial],
+              ].filter(([, val]) => val).map(([label, val]) => `
+                <div class="bg-surface-container-low p-2.5 rounded border border-primary/10">
+                  <span class="block font-label-sm text-[9px] md:text-[10px] text-on-surface-variant uppercase mb-1">${esc(label)}</span>
+                  <span class="font-body-md text-sm text-on-surface">${esc(val)}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="px-4 md:px-8 py-4 border-b border-primary/10">
+              <div class="font-headline-lg text-lg text-primary uppercase mb-3 font-bold tracking-widest">Progressão 1–20</div>
+              ${levelTable(item.tabela_niveis)}
+            </div>
+            <div class="px-4 md:px-8 pb-6 pt-4 space-y-5 text-sm md:text-base">
+              ${traitList('Habilidades de Classe', item.habilidades_classe)}
+              ${subClassList(item.sub_classes)}
+            </div>
+            ${refBadge(item.referencia)}
+          </div>
+        </article>
+      `;
+    }
+
+    function traitList(title, list) {
+      if (!list?.length) return '';
+      return `
+        <section class="border-t border-primary/10 pt-4">
+          <div class="font-headline-lg text-lg text-primary uppercase mb-3 font-bold tracking-widest">${esc(title)}</div>
+          <div class="space-y-3">
+            ${list.map(item => `
+              <div>
+                <h4 class="font-label-sm text-xs text-on-surface uppercase tracking-widest m-0">${item.nivel ? `Nível ${esc(item.nivel)} · ` : ''}${esc(item.nome)}</h4>
+                ${traitBody(item)}
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function traitBody(item) {
+      if (!item?.descricao) return '';
+      if (item.nome === 'Tabela de Ancestralidade Dracônica') return draconicAncestryTable(item.descricao);
+      return `<p class="font-body-md text-on-surface-variant leading-relaxed m-0 mt-1">${esc(item.descricao)}</p>`;
+    }
+
+    function draconicAncestryTable(text) {
+      const rows = [];
+      const pattern = /([A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]+)\s+—\s+Dano:\s*([^,]+),\s*Sopro:\s*([^()]+)\(([^)]+)\)\.?/g;
+      let match;
+      while ((match = pattern.exec(String(text || ''))) !== null) {
+        rows.push([match[1].trim(), match[2].trim(), match[3].trim(), match[4].trim()]);
+      }
+      if (!rows.length) {
+        return `<p class="font-body-md text-on-surface-variant leading-relaxed m-0 mt-1">${esc(text)}</p>`;
+      }
+      return tableHtml({
+        headers: ['Dragão', 'Dano', 'Sopro', 'Resistência'],
+        rows
+      });
+    }
+
+    function subRaceList(list) {
+      if (!list?.length) return '';
+      return `
+        <section class="border-t border-primary/10 pt-4">
+          <div class="font-headline-lg text-lg text-primary uppercase mb-3 font-bold tracking-widest">Sub-raças</div>
+          <div class="space-y-3">
+            ${list.map(sub => `
+              <details class="bg-surface-container-low border border-primary/10 rounded-sm p-3">
+                <summary class="cursor-pointer font-label-sm text-xs text-primary uppercase tracking-widest">${esc(sub.nome)} <span class="text-on-surface-variant">(${esc(sub.fonte_sigla || 'LJ')})</span></summary>
+                <p class="font-body-md text-sm text-on-surface-variant mt-3 mb-2"><strong>Atributos:</strong> ${esc(sub.aumento_atributos || '')}</p>
+                ${(sub.habilidades || []).map(h => `<p class="font-body-md text-sm text-on-surface-variant m-0 mb-2"><strong>${esc(h.nome)}.</strong> ${esc(h.descricao)}</p>`).join('')}
+              </details>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function subClassList(list) {
+      if (!list?.length) return '';
+      return `
+        <section class="border-t border-primary/10 pt-5">
+          <div class="font-headline-lg text-lg text-primary uppercase mb-3 font-bold tracking-widest">Subclasses</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            ${list.map(sub => `
+              <div class="bg-surface-container-low border border-primary/10 rounded-sm p-3">
+                <div class="flex items-start justify-between gap-3">
+                  <h4 class="font-label-sm text-xs text-on-surface uppercase tracking-widest m-0">${esc(sub.nome)}</h4>
+                  <span class="px-2 py-0.5 border border-primary/25 text-primary font-label-sm text-[9px] rounded-full">${esc(sub.fonte_sigla || sourceLabel(sub.fonte))}</span>
+                </div>
+                ${subclassDescription(sub.descricao)}
+                ${(sub.habilidades || []).filter(h => h.descricao).map(h => `<p class="font-body-md text-xs text-on-surface-variant m-0"><strong>Nível ${esc(h.nivel)}: ${esc(h.nome)}.</strong> ${esc(h.descricao)}</p>`).join('')}
+                ${sub.referencia ? `<p class="font-label-sm text-[10px] text-primary/70 uppercase tracking-widest m-0 mt-3">📖 ${esc(sub.referencia)}</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function subclassDescription(text) {
+      if (!text) return '';
+      const rows = parseLevelProgression(text);
+      if (rows.length >= 2) {
+        return tableHtml({
+          headers: ['Nível', 'Mecânica'],
+          rows
+        });
+      }
+      return `<p class="font-body-md text-sm text-on-surface-variant leading-relaxed mt-2 mb-2">${esc(text)}</p>`;
+    }
+
+    function parseLevelProgression(text) {
+      const raw = String(text || '').trim();
+      const matches = [...raw.matchAll(/(\d+º):\s*/g)];
+      if (!matches.length) return [];
+      return matches.map((match, index) => {
+        const start = match.index + match[0].length;
+        const end = index + 1 < matches.length ? matches[index + 1].index : raw.length;
+        return [match[1], raw.slice(start, end).trim().replace(/\.$/, '')];
+      }).filter(row => row[1]);
+    }
+
+    function levelTable(rows) {
+      return `
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left text-xs font-data-table border-collapse border border-primary/20 rounded-sm">
+            <thead>
+              <tr class="bg-primary/5 text-primary uppercase font-bold border-b border-primary/20">
+                <th class="p-3 font-bold">Nível</th>
+                <th class="p-3 font-bold">Bônus</th>
+                <th class="p-3 font-bold">Habilidades</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-primary/10">
+              ${(rows || []).map(row => `
+                <tr class="hover:bg-primary/5 transition-colors">
+                  <td class="p-3 text-on-surface">${esc(row.nivel)}</td>
+                  <td class="p-3 text-on-surface-variant">+${esc(row.bonus_proficiencia)}</td>
+                  <td class="p-3 text-on-surface-variant">${esc((row.habilidades || []).join(', '))}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
     function monsterRowsFiltered(monster) {
       return [
         ['Deslocamento', monster.deslocamento],
@@ -1184,7 +1510,8 @@
     function sourceLabel(source) {
       if (source === 'Livro do Jogador') return 'LJ';
       if (source === 'Guia do Mestre') return 'GM';
-      if (source === 'Guia de Xanathar para Todas as Coisas') return 'Xanathar';
+      if (source === 'Guia de Xanathar para Todas as Coisas') return 'XGE';
+      if (source === 'Manual dos Monstros') return 'MM';
       return source || '';
     }
 

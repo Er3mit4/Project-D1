@@ -93,13 +93,14 @@
 | Livro do Jogador | `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf` | ✅ Magias extraídas |
 | Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf` | ✅ Monstros extraídos/revisados (345) |
 | Guia do Mestre | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-do-mestre-biblioteca-elfica.pdf` | ✅ Itens extraídos/revisados (Arsenal) |
+| Guia de Xanathar | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-de-xanathar-para-todas-as-coisas-fundo-branco-biblioteca-elfica.pdf` | 🔄 Subclasses e opções de Raças & Classes em integração |
 
 ## Fases do Projeto
 
 1. ✅ **Grimório** — Buscador de magias (361 magias, concluído)
 2. ✅ **Arsenal** — Itens, armas, armaduras, equipamentos (527 itens, concluído)
 3. ✅ **Bestiário** — Monstros e criaturas (345 monstros, concluído)
-4. 📋 **Raças & Classes** — Detalhes e tabelas
+4. 🔄 **Raças & Classes** — Detalhes, subclasses e tabelas em integração
 5. 📋 **Ficha de Personagem** — CRUD com localStorage
 6. ✅ **Dashboard/App unificado** — Grimório, Arsenal e Bestiário integrados na raiz (concluído)
 

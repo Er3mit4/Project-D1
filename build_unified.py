@@ -19,12 +19,18 @@ def main() -> int:
         "__SPELLS_DATA__": read_json("Grimorio/spells.json"),
         "__ARSENAL_DATA__": read_json("Arsenal/arsenal.json"),
         "__MONSTERS_DATA__": read_json("Bestiario/monstros.json"),
+        "__RACAS_CLASSES_DATA__": read_json("RacasClasses/racas_classes.json"),
     }
     html = TEMPLATE.read_text(encoding="utf-8")
     for marker, data in payloads.items():
         html = html.replace(marker, json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     OUTPUT.write_text(html, encoding="utf-8")
-    print(f"Gerado {OUTPUT} com {len(payloads['__SPELLS_DATA__'])} magias, {len(payloads['__ARSENAL_DATA__'])} itens e {len(payloads['__MONSTERS_DATA__'])} monstros.")
+    rc = payloads["__RACAS_CLASSES_DATA__"]
+    print(
+        f"Gerado {OUTPUT} com {len(payloads['__SPELLS_DATA__'])} magias, "
+        f"{len(payloads['__ARSENAL_DATA__'])} itens, {len(payloads['__MONSTERS_DATA__'])} monstros "
+        f"e {len(rc.get('items', []))} registros de raças/classes."
+    )
     return 0
 
 

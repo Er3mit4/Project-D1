@@ -1,0 +1,713 @@
+{
+  "sub_classes": [
+    {
+      "id": "barbaro-caminho-do-guardiao-ancestral",
+      "classe_id": "barbaro",
+      "nome": "Caminho do Guardião Ancestral",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 8,
+      "referencia": "XGE (PDF: 8)",
+      "descricao": "3º: durante fúria, o primeiro inimigo que você acerta tem desvantagem contra seus aliados e eles resistem ao dano dele. 6º: reduz dano sofrido por aliado próximo com reação. 10º: consulta espíritos para augúrio/clarividência. 14º: quando reduz dano com os espíritos, causa dano retaliatório.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho do Guardião Ancestral",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "barbaro-caminho-do-arauto-da-tempestade",
+      "classe_id": "barbaro",
+      "nome": "Caminho do Arauto da Tempestade",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 9,
+      "referencia": "XGE (PDF: 9)",
+      "descricao": "3º: escolhe aura de deserto, mar ou tundra que ativa efeitos enquanto está em fúria. 6º: ganha resistência e adaptação ao ambiente escolhido. 10º: compartilha resistência com aliados próximos. 14º: sua aura ganha reação ofensiva ou controle conforme o ambiente.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho do Arauto da Tempestade",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "barbaro-caminho-do-zelote",
+      "classe_id": "barbaro",
+      "nome": "Caminho do Zelote",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 10,
+      "referencia": "XGE (PDF: 10)",
+      "descricao": "3º: causa dano radiante/necrótico extra uma vez por turno e é mais fácil de reviver. 6º: pode repetir resistência falha durante fúria. 10º: inspira aliados com grito de batalha. 14º: continua lutando mesmo a 0 PV enquanto a fúria durar.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho do Zelote",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "bardo-colegio-do-glamour",
+      "classe_id": "bardo",
+      "nome": "Colégio do Glamour",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 13,
+      "referencia": "XGE (PDF: 13)",
+      "descricao": "3º: usa inspiração para dar PV temporários e mover aliados; também encanta uma audiência após apresentação. 6º: comanda criatura encantada como ação bônus. 14º: assume majestade feérica que dificulta ataques contra você.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Colégio do Glamour",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "bardo-colegio-das-espadas",
+      "classe_id": "bardo",
+      "nome": "Colégio das Espadas",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 14,
+      "referencia": "XGE (PDF: 14)",
+      "descricao": "3º: ganha armaduras médias, cimitarras, estilo de luta e floreios que gastam inspiração para dano, defesa ou empurrão. 6º: ganha Ataque Extra. 14º: usa floreio básico sem gastar inspiração.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Colégio das Espadas",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "bardo-colegio-dos-sussurros",
+      "classe_id": "bardo",
+      "nome": "Colégio dos Sussurros",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 15,
+      "referencia": "XGE (PDF: 15)",
+      "descricao": "3º: gasta inspiração para dano psíquico e assusta alvos isolados com palavras. 6º: rouba sombra de humanoide morto para disfarce. 14º: chantageia magicamente uma criatura com medo e encanto.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Colégio dos Sussurros",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "clerigo-dominio-da-forja",
+      "classe_id": "clerigo",
+      "nome": "Domínio da Forja",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 22,
+      "referencia": "XGE (PDF: 22)",
+      "descricao": "Ganha proficiências de forja, abençoa arma/armadura, cria item simples com Canalizar Divindade, ganha resistência a fogo e bônus com armadura pesada, e em níveis altos imunidade a fogo e resistência física em armadura pesada.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Domínio da Forja",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "clerigo-dominio-do-tumulo",
+      "classe_id": "clerigo",
+      "nome": "Domínio do Túmulo",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 24,
+      "referencia": "XGE (PDF: 24)",
+      "descricao": "Estabiliza e cura melhor alvos a 0 PV, detecta mortos-vivos, usa Canalizar Divindade para deixar alvo vulnerável ao próximo dano, cancela críticos contra aliados e captura energia de mortes próximas para curar.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Domínio do Túmulo",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "druida-circulo-dos-sonhos",
+      "classe_id": "druida",
+      "nome": "Círculo dos Sonhos",
+      "nivel_acesso": 2,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 26,
+      "referencia": "XGE (PDF: 26)",
+      "descricao": "Ganha reserva de dados para curar e dar PV temporários, cria refúgio durante descanso, teleporta aliados por caminhos feéricos e usa magia onírica para vigília ou viagem.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Círculo dos Sonhos",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "druida-circulo-do-pastor",
+      "classe_id": "druida",
+      "nome": "Círculo do Pastor",
+      "nivel_acesso": 2,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 27,
+      "referencia": "XGE (PDF: 27)",
+      "descricao": "Fala com animais/espíritos, invoca totem espiritual com aura de suporte, fortalece criaturas convocadas, cura invocações e recebe proteção espiritual quando cai.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Círculo do Pastor",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "feiticeiro-alma-divina",
+      "classe_id": "feiticeiro",
+      "nome": "Alma Divina",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 33,
+      "referencia": "XGE (PDF: 33)",
+      "descricao": "Acessa magias de clérigo além das de feiticeiro, recebe magia bônus por afinidade, melhora testes falhos com favor divino, cura melhor, ganha asas e pode se recuperar quando muito ferido.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Alma Divina",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "feiticeiro-magia-das-sombras",
+      "classe_id": "feiticeiro",
+      "nome": "Magia das Sombras",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 33,
+      "referencia": "XGE (PDF: 33)",
+      "descricao": "Enxerga no escuro melhor, resiste a cair a 0 PV, conjura escuridão especial, invoca cão sombrio contra alvo, teleporta entre sombras e assume forma sombria resistente.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Magia das Sombras",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "feiticeiro-feiticaria-da-tempestade",
+      "classe_id": "feiticeiro",
+      "nome": "Feitiçaria da Tempestade",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 35,
+      "referencia": "XGE (PDF: 35)",
+      "descricao": "Move-se sem provocar após conjurar magia, causa dano de tempestade ao lançar magias elétricas/trovejantes, ganha resistência e controle climático, protege aliados e voa em rajadas em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Feitiçaria da Tempestade",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "guerreiro-arqueiro-arcano",
+      "classe_id": "guerreiro",
+      "nome": "Arqueiro Arcano",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 37,
+      "referencia": "XGE (PDF: 37)",
+      "descricao": "Aprende disparos arcanos com efeitos especiais, cria flechas mágicas, redireciona disparos errados e melhora dano/efeitos dos disparos em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Arqueiro Arcano",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "guerreiro-cavaleiro",
+      "classe_id": "guerreiro",
+      "nome": "Cavaleiro",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 38,
+      "referencia": "XGE (PDF: 38)",
+      "descricao": "Marca inimigos para proteger aliados, ganha proficiências sociais/montaria, aumenta resistência defensiva, segura linha com ataques de oportunidade melhores e pune quem ignora sua marca.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Cavaleiro",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "guerreiro-samurai",
+      "classe_id": "guerreiro",
+      "nome": "Samurai",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 38,
+      "referencia": "XGE (PDF: 38)",
+      "descricao": "Ganha proficiência social, usa Espírito Lutador para vantagem e PV temporários, melhora presença social, ganha ataque extra ao abrir mão de vantagem e continua agindo ao cair em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Samurai",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "ladino-inquisitivo",
+      "classe_id": "ladino",
+      "nome": "Inquisitivo",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 42,
+      "referencia": "XGE (PDF: 42)",
+      "descricao": "Detecta mentiras e detalhes ocultos, usa Intuição para ativar Ataque Furtivo sem vantagem, melhora investigação/percepção e explora fraquezas do alvo em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Inquisitivo",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "ladino-mentor",
+      "classe_id": "ladino",
+      "nome": "Mentor",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 42,
+      "referencia": "XGE (PDF: 42)",
+      "descricao": "Ganha disfarces, falsificação e idiomas; usa Ajuda como ação bônus à distância; manipula identidade social e redireciona ataques para outras criaturas em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Mentor",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "ladino-batedor",
+      "classe_id": "ladino",
+      "nome": "Batedor",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 44,
+      "referencia": "XGE (PDF: 44)",
+      "descricao": "Reage para afastar-se de inimigos que terminam perto, ganha perícias de exploração, aumenta deslocamento, dá vantagem inicial ao grupo e pode furtivar duas vezes contra alvos diferentes.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Batedor",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "ladino-espadachim",
+      "classe_id": "ladino",
+      "nome": "Espadachim",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 44,
+      "referencia": "XGE (PDF: 44)",
+      "descricao": "Ganha mobilidade após atacar, ativa Ataque Furtivo em duelo, usa Carisma para iniciativa, provoca ou encanta inimigos e transforma falhas em novas tentativas em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Espadachim",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "mago-magia-de-guerra",
+      "classe_id": "mago",
+      "nome": "Magia de Guerra",
+      "nivel_acesso": 2,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 46,
+      "referencia": "XGE (PDF: 46)",
+      "descricao": "Reage para bônus de CA ou resistência, soma Inteligência à iniciativa, acumula energia ao dissipar/contramágica, melhora dano enquanto concentra e ganha defesa constante ao manter magia.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Magia de Guerra",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "monge-caminho-do-mestre-bebado",
+      "classe_id": "monge",
+      "nome": "Caminho do Mestre Bêbado",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 49,
+      "referencia": "XGE (PDF: 49)",
+      "descricao": "Ganha proficiências performáticas, Rajada de Golpes aumenta deslocamento e desengaja, redireciona ataques errados, cancela desvantagem com ki e ataca vários inimigos em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho do Mestre Bêbado",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "monge-caminho-do-kensei",
+      "classe_id": "monge",
+      "nome": "Caminho do Kensei",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 50,
+      "referencia": "XGE (PDF: 50)",
+      "descricao": "Escolhe armas kensei, ganha defesa ao lutar com elas, melhora dano com ki, transforma armas em mágicas e rerrola ataques em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho do Kensei",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "monge-caminho-da-alma-solar",
+      "classe_id": "monge",
+      "nome": "Caminho da Alma Solar",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 49,
+      "referencia": "XGE (PDF: 49)",
+      "descricao": "Dispara energia radiante à distância, conjura explosões radiantes com ki, cria aura luminosa ofensiva/defensiva e causa dano radiante a agressores em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Caminho da Alma Solar",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "paladino-juramento-da-conquista",
+      "classe_id": "paladino",
+      "nome": "Juramento da Conquista",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 53,
+      "referencia": "XGE (PDF: 53)",
+      "descricao": "Canaliza presença conquistadora ou acerto preciso, prende criaturas amedrontadas em aura, pune dano recebido e assume forma de conquistador resistente e agressivo.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Juramento da Conquista",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "paladino-juramento-da-redencao",
+      "classe_id": "paladino",
+      "nome": "Juramento da Redenção",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 54,
+      "referencia": "XGE (PDF: 54)",
+      "descricao": "Canaliza diplomacia ou retalia dano sem atacar, absorve dano de aliados, regenera-se quando ferido e torna-se avatar pacificador difícil de matar em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Juramento da Redenção",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "patrulheiro-conclave-do-andarilho-do-horizonte",
+      "classe_id": "patrulheiro",
+      "nome": "Conclave do Andarilho do Horizonte",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 59,
+      "referencia": "XGE (PDF: 59)",
+      "descricao": "Detecta portais, transforma dano em energia planar, teleporta antes de ataques, atravessa planos com magia defensiva e pode atacar vários alvos teleportando entre eles.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Conclave do Andarilho do Horizonte",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "patrulheiro-conclave-do-exterminador-de-monstros",
+      "classe_id": "patrulheiro",
+      "nome": "Conclave do Exterminador de Monstros",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 59,
+      "referencia": "XGE (PDF: 59)",
+      "descricao": "Analisa resistências/imunidades/vulnerabilidades, marca presa para dano extra, melhora resistências contra alvo marcado e interrompe magias/teleportes em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Conclave do Exterminador de Monstros",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "patrulheiro-conclave-do-perseguidor-sombrio",
+      "classe_id": "patrulheiro",
+      "nome": "Conclave do Perseguidor Sombrio",
+      "nivel_acesso": 3,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 58,
+      "referencia": "XGE (PDF: 58)",
+      "descricao": "Ganha magia temática, bônus de iniciativa, ataque extra e dano no primeiro turno, invisibilidade contra visão no escuro, resistência mental e ataque adicional ao errar.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de Conclave do Perseguidor Sombrio",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "bruxo-o-celestial",
+      "classe_id": "bruxo",
+      "nome": "O Celestial",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 18,
+      "referencia": "XGE (PDF: 18)",
+      "descricao": "Ganha truques e cura em dados, adiciona dano radiante/fogo, recebe resistência radiante e PV temporários para o grupo, e volta de 0 PV com explosão luminosa.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de O Celestial",
+          "descricao": ""
+        }
+      ]
+    },
+    {
+      "id": "bruxo-a-lamina-maldita",
+      "classe_id": "bruxo",
+      "nome": "A Lâmina Maldita",
+      "nivel_acesso": 1,
+      "fonte": "Guia de Xanathar para Todas as Coisas",
+      "fonte_sigla": "XGE",
+      "pagina_livro": null,
+      "pagina_pdf": 20,
+      "referencia": "XGE (PDF: 20)",
+      "descricao": "Usa maldição para crítico ampliado, dano e cura ao derrubar alvo; usa Carisma com arma escolhida, cria espectro de inimigo morto, melhora defesa e espalha maldição em níveis altos.",
+      "habilidades": [
+        {
+          "nivel": 3,
+          "nome": "Características de A Lâmina Maldita",
+          "descricao": ""
+        }
+      ]
+    }
+  ],
+  "raca_adicoes": {
+    "anao": [
+      {
+        "nome": "Duergar",
+        "aumento_atributos": "FOR +1",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Visão no Escuro Superior",
+            "descricao": "Sua visão no escuro alcança distância maior que a de anões comuns."
+          },
+          {
+            "nome": "Resiliência Duergar",
+            "descricao": "Você tem resistência adicional contra ilusões e contra ser enfeitiçado ou paralisado."
+          },
+          {
+            "nome": "Magia Duergar",
+            "descricao": "Em níveis apropriados, pode usar magia inata ligada a aumentar o próprio tamanho e ficar invisível, recuperando usos após descanso."
+          },
+          {
+            "nome": "Sensibilidade à Luz Solar",
+            "descricao": "Sob luz solar direta, sofre penalidades em ataques e testes de Percepção baseados em visão."
+          }
+        ]
+      }
+    ],
+    "elfo": [
+      {
+        "nome": "Elfo do Mar",
+        "aumento_atributos": "CON +1",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Treinamento do Mar",
+            "descricao": "Você ganha proficiência com armas tradicionais do povo do mar."
+          },
+          {
+            "nome": "Filho do Mar",
+            "descricao": "Você tem deslocamento de natação e consegue respirar ar e água."
+          },
+          {
+            "nome": "Amigo do Mar",
+            "descricao": "Você pode comunicar ideias simples a bestas que tenham deslocamento de natação."
+          }
+        ]
+      },
+      {
+        "nome": "Shadar-kai",
+        "aumento_atributos": "CON +1",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Benção da Rainha Corvo",
+            "descricao": "Como ação bônus, teleporte-se para um espaço desocupado que possa ver dentro do alcance. Em níveis maiores, ganha resistência temporária a todo dano após teleportar."
+          },
+          {
+            "nome": "Resistência Necrótica",
+            "descricao": "Você tem resistência a dano necrótico."
+          }
+        ]
+      }
+    ],
+    "halfling": [
+      {
+        "nome": "Halfling Fantasma",
+        "aumento_atributos": "SAB +1",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Discurso Silencioso",
+            "descricao": "Você pode falar telepaticamente com uma criatura próxima que compartilhe idioma com você."
+          }
+        ]
+      }
+    ],
+    "gnomo": [
+      {
+        "nome": "Gnomo das Profundezas",
+        "aumento_atributos": "DES +1",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Visão no Escuro Superior",
+            "descricao": "Sua visão no escuro alcança distância maior que a de gnomos comuns."
+          },
+          {
+            "nome": "Camuflagem Rochosa",
+            "descricao": "Você tem vantagem em testes de Destreza (Furtividade) para se esconder em terreno rochoso."
+          },
+          {
+            "nome": "Magia de Gnomo das Profundezas",
+            "descricao": "Pode acessar magias temáticas de ilusão e ocultação conforme opção de talento ou regra associada."
+          }
+        ]
+      }
+    ],
+    "tiefling": [
+      {
+        "nome": "Variantes de Linhagem Infernal",
+        "aumento_atributos": "Variável",
+        "fonte": "Guia de Xanathar para Todas as Coisas",
+        "fonte_sigla": "XGE",
+        "habilidades": [
+          {
+            "nome": "Legado Alternativo",
+            "descricao": "Substitui ou ajusta o Legado Infernal padrão com magias ligadas a uma linhagem específica. Use a lista da linhagem escolhida para definir truque, magia de 3º nível e magia de 5º nível."
+          },
+          {
+            "nome": "Atributos Variantes",
+            "descricao": "Algumas linhagens trocam o aumento de atributo secundário, mantendo o tiefling como opção carismática com foco diferente."
+          }
+        ]
+      }
+    ]
+  }
+}
