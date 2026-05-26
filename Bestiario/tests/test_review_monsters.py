@@ -35,7 +35,7 @@ def monster(**overrides):
         "fonte": "Manual dos Monstros",
         "pagina_livro": 1,
         "pagina_pdf": 1,
-        "referencia": "1 (PDF: 1)",
+        "referencia": "1",
         "descricao": "",
         "habilidades_especiais": [],
         "acoes": [],

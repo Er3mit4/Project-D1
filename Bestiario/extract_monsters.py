@@ -8,6 +8,8 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
+from page_references import book_page_reference
+
 
 MM_SOURCE = "Manual dos Monstros"
 
@@ -298,7 +300,7 @@ def looks_like_language_continuation(text: str) -> bool:
 
 def page_ref(pdf_page: int, printed_page: int | None = None) -> str:
     printed = printed_page if printed_page is not None else pdf_page
-    return f"{printed} (PDF: {pdf_page})"
+    return book_page_reference(printed, pdf_page)
 
 
 def load_docling(

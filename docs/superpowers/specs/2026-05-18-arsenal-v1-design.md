@@ -23,7 +23,7 @@ Fora do v1:
 
 ## Objetivo
 
-Entregar um modulo consultavel chamado Arsenal, em PT-BR, para encontrar rapidamente equipamentos e itens magicos durante a mesa de D&D 5e. O usuario deve conseguir buscar por nome, filtrar por categoria, tipo, fonte, raridade e sintonizacao, e abrir uma ficha de detalhe com descricao completa e referencia de pagina no formato `XXX (PDF: YYY)`.
+Entregar um modulo consultavel chamado Arsenal, em PT-BR, para encontrar rapidamente equipamentos e itens magicos durante a mesa de D&D 5e. O usuario deve conseguir buscar por nome, filtrar por categoria, tipo, fonte, raridade e sintonizacao, e abrir uma ficha de detalhe com descricao completa e referencia de pagina no formato `XXX`, usando somente a pagina impressa do livro.
 
 ## Fontes
 
@@ -63,7 +63,7 @@ Cada item em `arsenal.json` deve usar campos estaveis:
   "fonte": "Livro do Jogador",
   "pagina_livro": 149,
   "pagina_pdf": 153,
-  "referencia": "149 (PDF: 153)",
+  "referencia": "149",
   "preco": "15 po",
   "peso": "1,5 kg",
   "raridade": null,

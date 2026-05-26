@@ -410,7 +410,7 @@ Toda entidade no sistema (Magias, Itens, Monstros) herda uma estrutura de chaves
   "categoria": "Grimório | Arsenal | Bestiário",
   "tipo": "Subcategoria de dados",
   "fonte": "Livro do Jogador | Guia do Mestre | Manual dos Monstros",
-  "referencia": "Página (PDF: Página)",
+  "referencia": "Página",
   "descricao": "Texto bruto descritivo",
   "descricao_blocos": [
     {

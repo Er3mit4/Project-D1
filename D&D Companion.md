@@ -8,7 +8,7 @@
 - 📂 **Repositório:** [github.com/Er3mit4/Project-D1](https://github.com/Er3mit4/Project-D1)
 - 🔮 **Grimório legado:** [er3mit4.github.io/grimoire-dd5e](https://er3mit4.github.io/grimoire-dd5e/)
 - 📁 **Pasta local:** `~/Projeto D1/` (WSL)
-- 📖 **PDF base:** `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf`
+- 📖 **Fontes base:** `D:\Documents\Sessão RPG\D&D\Livro-de-Regras-DnD-5e\` para Livro do Jogador, Guia do Mestre e Manual dos Monstros; catálogo em `extraction_sources.py`
 
 ---
 
@@ -89,7 +89,7 @@
 
 ## Ferramentas
 
-- Extração: Docling CLI (local, GPU) + Python scripts
+- Extração: PyMuPDF sobre PDFs textuais + DjVu/hOCR/page metadata como apoio; Docling fica como fallback pontual
 - Compilação: Script `build_unified.py` para injetar os dados no template da raiz
 - Versionamento: Git + GitHub (conta: Er3mit4)
 - Publicação: GitHub Pages

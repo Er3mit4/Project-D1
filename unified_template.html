@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PROJETO D1 — D&D 5e em PT-BR</title>
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  
+
   <!-- Google Fonts & Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-  
+
   <!-- Custom Tailwind Configuration -->
   <script id="tailwind-config">
     tailwind.config = {
@@ -208,11 +208,11 @@
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     body.show-sidebar #side-nav {
       transform: translateX(0);
     }
-    
+
     body.show-sidebar #overlay {
       opacity: 1;
       pointer-events: auto;
@@ -226,6 +226,138 @@
       body.show-sidebar #overlay {
         opacity: 0;
         pointer-events: none;
+      }
+    }
+
+    .sheet-shell {
+      --sheet-brass: #e6c383;
+      --sheet-brass-muted: #998f81;
+      --sheet-panel: rgba(28, 27, 30, 0.82);
+      --sheet-panel-soft: rgba(32, 31, 34, 0.72);
+      --sheet-border: rgba(201, 168, 106, 0.25);
+      --sheet-text: #e8dcc8;
+      color: var(--sheet-text);
+      color-scheme: dark;
+    }
+
+    .sheet-panel {
+      background: var(--sheet-panel);
+      border: 1px solid var(--sheet-border);
+      box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.75);
+    }
+
+    .sheet-panel-soft {
+      background: var(--sheet-panel-soft);
+      border: 1px solid rgba(201, 168, 106, 0.18);
+    }
+
+    .sheet-label {
+      color: var(--sheet-brass);
+      font-family: "Hanken Grotesk", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sheet-title {
+      color: var(--sheet-brass);
+      font-family: "EB Garamond", serif;
+      letter-spacing: 0.02em;
+    }
+
+    .sheet-input,
+    .sheet-select,
+    .sheet-textarea {
+      width: 100%;
+      background: #0f0e11 !important;
+      border: 1px solid rgba(201, 168, 106, 0.22);
+      color: #e6e1e5 !important;
+      border-radius: 0.25rem;
+      font-family: "Hanken Grotesk", sans-serif;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sheet-select option {
+      background-color: #1c1b1e !important;
+      color: #e6e1e5 !important;
+    }
+
+    .sheet-input:focus,
+    .sheet-select:focus,
+    .sheet-textarea:focus {
+      outline: none;
+      border-color: var(--sheet-brass);
+      box-shadow: 0 0 0 1px rgba(230, 195, 131, 0.28);
+    }
+
+    .sheet-stat {
+      clip-path: polygon(0% 10%, 10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%);
+      min-height: 132px;
+    }
+
+    .sheet-action {
+      border: 1px solid rgba(230, 195, 131, 0.35);
+      color: var(--sheet-brass);
+      background: transparent;
+      border-radius: 0.25rem;
+      font-family: "Hanken Grotesk", sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .sheet-action:hover {
+      background: rgba(230, 195, 131, 0.12);
+      border-color: var(--sheet-brass);
+    }
+
+    .sheet-action-primary {
+      background: var(--sheet-brass);
+      color: #261900;
+      border-color: var(--sheet-brass);
+    }
+
+    .sheet-tab.active {
+      color: var(--sheet-brass);
+      border-bottom-color: var(--sheet-brass);
+    }
+
+    .sheet-screen-reader-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 767px) {
+      #mobile-nav {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      #mobile-nav button {
+        min-width: 0;
+        padding-left: 0.2rem !important;
+        padding-right: 0.2rem !important;
+      }
+
+      #mobile-nav .material-symbols-outlined {
+        font-size: 1.05rem;
+      }
+
+      #mobile-nav span:last-child {
+        font-size: 8px;
+        letter-spacing: 0.02em;
       }
     }
   </style>
@@ -242,16 +374,17 @@
         <button type="button" data-module="arsenal" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-arsenal">Arsenal</button>
         <button type="button" data-module="bestiario" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-bestiario">Bestiário</button>
         <button type="button" data-module="racasclasses" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-racasclasses">Raças &amp; Classes</button>
+        <button type="button" data-module="ficha" class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-2 rounded-sm" id="nav-ficha">Ficha</button>
       </nav>
     </div>
-    
+
     <div class="flex items-center gap-4">
       <!-- Search Input in Header (Shown when not on Home module) -->
       <div class="relative hidden sm:block opacity-0 transition-opacity duration-300" id="header-search-container">
         <input class="bg-surface-container border border-primary/30 text-on-surface pl-4 pr-10 py-1.5 focus:outline-none focus:border-primary transition-all w-64 font-body-md text-sm rounded-sm" placeholder="Buscar no multiverso..." type="search" id="search-box" autocomplete="off" spellcheck="false"/>
         <span class="material-symbols-outlined absolute right-2.5 top-2 text-primary/60 pointer-events-none">search</span>
       </div>
-      
+
       <!-- Filter Sidebar Toggle (Mobile Menu Trigger) -->
       <button class="material-symbols-outlined text-primary p-2 hover:bg-surface-variant/20 rounded-full transition-all cursor-pointer bg-transparent border-none outline-none hidden" id="toggle-filters">filter_alt</button>
     </div>
@@ -273,10 +406,10 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Dynamic Filter Sections -->
     <div class="flex-grow overflow-y-auto pr-1 space-y-6 custom-scrollbar" id="filters"></div>
-    
+
     <!-- Sidebar Footer Buttons -->
     <div class="mt-auto pt-6 flex flex-col gap-4 border-t border-primary/10">
       <button class="w-full py-2.5 border border-primary/30 text-primary font-label-sm tracking-widest hover:bg-primary hover:text-on-primary transition-all bg-transparent uppercase cursor-pointer text-xs" id="clear-filters">LIMPAR FILTROS</button>
@@ -298,7 +431,7 @@
 
   <!-- Main Content Canvas -->
   <main class="min-h-screen pt-20 pb-20 md:pb-0 px-4 md:px-margin-desktop max-w-container-max-width mx-auto flex flex-col justify-between">
-    
+
     <!-- Intro / Home Module View -->
     <section class="max-w-4xl mx-auto pt-16 pb-16 text-center md:text-left hidden" id="intro">
       <h2 class="font-display-lg text-4xl md:text-[64px] md:leading-[1.1] text-primary mb-6 arcane-glow uppercase tracking-wide">REFERÊNCIA DE D&D 5E EM PT-BR</h2>
@@ -373,16 +506,20 @@
           <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">CONHECER CAMINHOS <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
         </div>
 
-        <!-- Ficha Card (disabled) -->
-        <div class="md:col-span-6 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between h-64 opacity-65 border-dashed cursor-not-allowed">
+        <!-- Ficha Card -->
+        <div data-module="ficha" class="md:col-span-6 lg:col-span-4 glass-panel p-gutter rounded-xl flex flex-col justify-between min-h-64 cursor-pointer">
           <div>
             <div class="flex items-center gap-3 mb-3">
-              <span class="material-symbols-outlined text-3xl text-on-surface-variant">person</span>
-              <h4 class="font-title-md text-xl text-on-surface-variant uppercase font-bold">FICHA DIGITAL</h4>
+              <span class="material-symbols-outlined text-3xl text-primary">person</span>
+              <h4 class="font-title-md text-xl text-primary uppercase font-bold">FICHA DIGITAL</h4>
             </div>
-            <p class="font-body-md text-sm text-on-surface-variant/65">Criação e manutenção de fichas de personagens com armazenamento local seguro.</p>
+            <p class="font-body-md text-sm text-on-surface-variant">Criação guiada, edição de ficha, grimório, inventário e exportação em JSON.</p>
+            <p class="mt-4 inline-flex items-center gap-2 rounded-sm border border-primary/25 bg-primary/10 px-3 py-2 text-[11px] font-label-sm font-bold uppercase tracking-wider text-primary/90">
+              <span class="material-symbols-outlined text-sm">construction</span>
+              Módulo em construção. Versão alfa de teste inicial para criação e edição de fichas.
+            </p>
           </div>
-          <span class="font-label-sm text-[10px] text-primary border border-primary/45 px-2 py-0.5 self-start rounded font-bold uppercase">EM BREVE</span>
+          <span class="text-primary font-label-sm text-xs flex items-center gap-2 group-hover:gap-4 transition-all">CRIAR PERSONAGEM <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
         </div>
       </div>
 
@@ -435,6 +572,9 @@
       </div>
     </section>
 
+    <!-- Character Sheet Module View -->
+    <section class="flex-grow pt-8 pb-16 hidden" id="sheet-app"></section>
+
     <!-- Footer -->
     <footer class="w-full py-12 border-t border-primary/10 mt-16 max-w-container-max-width mx-auto px-6 flex flex-col items-center text-center gap-6">
       <h2 class="font-headline-lg text-2xl text-primary tracking-widest font-bold m-0">PROJETO D1</h2>
@@ -470,6 +610,10 @@
         <span class="material-symbols-outlined text-xl">groups</span>
         <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Raças</span>
       </button>
+      <button type="button" data-module="ficha" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all cursor-pointer bg-transparent border-none py-1 px-3" id="mobile-nav-ficha">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span class="font-label-sm text-[9px] mt-0.5 uppercase tracking-wider font-bold">Ficha</span>
+      </button>
     </div>
   </main>
 
@@ -479,9 +623,10 @@
     const ITEMS = __ARSENAL_DATA__;
     const MONSTERS = __MONSTERS_DATA__;
     const RACAS_CLASSES = __RACAS_CLASSES_DATA__;
-    
-    const ORDER = ['inicio', 'grimorio', 'arsenal', 'bestiario', 'racasclasses'];
-    
+    const CHARACTER_CREATION = __CHARACTER_CREATION_DATA__;
+
+    const ORDER = ['inicio', 'grimorio', 'arsenal', 'bestiario', 'racasclasses', 'ficha'];
+
     const MODULES = {
       inicio: {
         title: 'Projeto D1',
@@ -516,6 +661,13 @@
         placeholder: 'Buscar raça, classe, habilidade, subclasse ou fonte...',
         data: RACAS_CLASSES.items || [],
         total: 'registros'
+      },
+      ficha: {
+        title: 'Ficha Digital',
+        description: 'Criação assistida, edição, armazenamento local e exportação de fichas de personagem.',
+        placeholder: 'Buscar ficha por nome, classe ou espécie...',
+        data: [],
+        total: 'fichas'
       }
     };
 
@@ -544,7 +696,7 @@
     const TIPOS_ARSENAL = [...new Set(ITEMS.map(i => i.tipo).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const FONTES_ARSENAL = [...new Set(ITEMS.map(i => i.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const RARIDADES = [...new Set(ITEMS.map(i => i.raridade).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
-    
+
     const TIPOS_BESTIARIO = [...new Set(MONSTERS.map(m => m.tipo_criatura).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const ALINHAMENTOS = [...new Set(MONSTERS.map(m => m.alinhamento).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
     const FONTES_BESTIARIO = [...new Set(MONSTERS.map(m => m.fonte).filter(Boolean))].sort((a,b) => a.localeCompare(b,'pt-BR'));
@@ -559,13 +711,14 @@
       grimorio: { nivel: new Set(), escola: new Set(), classe: new Set() },
       arsenal: { categoria: new Set(), tipo: new Set(), fonte: new Set(), raridade: new Set(), sintonizacao: new Set(), classe: new Set() },
       bestiario: { tipo: new Set(), tamanho: new Set(), nd: new Set(), alinhamento: new Set(), fonte: new Set() },
-      racasclasses: { modo: new Set(), tamanho: new Set(), visao: new Set(), dado: new Set(), save: new Set(), fonte: new Set(), subclasses: new Set() }
+      racasclasses: { modo: new Set(), tamanho: new Set(), visao: new Set(), dado: new Set(), save: new Set(), fonte: new Set(), subclasses: new Set() },
+      ficha: {}
     };
 
     let racasClassesTab = 'racas';
 
     let current = 'inicio', query = '', openId = null;
-    
+
     const $ = sel => document.querySelector(sel);
     const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const norm = v => String(v ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -575,25 +728,34 @@
       current = name;
       query = '';
       openId = null;
-      
+
       const searchBox = $('#search-box');
       searchBox.value = '';
       searchBox.placeholder = MODULES[name].placeholder;
-      
+
       const mobileSearch = $('#search-box-mobile');
       if (mobileSearch) {
         mobileSearch.value = '';
         mobileSearch.placeholder = MODULES[name].placeholder;
       }
-      
+
       // Update displayed titles
       $('#module-title-display').textContent = MODULES[name].title;
       $('#module-description-display').textContent = MODULES[name].description;
-      
+
       // Toggle views visibility
       if (name === 'inicio') {
         $('#intro').classList.remove('hidden');
         $('#app').classList.add('hidden');
+        $('#sheet-app').classList.add('hidden');
+        $('#header-search-container').classList.add('opacity-0', 'pointer-events-none');
+        $('#toggle-filters').classList.add('hidden');
+        document.body.classList.remove('show-sidebar');
+        closeSidebar();
+      } else if (name === 'ficha') {
+        $('#intro').classList.add('hidden');
+        $('#app').classList.add('hidden');
+        $('#sheet-app').classList.remove('hidden');
         $('#header-search-container').classList.add('opacity-0', 'pointer-events-none');
         $('#toggle-filters').classList.add('hidden');
         document.body.classList.remove('show-sidebar');
@@ -601,9 +763,10 @@
       } else {
         $('#intro').classList.add('hidden');
         $('#app').classList.remove('hidden');
+        $('#sheet-app').classList.add('hidden');
         $('#header-search-container').classList.remove('opacity-0', 'pointer-events-none');
         $('#toggle-filters').classList.remove('hidden');
-        
+
         // Show sidebar by default only on desktop screens (min-width: 1024px)
         if (window.innerWidth < 1024) {
           document.body.classList.remove('show-sidebar');
@@ -611,12 +774,12 @@
           document.body.classList.add('show-sidebar');
         }
       }
-      
+
       // Update Navigation Indicator
       document.querySelectorAll('[data-module]').forEach(el => {
         const isCurrent = el.dataset.module === name;
         el.classList.toggle('active', isCurrent);
-        
+
         // Navigation links styling toggling
         if (el.tagName === 'BUTTON' && el.id && el.id.startsWith('nav-')) {
           if (isCurrent) {
@@ -627,7 +790,7 @@
             el.classList.add('text-on-surface-variant');
           }
         }
-        
+
         // Mobile bottom nav buttons styling toggling
         if (el.tagName === 'BUTTON' && el.id && el.id.startsWith('mobile-nav-')) {
           if (isCurrent) {
@@ -639,11 +802,11 @@
           }
         }
       });
-      
+
       if (push) {
         history.replaceState(null, '', '#' + name);
       }
-      
+
       buildFilters();
       render();
     }
@@ -652,9 +815,9 @@
       const container = $('#filters');
       if (!container) return;
       container.innerHTML = '';
-      
+
       if (current === 'inicio') return;
-      
+
       if (current === 'grimorio') {
         addFilterSection(container, 'Nível', 'nivel', NIVEIS);
         addFilterSection(container, 'Escola', 'escola', ESCOLAS);
@@ -686,10 +849,10 @@
     function addFilterSection(container, title, type, values, options = {}) {
       const section = document.createElement('div');
       section.className = 'filter-section select-none' + (options.collapsible ? ' border-b border-primary/10 pb-4' : '');
-      
+
       // Dynamic Section ID
       const btnsId = 'btns-' + type;
-      
+
       // Title Block
       let titleHtml = '';
       if (options.collapsible) {
@@ -703,15 +866,15 @@
           <div class="font-label-sm text-xs text-primary uppercase tracking-widest font-bold mb-3 flex items-center gap-2 border-b border-primary/10 pb-1.5">${esc(title)}</div>
         `;
       }
-      
+
       const searchPlaceholder = type === 'tipo' ? 'Filtrar tipos...' : 'Filtrar...';
       const searchHtml = options.search
         ? `<input class="bg-surface-container border border-primary/30 text-on-surface text-xs px-3 py-1.5 focus:outline-none focus:border-primary transition-all w-full rounded-sm mb-3" id="${esc(type)}-filter-search" type="search" placeholder="${esc(searchPlaceholder)}" autocomplete="off" spellcheck="false">`
         : '';
-        
+
       section.innerHTML = titleHtml + `<div class="filter-section-body space-y-3">${searchHtml}<div class="flex flex-wrap gap-1.5" id="${esc(btnsId)}"></div></div>`;
       container.appendChild(section);
-      
+
       if (options.search) {
         section.querySelector('#' + type + '-filter-search').addEventListener('input', event => {
           const q = norm(event.target.value);
@@ -720,12 +883,12 @@
           });
         });
       }
-      
+
       const btnsContainer = section.querySelector('#' + btnsId);
       values.forEach(value => {
         const btn = document.createElement('button');
         btn.className = 'filter-btn bg-surface-container-low border border-primary/10 py-1 px-2.5 rounded-sm font-label-sm text-[10px] text-on-surface-variant hover:border-primary/45 transition-colors cursor-pointer text-left focus:outline-none';
-        
+
         // Differentiate filters visually
         if (current === 'grimorio' && type === 'nivel') {
           btn.textContent = value === 'Truque' ? '★' : value.replace(' nível', '');
@@ -736,10 +899,10 @@
             btn.textContent = value;
           }
         }
-        
+
         btn.dataset.filter = type;
         btn.dataset.value = value;
-        
+
         // Restore active buttons state
         const activeSet = activeFilters[current][type];
         if (activeSet.has(value)) {
@@ -754,7 +917,7 @@
             btn.classList.remove('text-on-surface-variant');
           }
         }
-        
+
         btn.onclick = () => toggleFilter(type, value, btn);
         btnsContainer.appendChild(btn);
       });
@@ -825,11 +988,11 @@
     function getFiltered() {
       const q = norm(query);
       const data = MODULES[current].data;
-      
+
       const filtered = data.filter(item => {
         // 1. Text Search
         if (q && !norm(fields(item)).includes(q)) return false;
-        
+
         // 2. Advanced Filters
         if (current === 'grimorio') {
           const f = activeFilters.grimorio;
@@ -843,7 +1006,7 @@
             const hasClass = itemClasses.some(c => f.classe.has(c));
             if (!hasClass) return false;
           }
-        } 
+        }
         else if (current === 'arsenal') {
           const f = activeFilters.arsenal;
           if (f.categoria.size && !f.categoria.has(item.categoria)) return false;
@@ -859,7 +1022,7 @@
             const attunementVal = item.sintonizacao ? 'Requer sintonização' : 'Não requer sintonização';
             if (!f.sintonizacao.has(attunementVal)) return false;
           }
-        } 
+        }
         else if (current === 'bestiario') {
           const f = activeFilters.bestiario;
           if (f.tipo.size && !f.tipo.has(item.tipo_criatura)) return false;
@@ -909,7 +1072,7 @@
         }
         return true;
       });
-      
+
       // 3. Sorting
       if (current === 'grimorio') {
         return filtered.sort((a,b) => a.name.localeCompare(b.name,'pt-BR'));
@@ -948,12 +1111,16 @@
 
     function render() {
       if (current === 'inicio') return;
+      if (current === 'ficha') {
+        renderSheetApp();
+        return;
+      }
       const data = MODULES[current].data, filtered = getFiltered();
       $('#stats').textContent = `${filtered.length} de ${data.length} ${MODULES[current].total}`;
-      
+
       const emptyState = $('#empty');
       const listContainer = $('#list');
-      
+
       if (!filtered.length) {
         emptyState.classList.remove('hidden');
         listContainer.innerHTML = '';
@@ -970,15 +1137,15 @@
             };
           });
         }
-        
+
         // Add Dynamic Accordion Toggle
         document.querySelectorAll('.card').forEach(card => {
           card.onclick = (e) => {
             // Keep nested interactive content from toggling the parent card.
             if (e.target.closest('.detail a, .detail button, .detail table, .detail details, .detail summary')) return;
-            
+
             const isAlreadyOpen = card.classList.contains('open');
-            
+
             // Accordion: Close other cards first
             document.querySelectorAll('.card').forEach(c => {
               c.classList.remove('open');
@@ -987,7 +1154,7 @@
               const arrow = c.querySelector('.expand-arrow');
               if (arrow) arrow.classList.remove('rotate-90');
             });
-            
+
             if (!isAlreadyOpen) {
               card.classList.add('open');
               const d = card.querySelector('.detail');
@@ -995,7 +1162,7 @@
               const arrow = card.querySelector('.expand-arrow');
               if (arrow) arrow.classList.add('rotate-90');
               openId = card.dataset.id;
-              
+
               // Scroll Smoothly to Card with 50ms delay
               setTimeout(() => {
                 card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1022,14 +1189,14 @@
       const cls = isCantrip ? 'cantrip' : 'leveled';
       const badgeTxt = isCantrip ? '★' : `${item.level}º`;
       const classes = classTags(String(item.classes || '').split(',').map(v => v.trim()).filter(Boolean));
-      
+
       // Determine school color border style
       let schoolBadgeColor = 'border-primary/30 text-on-surface-variant bg-primary/5';
       const schoolNorm = norm(item.school);
       if (schoolNorm.includes('abjura')) schoolBadgeColor = 'border-blood-crimson/40 text-error bg-blood-crimson/10';
       else if (schoolNorm.includes('encanta')) schoolBadgeColor = 'border-ethereal-purple/40 text-secondary bg-ethereal-purple/10';
       else if (schoolNorm.includes('evoca')) schoolBadgeColor = 'border-primary/40 text-primary bg-primary/10';
-      
+
       return `
         <article class="card ${cls}${open}" data-id="${esc(id)}">
           <div class="card-head p-4 md:p-6 flex items-center justify-between group">
@@ -1062,17 +1229,17 @@
                 <p class="font-body-md text-sm md:text-base text-on-surface m-0">${esc(item.duration)}</p>
               </div>
             </div>
-            
+
             <!-- Tags (Classes) -->
             <div class="px-4 md:px-8 py-3 flex flex-wrap gap-2">
               ${classes}
             </div>
-            
+
             <!-- Description Body -->
             <div class="px-4 md:px-8 pb-6 pt-4 spell-desc text-on-surface-variant leading-relaxed font-body-md text-sm md:text-base space-y-4">
               ${richText(item.description)}
             </div>
-            
+
             <!-- Page reference -->
             ${refBadge(pageRef(item))}
           </div>
@@ -1084,7 +1251,7 @@
       const isMagic = item.categoria === 'Item mágico';
       const cls = isMagic ? 'cantrip' : 'leveled';
       const tags = classTags([...(item.propriedades || []), ...(item.sintonizacao ? ['Sintonização'] : [])]);
-      
+
       return `
         <article class="card ${cls}${open}" data-id="${esc(id)}">
           <div class="card-head p-4 md:p-6 flex items-center justify-between group">
@@ -1112,17 +1279,17 @@
                 </div>
               `).join('')}
             </div>
-            
+
             <!-- Tags (Classes, Propriedades, Sintonização) -->
             <div class="px-4 md:px-8 py-3 flex flex-wrap gap-2">
               ${tags}
             </div>
-            
+
             <!-- Description -->
             <div class="px-4 md:px-8 pb-6 pt-4 spell-desc text-on-surface-variant leading-relaxed font-body-md text-sm md:text-base space-y-4">
               ${arsenalDesc(item)}
             </div>
-            
+
             <!-- Page Reference -->
             ${refBadge(item.referencia)}
           </div>
@@ -1133,7 +1300,7 @@
     function renderMonsterCard(item, id, open) {
       const nd = parseNd(item.nd);
       const cls = nd >= 17 ? 'cantrip' : 'leveled';
-      
+
       return `
         <article class="card ${cls}${open}" data-id="${esc(id)}">
           <div class="card-head p-4 md:p-6 flex items-center justify-between group">
@@ -1152,7 +1319,7 @@
           <div class="detail border-t border-primary/10 ${open ? 'block' : 'hidden'}">
             <!-- Lore Description (if exists) -->
             ${monsterLore(item)}
-            
+
             <!-- Hit Points and AC -->
             <div class="px-4 md:px-8 pt-4 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="flex items-center gap-3 bg-surface-container-low p-2.5 rounded border border-primary/10">
@@ -1170,12 +1337,12 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Attributes Grid (STR, DEX, CON, INT, WIS, CHA) -->
             <div class="px-4 md:px-8 py-3">
               ${scores(item.habilidades)}
             </div>
-            
+
             <!-- Details Grid for stats -->
             <div class="px-4 md:px-8 py-4 grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-b border-primary/10">
               ${monsterRowsFiltered(item).map(([label, val]) => `
@@ -1185,12 +1352,12 @@
                 </div>
               `).join('')}
             </div>
-            
+
             <!-- Actions and Abilities -->
             <div class="px-4 md:px-8 pb-6 pt-4 space-y-4 text-sm md:text-base">
               ${monsterDesc(item)}
             </div>
-            
+
             <!-- Page Reference -->
             ${refBadge(item.referencia)}
           </div>
@@ -1470,7 +1637,7 @@
           list = [];
         }
       };
-      
+
       for (const block of blocks) {
         const value = block.trim();
         if (/^[-•]\s+/.test(value)) {
@@ -1489,7 +1656,7 @@
     }
 
     function pageRef(s) {
-      return s.page_print ? `${s.page_print} (PDF: ${s.page_pdf || ''})` : '';
+      return s.page_print ? `${s.page_print}` : '';
     }
 
     function refBadge(ref) {
@@ -1614,7 +1781,7 @@
           `;
         }
       });
-      
+
       if (!html && m.descricao_blocos?.length) {
         html = `
           <div class="border-t border-primary/10 pt-6 space-y-4">
@@ -1640,11 +1807,1973 @@
       `;
     }
 
+    class CharacterSheetStore {
+      async list() { throw new Error('Not implemented'); }
+      async get() { throw new Error('Not implemented'); }
+      async save() { throw new Error('Not implemented'); }
+      async remove() { throw new Error('Not implemented'); }
+      async exportSheet(id) { return this.get(id); }
+      async importSheet(sheet) { return this.save(normalizeImportedSheet(sheet)); }
+    }
+
+    class LocalCharacterSheetStore extends CharacterSheetStore {
+      constructor(key = 'd1.characterSheets.v1') {
+        super();
+        this.key = key;
+      }
+
+      readAll() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(this.key) || '[]');
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      writeAll(sheets) {
+        localStorage.setItem(this.key, JSON.stringify(sheets));
+      }
+
+      async list() {
+        return this.readAll().sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+      }
+
+      async get(id) {
+        return this.readAll().find(sheet => sheet.id === id) || null;
+      }
+
+      async save(sheet) {
+        const now = new Date().toISOString();
+        const next = { ...sheet, updatedAt: now, createdAt: sheet.createdAt || now };
+        const sheets = this.readAll();
+        const index = sheets.findIndex(item => item.id === next.id);
+        if (index >= 0) sheets[index] = next;
+        else sheets.push(next);
+        this.writeAll(sheets);
+        return next;
+      }
+
+      async remove(id) {
+        this.writeAll(this.readAll().filter(sheet => sheet.id !== id));
+      }
+    }
+
+    const characterStore = new LocalCharacterSheetStore();
+    const SHEET_ABILITIES = CHARACTER_CREATION.abilities || [];
+    const SHEET_SKILLS = CHARACTER_CREATION.skills || [];
+    const SHEET_TABS = [
+      ['features', 'Características'],
+      ['attacks', 'Ataques e Magias'],
+      ['spells', 'Grimório'],
+      ['inventory', 'Inventário'],
+      ['notes', 'Notas']
+    ];
+
+    const sheetState = {
+      sheets: [],
+      current: null,
+      mode: 'list',
+      wizardStep: 0,
+      tab: 'features',
+      message: ''
+    };
+
+    function cryptoRandomId() {
+      if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+      return `sheet-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function canonicalName(value) {
+      return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '');
+    }
+
+    function abilityMod(score) {
+      const value = Number(score || 10);
+      return Math.floor((value - 10) / 2);
+    }
+
+    function signed(value) {
+      const n = Number(value || 0);
+      return n >= 0 ? `+${n}` : String(n);
+    }
+
+    function metricBox(label, value) {
+      return `
+        <div class="sheet-panel-soft rounded-lg p-3 text-center border border-primary/10 bg-black/40">
+          <span class="sheet-label text-[8px] text-[#998f81] block uppercase tracking-wider mb-1">${esc(label)}</span>
+          <strong class="font-headline-lg text-lg md:text-xl text-[#e6c383] block">${esc(value)}</strong>
+        </div>
+      `;
+    }
+
+    function getSpellsForClass(classKey) {
+      if (!classKey) return [];
+      return SPELLS.filter(spell => {
+        const classesStr = spell.classes || spell.classes_pt || spell.classes_raw || '';
+        const spellClasses = typeof classesStr === 'string'
+          ? classesStr.split(',').map(c => c.trim()).filter(Boolean)
+          : (Array.isArray(classesStr) ? classesStr : []);
+        return spellClasses.some(cls => canonicalName(cls) === classKey);
+      });
+    }
+
+    function sheetSelectOptions(options, selected = '', placeholder = 'Escolha...') {
+      return `<option value="">${esc(placeholder)}</option>${options.map(option => {
+        const value = typeof option === 'string' ? option : option.value;
+        const label = typeof option === 'string' ? option : option.label;
+        return `<option value="${esc(value)}" ${String(selected) === String(value) ? 'selected' : ''}>${esc(label)}</option>`;
+      }).join('')}`;
+    }
+
+    function getClassRecords() {
+      return RACAS_CLASSES.classes || [];
+    }
+
+    function getRaceRecords() {
+      return RACAS_CLASSES.racas || [];
+    }
+
+    function getSubracesForRace(raceName) {
+      const r = getRaceRecords().find(race => canonicalName(race.nome) === canonicalName(raceName));
+      return r ? (r.sub_racas || []) : [];
+    }
+
+    function getSubclassesForClass(className) {
+      const c = getClassRecords().find(cls => canonicalName(cls.nome) === canonicalName(className));
+      return c ? (c.sub_classes || []) : [];
+    }
+
+    function getSubclassUnlockLevel(classRecord) {
+      if (!classRecord) return 3;
+      if (classRecord.habilidades_classe) {
+        const keywords = ['subclasse', 'dominio', 'caminho', 'colegio', 'circulo', 'arquetipo', 'tradicao', 'juramento', 'patrono', 'linhagem', 'origem', 'escola'];
+        const found = classRecord.habilidades_classe.find(h => {
+          const nameLower = canonicalName(h.nome);
+          return keywords.some(kw => nameLower.includes(kw));
+        });
+        if (found && found.nivel) return Number(found.nivel);
+      }
+      if (classRecord.sub_classes && classRecord.sub_classes.length) {
+        const levels = classRecord.sub_classes.map(s => Number(s.nivel_acesso)).filter(n => !isNaN(n));
+        if (levels.length) return Math.min(...levels);
+      }
+      return 3;
+    }
+
+    function getSubclassUnlockLevelForClass(className) {
+      const clsRecord = findClassData(className);
+      return getSubclassUnlockLevel(clsRecord);
+    }
+
+    function renderSubclassField(sheet, isWizard = false) {
+      const className = sheet.identity.className;
+      const level = Number(sheet.identity.level || 1);
+      const clsRecord = findClassData(className);
+      const unlockLevel = getSubclassUnlockLevel(clsRecord);
+      const isLocked = !className || level < unlockLevel;
+
+      if (isLocked) {
+        const msg = className ? `Bloqueado (Libera no Nv. ${unlockLevel})` : 'Escolha uma Classe';
+        return `<label class="block">
+          <span class="sheet-label block mb-1">Subclasse</span>
+          <select class="sheet-select p-3 bg-black/40 text-on-surface-variant/50" disabled>
+            <option value="" selected>${esc(msg)}</option>
+          </select>
+        </label>`;
+      }
+
+      const subClasses = getSubclassesForClass(className).map(s => s.nome);
+      const options = sheetSelectOptions(subClasses, sheet.identity.subclass, 'Selecione uma Subclasse...');
+
+      return `<label class="block">
+        <span class="sheet-label block mb-1">Subclasse</span>
+        <select class="sheet-select p-3" data-sheet-path="identity.subclass">
+          ${options}
+        </select>
+      </label>`;
+    }
+
+    function renderSubraceField(sheet) {
+      const race = sheet.origin.race || sheet.origin.species || '';
+      const subraces = getSubracesForRace(race);
+      if (!subraces || !subraces.length) {
+        return '';
+      }
+      const subraceNames = subraces.map(s => s.nome || s);
+      return `<label class="block">
+        <span class="sheet-label block mb-1">Sub-raça</span>
+        <select class="sheet-select p-3" data-sheet-path="origin.subrace">
+          ${sheetSelectOptions(subraceNames, sheet.origin.subrace, 'Selecione uma Sub-raça...')}
+        </select>
+      </label>`;
+    }
+
+    function backgroundOptions() {
+      return (CHARACTER_CREATION.backgrounds || []).map(bg => bg.nome).filter(Boolean).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    }
+
+    function findBackgroundData(name) {
+      return (CHARACTER_CREATION.backgrounds || []).find(bg => canonicalName(bg.nome) === canonicalName(name)) || null;
+    }
+
+    function getItemWeight(name) {
+      if (!name) return 0.0;
+      const clean = canonicalName(name);
+      const found = ITEMS.find(item => canonicalName(item.nome) === clean);
+      if (found) {
+        const wtStr = String(found.peso || found.weight || '0');
+        const wtNum = parseFloat(wtStr.replace(/[^\d.]/g, '')) || 0.0;
+        return wtNum;
+      }
+      return 0.0;
+    }
+
+    function applyBackgroundDefaults(sheet, bgName) {
+      const bg = findBackgroundData(bgName);
+      if (!bg) return;
+
+      // 1. Perícias
+      const skills = sheet.proficiencies.skills || [];
+      (bg.pericias || []).forEach(sk => {
+        if (!skills.includes(sk)) skills.push(sk);
+      });
+      sheet.proficiencies.skills = skills;
+
+      const tools = sheet.origin.toolProficiencies || [];
+      if (bg.ferramenta && bg.ferramenta !== 'Nenhuma' && !tools.includes(bg.ferramenta)) {
+        tools.push(bg.ferramenta);
+      }
+      sheet.origin.toolProficiencies = tools;
+
+      // 2. Equipamento e Moedas
+      sheet.origin.equipmentNotes = bg.equipamento;
+
+      const goldMatch = bg.equipamento.match(/\b(\d+)\s*po\b/i);
+      if (goldMatch) {
+        sheet.equipment.coins.po = Number(goldMatch[1]);
+      }
+
+      const cleanText = bg.equipamento.replace(/\b\d+\s*po\b/gi, '').trim();
+      const parts = cleanText.split(/,|\be\b/i).map(p => p.replace(/[.]$/, '').trim()).filter(Boolean);
+      const bgItems = [];
+      parts.forEach(part => {
+        const pLower = part.toLowerCase();
+        if (pLower.includes('mochila') || pLower.includes('roupas') || pLower.includes('símbolo sagrado') || pLower.includes('livro') || pLower.includes('ferramentas') || pLower.includes('kit') || pLower.includes('pé de cabra') || pLower.includes('martelo') || pLower.includes('cravos') || pLower.includes('corda') || pLower.includes('espelho') || pLower.includes('perfume') || pLower.includes('balança') || pLower.includes('baú') || pLower.includes('tinteiro') || pLower.includes('pena') || pLower.includes('pergaminho') || pLower.includes('adaga') || pLower.includes('cobertor') || pLower.includes('diário') || pLower.includes('foice') || pLower.includes('algibeira') || pLower.includes('pá') || pLower.includes('lança') || pLower.includes('algema') || pLower.includes('apito') || pLower.includes('cajado') || pLower.includes('pederneira') || pLower.includes('tenda') || pLower.includes('anel') || pLower.includes('espada') || pLower.includes('baralho') || pLower.includes('lantern')) {
+          const resolved = resolveEquipmentItems(part);
+          if (resolved && resolved.length) {
+            bgItems.push({ name: resolved[0].nome, qty: 1, notes: 'Antecedente (Resolvido)' });
+          } else {
+            bgItems.push({ name: part, qty: 1, notes: 'Antecedente' });
+          }
+        }
+      });
+      if (bgItems.length) {
+        sheet.equipment.items = [
+          ...(sheet.equipment.items || []).filter(item => !item.notes?.includes('Antecedente')),
+          ...bgItems
+        ];
+      }
+
+      // 3. Reset bônus de atributos para o novo antecedente
+      sheet.origin.abilityIncreases = { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+    }
+
+    function parseStartingEquipment(text) {
+      if (!text) return [];
+      const slots = text.split(';').map(s => s.trim()).filter(Boolean);
+      return slots.map((slot, index) => {
+        const options = slot.split(/\bou\b/i).map(o => o.trim()).filter(Boolean);
+        return {
+          id: `equip-slot-${index}`,
+          originalText: slot,
+          options: options
+        };
+      });
+    }
+
+    function resolveEquipmentItems(optionText) {
+      if (!optionText) return [];
+      const clean = canonicalName(optionText);
+
+      if (clean.includes('arma marcial')) {
+        return ITEMS.filter(i => i.categoria === 'Arma' && canonicalName(i.tipo).includes('marcial'));
+      }
+      if (clean.includes('arma simples')) {
+        return ITEMS.filter(i => i.categoria === 'Arma' && canonicalName(i.tipo).includes('simples'));
+      }
+      if (clean.includes('arma corpo a corpo simples')) {
+        return ITEMS.filter(i => i.categoria === 'Arma' && canonicalName(i.tipo).includes('simples') && !canonicalName(i.tipo).includes('distancia'));
+      }
+
+      let queryName = optionText.trim()
+        .replace(/^(um|uma|dois|duas|três|tres|quatro|cinco|seis)\s+/i, '')
+        .replace(/^(pacote de|pacote)\s+/i, '')
+        .replace(/\s+se proficiente\b/i, '')
+        .replace(/\s+e\s+flechas\b/i, '')
+        .replace(/\s+e\s+virotes\b/i, '');
+
+      const queryClean = canonicalName(queryName);
+
+      let matches = ITEMS.filter(i => canonicalName(i.nome) === queryClean);
+      if (matches.length) return matches;
+
+      matches = ITEMS.filter(i => canonicalName(i.nome).includes(queryClean) || queryClean.includes(canonicalName(i.nome)));
+      return matches;
+    }
+
+    function needsSubchoice(option) {
+      if (!option) return null;
+      const clean = canonicalName(option);
+      if (clean.includes('arma marcial') || clean.includes('arma corpo a corpo marcial')) return 'marcial';
+      if (clean.includes('arma simples') || clean.includes('arma corpo a corpo simples')) return 'simples';
+      if (clean.includes('instrumento musical')) return 'instrument';
+      return null;
+    }
+
+    function getSubchoiceOptions(type) {
+      if (type === 'marcial') {
+        return ITEMS.filter(i => i.categoria === 'Arma' && canonicalName(i.tipo).includes('marcial')).map(i => i.nome);
+      }
+      if (type === 'simples') {
+        return ITEMS.filter(i => i.categoria === 'Arma' && canonicalName(i.tipo).includes('simples')).map(i => i.nome);
+      }
+      if (type === 'instrument') {
+        return ["Alaúde", "Flauta", "Lira", "Tambor", "Violino", "Gaita de Foles", "Harpa", "Trombeta", "Trompa de Caça"];
+      }
+      return [];
+    }
+
+    function renderStartingEquipmentChoices(sheet) {
+      const clsName = sheet.identity.className;
+      if (!clsName) {
+        return `<p class="text-sm text-on-surface-variant md:col-span-2 lg:col-span-4">Selecione uma classe no Passo 1 para poder escolher o equipamento inicial.</p>`;
+      }
+
+      const clsData = findClassData(clsName);
+      const equipText = clsData?.equipamento_inicial || clsData?.equipamento;
+      if (!equipText) {
+        return `<p class="text-sm text-on-surface-variant md:col-span-2 lg:col-span-4">Esta classe não possui equipamentos iniciais registrados.</p>`;
+      }
+
+      const slots = parseStartingEquipment(equipText);
+      if (!slots || !slots.length) {
+        return `<p class="text-sm text-on-surface-variant md:col-span-2 lg:col-span-4">Esta classe não possui escolhas de equipamentos registradas.</p>`;
+      }
+
+      let html = `
+        <div class="sheet-panel-soft rounded-lg p-4 space-y-4 mb-4 md:col-span-2 lg:col-span-4 w-full">
+          <h4 class="sheet-label border-b border-primary/10 pb-2">Escolhas de Equipamento Inicial (${clsName})</h4>
+          <p class="text-xs text-on-surface-variant">Sua classe oferece as seguintes opções de equipamentos. Faça suas seleções:</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+      `;
+
+      slots.forEach((slot, index) => {
+        sheetState.equipmentChoices = sheetState.equipmentChoices || {};
+        if (sheetState.equipmentChoices[slot.id] === undefined) {
+          sheetState.equipmentChoices[slot.id] = slot.options[0] || '';
+        }
+
+        const selectedOpt = sheetState.equipmentChoices[slot.id];
+        const subType = needsSubchoice(selectedOpt);
+
+        html += `
+          <div class="sheet-panel-soft rounded-lg p-3 space-y-3 border border-primary/10 flex flex-col justify-between">
+            <div>
+              <p class="sheet-label text-[9px] text-primary/70 mb-2">Slot ${index + 1}</p>
+              <select class="sheet-select p-2 text-sm bg-[#0f0e11]" onchange="window.setEquipmentChoice('${slot.id}', this.value)">
+                ${slot.options.map(opt => `<option value="${esc(opt)}" ${selectedOpt === opt ? 'selected' : ''}>${esc(opt)}</option>`).join('')}
+              </select>
+            </div>
+        `;
+
+        if (subType) {
+          const subOptions = getSubchoiceOptions(subType);
+          const subKey = slot.id + '_sub';
+          if (sheetState.equipmentChoices[subKey] === undefined) {
+            sheetState.equipmentChoices[subKey] = subOptions[0] || '';
+          }
+          const selectedSub = sheetState.equipmentChoices[subKey];
+
+          html += `
+            <div class="mt-2">
+              <span class="sheet-label text-[8px] block mb-1">Escolha a arma/ferramenta:</span>
+              <select class="sheet-select p-2 text-xs bg-[#0f0e11]" onchange="window.setEquipmentChoiceSub('${slot.id}', this.value)">
+                ${subOptions.map(sub => `<option value="${esc(sub)}" ${selectedSub === sub ? 'selected' : ''}>${esc(sub)}</option>`).join('')}
+              </select>
+            </div>
+          `;
+        }
+
+        html += `</div>`;
+      });
+
+      html += `
+          </div>
+          <div class="pt-2">
+            <button class="sheet-action sheet-action-primary px-3 py-2 text-xs" onclick="window.equipSelectedChoices()">Equipar Itens Selecionados</button>
+          </div>
+        </div>
+      `;
+      return html;
+    }
+
+    window.changeBgBonusMode = (mode) => {
+      const increases = sheetState.current.origin.abilityIncreases || { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+      SHEET_ABILITIES.forEach(a => { increases[a.id] = 0; });
+      increases.mode = mode;
+      sheetState.current.origin.abilityIncreases = increases;
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.updateTripleBonus = () => {
+      const checkboxes = document.querySelectorAll('input[name="triple-bonus"]');
+      const selected = [];
+      checkboxes.forEach(cb => {
+        if (cb.checked) selected.push(cb.value);
+      });
+
+      if (selected.length > 3) {
+        alert('Você só pode selecionar no máximo 3 atributos!');
+        renderSheetApp();
+        return;
+      }
+
+      const increases = sheetState.current.origin.abilityIncreases || { mode: 'triple', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+      SHEET_ABILITIES.forEach(a => { increases[a.id] = 0; });
+      selected.forEach(attr => { increases[attr] = 1; });
+      sheetState.current.origin.abilityIncreases = increases;
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.updateDoubleBonus = () => {
+      const p2 = document.getElementById('bg-bonus-plus2')?.value;
+      const p1 = document.getElementById('bg-bonus-plus1')?.value;
+
+      if (p2 && p1 && p2 === p1) {
+        alert('Os atributos selecionados para +2 e +1 devem ser diferentes!');
+        renderSheetApp();
+        return;
+      }
+
+      const increases = sheetState.current.origin.abilityIncreases || { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+      SHEET_ABILITIES.forEach(a => { increases[a.id] = 0; });
+      if (p2) increases[p2] = 2;
+      if (p1) increases[p1] = 1;
+      sheetState.current.origin.abilityIncreases = increases;
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.setEquipmentChoice = (slotId, val) => {
+      sheetState.equipmentChoices = sheetState.equipmentChoices || {};
+      sheetState.equipmentChoices[slotId] = val;
+      delete sheetState.equipmentChoices[slotId + '_sub'];
+      renderSheetApp();
+    };
+
+    window.setEquipmentChoiceSub = (slotId, val) => {
+      sheetState.equipmentChoices = sheetState.equipmentChoices || {};
+      sheetState.equipmentChoices[slotId + '_sub'] = val;
+      renderSheetApp();
+    };
+
+    window.equipSelectedChoices = () => {
+      if (!sheetState.current) return;
+      const clsName = sheetState.current.identity.className;
+      const clsData = findClassData(clsName);
+      const equipText = clsData?.equipamento_inicial || clsData?.equipamento;
+      if (!equipText) return;
+
+      const slots = parseStartingEquipment(equipText);
+      const itemsList = [];
+
+      slots.forEach(slot => {
+        const option = sheetState.equipmentChoices[slot.id];
+        if (!option) return;
+
+        const subType = needsSubchoice(option);
+        if (subType) {
+          const subKey = slot.id + '_sub';
+          const subValue = sheetState.equipmentChoices[subKey];
+          if (subValue) {
+            const resolved = resolveEquipmentItems(subValue);
+            if (resolved && resolved.length) {
+              itemsList.push({ name: resolved[0].nome, qty: 1, notes: 'Classe (Resolvido)' });
+            } else {
+              itemsList.push({ name: subValue, qty: 1, notes: 'Classe' });
+            }
+            return;
+          }
+        }
+
+        const parts = option.split(/\b\s*e\s*\b|\b\s*com\s*\b/).map(p => p.trim()).filter(Boolean);
+        parts.forEach(part => {
+          const isDouble = part.toLowerCase().startsWith('duas ') || part.toLowerCase().startsWith('dois ');
+          const qty = isDouble ? 2 : 1;
+          const resolved = resolveEquipmentItems(part);
+          if (resolved && resolved.length) {
+            itemsList.push({ name: resolved[0].nome, qty: qty, notes: 'Classe (Resolvido)' });
+          } else {
+            itemsList.push({ name: part, qty: qty, notes: 'Classe' });
+          }
+        });
+      });
+
+      if (itemsList.length) {
+        sheetState.current.equipment.items = [
+          ...(sheetState.current.equipment.items || []),
+          ...itemsList
+        ];
+        sheetState.message = "Equipamento inicial da classe equipado com sucesso!";
+      } else {
+        sheetState.message = "Nenhum equipamento foi equipado.";
+      }
+      renderSheetApp();
+    };
+
+    window.searchGrimorioSpells = (query) => {
+      const classKey = canonicalName(sheetState.current.identity.className);
+      const classSpells = getSpellsForClass(classKey);
+      const filtered = (query ? (classSpells.length ? classSpells : SPELLS) : classSpells).filter(spell =>
+        canonicalName(spell.nome || spell.name).includes(canonicalName(query))
+      ).slice(0, 15);
+
+      const container = document.getElementById('spell-search-results');
+      if (!container) return;
+      container.innerHTML = filtered.length ? filtered.map(spell => `
+        <button class="w-full text-left sheet-action p-2 normal-case tracking-normal flex justify-between items-center bg-[#0f0e11]/40 border border-primary/5 hover:border-primary/20" onclick="window.addSpellDirect('${esc(spell.nome || spell.name)}')">
+          <span>${esc(spell.nome || spell.name)}</span>
+          <span class="text-[10px] text-on-surface-variant/80">${esc(spell.nivel || spell.level || 'Truque')}</span>
+        </button>
+      `).join('') : '<p class="text-xs text-on-surface-variant p-2">Nenhuma magia encontrada.</p>';
+    };
+
+    window.addSpellDirect = (name) => {
+      if (!sheetState.current.spellcasting.spells) sheetState.current.spellcasting.spells = [];
+      const spells = sheetState.current.spellcasting.spells;
+      if (!spells.some(s => canonicalName(s.name || s) === canonicalName(name))) {
+        spells.push({ name });
+        sheetState.message = `Magia "${name}" adicionada ao Grimório!`;
+      } else {
+        sheetState.message = `A magia "${name}" já está no Grimório.`;
+      }
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.removeSpell = (index) => {
+      sheetState.current.spellcasting.spells.splice(index, 1);
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.toggleAddItemForm = () => {
+      const el = document.getElementById('add-item-form-container');
+      if (el) el.classList.toggle('hidden');
+    };
+
+    window.searchArsenalItems = (query) => {
+      const filtered = ITEMS.filter(item =>
+        canonicalName(item.nome || item.name).includes(canonicalName(query))
+      ).slice(0, 15);
+
+      const container = document.getElementById('item-search-results');
+      if (!container) return;
+      container.innerHTML = filtered.length ? filtered.map(item => `
+        <button class="w-full text-left p-1.5 text-xs text-on-surface-variant/80 hover:text-primary hover:bg-primary/5 flex justify-between items-center transition-all" onclick="window.addInventoryItemDirect('${esc(item.nome || item.name)}')">
+          <span>${esc(item.nome || item.name)}</span>
+          <span class="font-mono text-[9px] text-on-surface-variant/50">${esc(item.peso || '0.0')}</span>
+        </button>
+      `).join('') : '<p class="text-xs text-on-surface-variant p-2">Nenhum item encontrado.</p>';
+    };
+
+    window.addInventoryItemDirect = (name) => {
+      if (!sheetState.current.equipment.items) sheetState.current.equipment.items = [];
+      const items = sheetState.current.equipment.items;
+
+      const found = ITEMS.find(i => canonicalName(i.nome || i.name) === canonicalName(name));
+      const wtStr = found ? String(found.peso || found.weight || '0') : '0.0';
+      const weight = parseFloat(wtStr.replace(/[^\d.]/g, '')) || 0.0;
+
+      items.push({ name, qty: 1, weight, notes: 'Arsenal' });
+      sheetState.message = `Item "${name}" adicionado ao inventário!`;
+
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    window.removeInventoryItem = (index) => {
+      sheetState.current.equipment.items.splice(index, 1);
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    // --- Modular equipment interaction handlers ---
+    window.toggleEquipExpand = (idx) => {
+      sheetState.expandedEquipIndex = sheetState.expandedEquipIndex === idx ? -1 : idx;
+      renderSheetApp();
+    };
+    window.changeItemQty = (idx, delta) => {
+      const items = sheetState.current.equipment.items;
+      if (!items[idx]) return;
+      items[idx].qty = Math.max(0, (Number(items[idx].qty || 1)) + delta);
+      if (items[idx].qty <= 0) items.splice(idx, 1);
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+    window.toggleEquipItem = (idx) => {
+      const items = sheetState.current.equipment.items;
+      if (!items[idx]) return;
+      items[idx].equipped = !items[idx].equipped;
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    // --- Modular spell interaction handlers ---
+    window.toggleSpellExpand = (idx) => {
+      sheetState.expandedSpellIndex = sheetState.expandedSpellIndex === idx ? -1 : idx;
+      renderSheetApp();
+    };
+
+    // --- Wizard spell selection handlers ---
+    window.wizardSpellSearch = (query) => {
+      sheetState.wizardSpellQuery = query;
+      renderSheetApp();
+    };
+    window.addWizardSpell = (name) => {
+      if (!sheetState.current.spellcasting.spells) sheetState.current.spellcasting.spells = [];
+      const spells = sheetState.current.spellcasting.spells;
+      if (!spells.some(s => canonicalName(s.name || s) === canonicalName(name))) {
+        spells.push({ name });
+        sheetState.message = `Magia "${name}" adicionada!`;
+      }
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+    window.removeWizardSpell = (idx) => {
+      if (!sheetState.current.spellcasting.spells) return;
+      sheetState.current.spellcasting.spells.splice(idx, 1);
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    };
+
+    function classOptions() {
+      return getClassRecords().map(item => item.nome).filter(Boolean).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    }
+
+    function raceOptions() {
+      return getRaceRecords().map(item => item.nome).filter(Boolean).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    }
+
+    function speciesOptions() {
+      return raceOptions();
+    }
+
+    function alignmentOptions() {
+      return (CHARACTER_CREATION.alignments || []).map(item => typeof item === 'string' ? item : item.name).filter(Boolean);
+    }
+
+    function findClassData(name) {
+      const key = canonicalName(name);
+      return getClassRecords().find(item => canonicalName(item.nome) === key) || null;
+    }
+
+    function findClassOverview(name) {
+      const key = canonicalName(name);
+      return (CHARACTER_CREATION.classOverview || []).find(item => canonicalName(item.class) === key) || null;
+    }
+
+    function hitDieForClass(name) {
+      const overview = findClassOverview(name);
+      const fromModule = findClassData(name);
+      const raw = overview?.hitDie || fromModule?.dado_vida || 8;
+      const parsed = String(raw).match(/\d+/)?.[0];
+      return Number(parsed || 8);
+    }
+
+    function proficiencyForLevel(level) {
+      const total = Math.max(1, Math.min(20, Number(level || 1)));
+      return (CHARACTER_CREATION.levelProgression || []).find(row => Number(row.level) === total)?.proficiencyBonus || 2;
+    }
+
+    function xpForLevel(level) {
+      return (CHARACTER_CREATION.levelProgression || []).find(row => Number(row.level) === Number(level))?.xp || 0;
+    }
+
+    function defaultSheet() {
+      const abilities = {};
+      SHEET_ABILITIES.forEach(ability => {
+        abilities[ability.id] = { score: 10 };
+      });
+      return {
+        schemaVersion: 'd1-character-v1',
+        ruleset: 'dnd-2024-compatible-hybrid',
+        id: cryptoRandomId(),
+        identity: { name: 'Novo Personagem', className: '', subclass: '', level: 1, xp: 0 },
+        origin: { background: '', species: '', race: '', subrace: '', abilityIncreases: { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }, languages: ['Comum'], toolProficiencies: [], equipmentNotes: '' },
+        abilities,
+        proficiencies: { saves: [], skills: [], armor: [], weapons: [], tools: [] },
+        combat: { armorClass: '', initiative: 0, speed: 9, hpMax: 0, hpCurrent: 0, hpTemp: 0, hitDiceSpent: 0, deathSaves: { successes: 0, failures: 0 }, attacks: [] },
+        spellcasting: { ability: '', saveDc: 0, attackBonus: 0, slots: {}, spells: [] },
+        equipment: { items: [], coins: { pc: 0, pp: 0, ce: 0, po: 0, pl: 0 } },
+        narrative: { appearance: '', personality: '', alignment: '', backstory: '' },
+        notes: '',
+        derived: {}
+      };
+    }
+
+    function normalizeImportedSheet(sheet) {
+      const base = defaultSheet();
+      const merged = {
+        ...base,
+        ...sheet,
+        id: sheet?.id || cryptoRandomId(),
+        identity: { ...base.identity, ...(sheet?.identity || {}) },
+        origin: { ...base.origin, ...(sheet?.origin || {}) },
+        abilities: { ...base.abilities, ...(sheet?.abilities || {}) },
+        proficiencies: { ...base.proficiencies, ...(sheet?.proficiencies || {}) },
+        combat: { ...base.combat, ...(sheet?.combat || {}) },
+        spellcasting: { ...base.spellcasting, ...(sheet?.spellcasting || {}) },
+        equipment: { ...base.equipment, ...(sheet?.equipment || {}) },
+        narrative: { ...base.narrative, ...(sheet?.narrative || {}) }
+      };
+
+      if (merged.origin.species && !merged.origin.race) {
+        merged.origin.race = merged.origin.species;
+      } else if (merged.origin.race && !merged.origin.species) {
+        merged.origin.species = merged.origin.race;
+      }
+
+      if (!merged.origin.abilityIncreases) {
+        merged.origin.abilityIncreases = { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+      }
+
+      merged.schemaVersion = 'd1-character-v1';
+      merged.ruleset = merged.ruleset || 'dnd-2024-compatible-hybrid';
+      return computeDerived(merged);
+    }
+
+    function computeDerived(sheet) {
+      if (sheet.identity.className) {
+        const unlockLevel = getSubclassUnlockLevelForClass(sheet.identity.className);
+        if (Number(sheet.identity.level || 1) < unlockLevel) {
+          sheet.identity.subclass = '';
+        }
+      }
+      const level = Math.max(1, Math.min(20, Number(sheet.identity.level || 1)));
+      const proficiency = proficiencyForLevel(level);
+      const mods = {};
+      SHEET_ABILITIES.forEach(ability => {
+        const baseScore = Number(sheet.abilities?.[ability.id]?.score ?? 10);
+        const increase = Number(sheet.origin?.abilityIncreases?.[ability.id] ?? 0);
+        mods[ability.id] = abilityMod(baseScore + increase);
+      });
+      const skillTotals = {};
+      SHEET_SKILLS.forEach(skill => {
+        const isProficient = (sheet.proficiencies.skills || []).includes(skill.id);
+        skillTotals[skill.id] = (mods[skill.ability] || 0) + (isProficient ? proficiency : 0);
+      });
+      const spellAbility = sheet.spellcasting.ability || inferSpellAbility(sheet.identity.className);
+      const spellMod = mods[spellAbility] || 0;
+      const hitDie = hitDieForClass(sheet.identity.className);
+      const conMod = mods.con || 0;
+      const hpLevelOne = hitDie + conMod;
+      const hpFixed = Math.max(1, (CHARACTER_CREATION.fixedHitPointsByDie || {})[`d${hitDie}`] || Math.ceil(hitDie / 2) + 1);
+      const hpSuggested = Math.max(1, hpLevelOne + Math.max(0, level - 1) * Math.max(1, hpFixed + conMod));
+      // --- Dynamic AC from equipped items ---
+      let baseAC = 10 + (mods.dex || 0); // unarmored default
+      let shieldBonus = 0;
+      (sheet.equipment.items || []).forEach(item => {
+        if (!item.equipped) return;
+        const dbItem = ITEMS.find(i => canonicalName(i.nome || i.name) === canonicalName(item.name));
+        const cat = canonicalName(dbItem?.categoria || dbItem?.tipo || item.name || '');
+        const nome = canonicalName(item.name || '');
+
+        // Detect shield
+        if (cat.includes('escudo') || nome.includes('escudo')) {
+          const dbCA = dbItem?.ca ? parseInt(String(dbItem.ca).replace(/[^\d]/g, '')) : 2;
+          shieldBonus = Math.max(shieldBonus, dbCA || 2);
+          return;
+        }
+
+        // Detect armor
+        const isArmor = cat.includes('armadura') || cat.includes('armor') || nome.includes('armadura') ||
+          ['couro','courotatico','couroreforçado','courobatido','gibao','camisao','cotademalha','brunea','meiaplaca','placas','acolchoada','peledragao','camisadomalha'].some(k => nome.includes(k));
+        if (!isArmor) return;
+
+        let itemCA = dbItem?.ca ? parseInt(String(dbItem.ca).replace(/[^\d]/g, '')) : 0;
+        if (!itemCA) return;
+
+        // Detect armor weight class
+        const isHeavy = cat.includes('pesada') || ['cotademalha','brunea','meiaplaca','placas','talas'].some(k => nome.includes(k));
+        const isLight = cat.includes('leve') || ['couro','acolchoada','peledragao'].some(k => nome.includes(k)) && !nome.includes('couroreforçado') && !nome.includes('courobatido');
+        const isMedium = cat.includes('media') || cat.includes('média') || ['couroreforçado','courobatido','gibao','camisao','camisadomalha','peitoraldeanao'].some(k => nome.includes(k));
+
+        if (isHeavy) {
+          baseAC = itemCA; // Heavy: flat CA, no dex
+        } else if (isMedium) {
+          baseAC = itemCA + Math.min(2, mods.dex || 0); // Medium: CA + max(2, dex)
+        } else if (isLight) {
+          baseAC = itemCA + (mods.dex || 0); // Light: CA + dex
+        } else {
+          // Unknown armor, assume medium
+          baseAC = itemCA + Math.min(2, mods.dex || 0);
+        }
+      });
+      const armorClass = baseAC + shieldBonus;
+      const initiative = mods.dex || 0;
+      const passivePerception = 10 + (skillTotals.perception ?? (mods.wis || 0));
+
+      let totalW = 0.0;
+      (sheet.equipment.items || []).forEach(item => {
+        const qty = Number(item.qty || item.quantity || 1);
+        const weight = item.weight !== undefined ? Number(item.weight) : getItemWeight(item.name);
+        totalW += weight * qty;
+      });
+      const strVal = Number(sheet.abilities?.str?.score ?? 10) + Number(sheet.origin?.abilityIncreases?.str ?? 0);
+      const maxW = strVal * 5;
+
+      sheet.derived = {
+        level,
+        proficiencyBonus: proficiency,
+        modifiers: mods,
+        skills: skillTotals,
+        armorClass,
+        initiative,
+        passivePerception,
+        hitDie: `d${hitDie}`,
+        hpSuggested,
+        spellSaveDc: 8 + proficiency + spellMod,
+        spellAttackBonus: proficiency + spellMod,
+        totalWeight: parseFloat(totalW.toFixed(2)),
+        maxWeight: maxW
+      };
+      if (!sheet.combat.hpMax) sheet.combat.hpMax = hpSuggested;
+      if (!sheet.combat.hpCurrent) sheet.combat.hpCurrent = sheet.combat.hpMax;
+      sheet.combat.initiative = initiative;
+      sheet.spellcasting.ability = spellAbility;
+      sheet.spellcasting.saveDc = sheet.derived.spellSaveDc;
+      sheet.spellcasting.attackBonus = sheet.derived.spellAttackBonus;
+      return sheet;
+    }
+
+    function inferSpellAbility(className) {
+      const key = canonicalName(className);
+      if (['bruxo', 'bardo', 'feiticeiro', 'paladino'].includes(key)) return 'cha';
+      if (['clerigo', 'druida', 'guardiao', 'monge'].includes(key)) return 'wis';
+      if (['mago'].includes(key)) return 'int';
+      return '';
+    }
+
+    function setSheetPath(path, value) {
+      if (!sheetState.current) return;
+      const parts = path.split('.');
+      let ref = sheetState.current;
+      parts.slice(0, -1).forEach(part => {
+        if (ref[part] === undefined) ref[part] = {};
+        ref = ref[part];
+      });
+      const last = parts[parts.length - 1];
+      ref[last] = value;
+      computeDerived(sheetState.current);
+      renderSheetApp();
+    }
+
+    function applyClassDefaults(sheet, className) {
+      sheet.identity.className = className;
+      const overview = findClassOverview(className);
+      const data = findClassData(className);
+      const standardMap = CHARACTER_CREATION.standardArrayByClass || {};
+      const standardKey = Object.keys(standardMap).find(key => canonicalName(key) === canonicalName(className));
+      const standard = standardKey ? { scores: standardMap[standardKey] } : null;
+      if (standard?.scores) {
+        Object.entries(standard.scores).forEach(([ability, score]) => {
+          if (sheet.abilities[ability]) sheet.abilities[ability].score = score;
+        });
+      }
+      if (data?.salvaguardas) sheet.proficiencies.saves = data.salvaguardas;
+      if (data?.proficiencias?.armaduras) sheet.proficiencies.armor = data.proficiencias.armaduras;
+      if (data?.proficiencias?.armas) sheet.proficiencies.weapons = data.proficiencias.armas;
+      if (overview?.hitDie) sheet.combat.hpMax = hitDieForClass(className) + abilityMod(sheet.abilities.con?.score);
+      sheet.identity.xp = xpForLevel(sheet.identity.level);
+      return computeDerived(sheet);
+    }
+
+    function applySpeciesDefaults(sheet, species) {
+      sheet.origin.species = species;
+      sheet.origin.race = species;
+      sheet.origin.subrace = '';
+      const data = (RACAS_CLASSES.items || []).find(item => ['raca', 'espécie', 'especie'].includes(item.tipo) && canonicalName(item.nome) === canonicalName(species));
+      if (data?.deslocamento) sheet.combat.speed = Number(String(data.deslocamento).match(/\d+/)?.[0] || sheet.combat.speed);
+      if (data?.tamanho) sheet.origin.size = data.tamanho;
+      return computeDerived(sheet);
+    }
+
+    async function loadSheetList() {
+      sheetState.sheets = await characterStore.list();
+    }
+
+    async function renderSheetApp() {
+      await loadSheetList();
+      const root = $('#sheet-app');
+      if (!root) return;
+      if (sheetState.mode === 'wizard' && sheetState.current) root.innerHTML = renderSheetWizard(sheetState.current);
+      else if (sheetState.mode === 'edit' && sheetState.current) root.innerHTML = renderSheetEditor(sheetState.current);
+      else root.innerHTML = renderSheetList();
+      bindSheetActions(root);
+    }
+
+    function renderSheetList() {
+      return `
+        <div class="sheet-shell max-w-container-max-width mx-auto px-4 md:px-6 space-y-6">
+          <div class="sheet-panel rounded-xl p-5 md:p-8 flex flex-col md:flex-row md:items-end justify-between gap-5">
+            <div>
+              <p class="sheet-label mb-2">Fase 5</p>
+              <h2 class="sheet-title text-4xl md:text-5xl font-bold m-0">Ficha de Personagem</h2>
+              <p class="font-body-md text-on-surface-variant mt-3 max-w-3xl">Crie, edite, salve localmente e exporte fichas em JSON. O armazenamento atual é local, mas a UI conversa apenas com a store para permitir outras persistências no futuro.</p>
+              <p class="mt-4 inline-flex items-center gap-2 rounded-sm border border-primary/25 bg-primary/10 px-3 py-2 text-xs font-label-sm font-bold uppercase tracking-wider text-primary/90">
+                <span class="material-symbols-outlined text-sm">construction</span>
+                Módulo em construção. Versão alfa de teste inicial para criação e edição de fichas.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button class="sheet-action sheet-action-primary px-4 py-3" data-sheet-action="new-wizard">Nova guiada</button>
+              <button class="sheet-action px-4 py-3" data-sheet-action="new-edit">Nova em branco</button>
+              <button class="sheet-action px-4 py-3" data-sheet-action="import-trigger">Importar JSON</button>
+              <input class="sheet-screen-reader-input" type="file" accept="application/json,.json" id="sheet-import-file">
+            </div>
+          </div>
+          ${sheetState.message ? `<div class="sheet-panel-soft rounded-lg p-3 text-sm text-primary">${esc(sheetState.message)}</div>` : ''}
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+            ${sheetState.sheets.length ? sheetState.sheets.map(sheet => `
+              <article class="sheet-panel rounded-lg p-5 flex flex-col gap-4">
+                <div>
+                  <p class="sheet-label">${esc(sheet.identity?.className || 'Classe livre')} ${sheet.identity?.level ? `- Nível ${esc(sheet.identity.level)}` : ''}</p>
+                  <h3 class="font-headline-lg text-2xl text-on-surface font-bold m-0">${esc(sheet.identity?.name || 'Sem nome')}</h3>
+                  <p class="text-sm text-on-surface-variant mt-1">${esc(sheet.origin?.race || sheet.origin?.species || 'Raça livre')}${sheet.origin?.subrace ? ` (${esc(sheet.origin.subrace)})` : ''} ${sheet.narrative?.alignment ? `• ${esc(sheet.narrative.alignment)}` : ''}</p>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  ${metricBox('CA', sheet.derived?.armorClass || sheet.combat?.armorClass || 10)}
+                  ${metricBox('PV', `${sheet.combat?.hpCurrent || 0}/${sheet.combat?.hpMax || 0}`)}
+                  ${metricBox('Prof.', signed(sheet.derived?.proficiencyBonus || 2))}
+                </div>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                  <button class="sheet-action px-3 py-2" data-sheet-action="edit" data-id="${esc(sheet.id)}">Editar</button>
+                  <button class="sheet-action px-3 py-2" data-sheet-action="duplicate" data-id="${esc(sheet.id)}">Duplicar</button>
+                  <button class="sheet-action px-3 py-2" data-sheet-action="export" data-id="${esc(sheet.id)}">Exportar</button>
+                  <button class="sheet-action px-3 py-2 text-red-300 border-red-300/30" data-sheet-action="delete" data-id="${esc(sheet.id)}">Excluir</button>
+                </div>
+              </article>
+            `).join('') : `<div class="sheet-panel rounded-lg p-8 md:col-span-2 xl:col-span-3 text-center text-on-surface-variant">Nenhuma ficha salva ainda.</div>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSheetWizard(sheet) {
+      const steps = CHARACTER_CREATION.creationSteps || CHARACTER_CREATION.steps || [];
+      const step = steps[sheetState.wizardStep] || steps[0];
+      return `
+        <div class="sheet-shell max-w-container-max-width mx-auto px-4 md:px-6 space-y-6">
+          <div class="sheet-panel rounded-xl p-5 md:p-7">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-primary/15 pb-5">
+              <div>
+                <p class="sheet-label">Criação assistida</p>
+                <h2 class="sheet-title text-3xl md:text-4xl font-bold m-0">${esc(step?.title || 'Ficha')}</h2>
+                <p class="text-on-surface-variant mt-2">${esc(step?.summary || '')}</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button class="sheet-action px-3 py-2" data-sheet-action="back-list">Lista</button>
+                <button class="sheet-action px-3 py-2" data-sheet-action="skip-edit">Pular para editar</button>
+              </div>
+            </div>
+            <div class="flex gap-2 my-5">
+              ${steps.map((_, index) => `<button class="h-2 flex-1 rounded-full border-0 ${index <= sheetState.wizardStep ? 'bg-primary' : 'bg-primary/20'}" data-sheet-action="wizard-go" data-step="${index}" aria-label="Etapa ${index + 1}"></button>`).join('')}
+            </div>
+            ${renderWizardStep(sheet, sheetState.wizardStep)}
+            <div class="flex flex-wrap justify-between gap-3 pt-5 border-t border-primary/15">
+              <button class="sheet-action px-4 py-3" data-sheet-action="wizard-prev" ${sheetState.wizardStep === 0 ? 'disabled' : ''}>Voltar</button>
+              <div class="flex flex-wrap gap-3">
+                <button class="sheet-action px-4 py-3" data-sheet-action="save-current">Salvar rascunho</button>
+                <button class="sheet-action sheet-action-primary px-4 py-3" data-sheet-action="${sheetState.wizardStep >= steps.length - 1 ? 'finish-wizard' : 'wizard-next'}">${sheetState.wizardStep >= steps.length - 1 ? 'Finalizar ficha' : 'Próxima etapa'}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderWizardStep(sheet, index) {
+      if (index === 0) {
+        const overview = findClassOverview(sheet.identity.className);
+        const overviewHtml = overview ? `
+          <div class="sheet-panel-soft rounded-lg p-4 md:col-span-2 text-sm space-y-2 mt-2 border border-primary/10">
+            <h4 class="sheet-label border-b border-primary/10 pb-2">Detalhes da Classe: ${overview.class}</h4>
+            <div class="grid grid-cols-3 gap-4 text-xs">
+              <p><strong>Dado de Vida:</strong> ${overview.hitDie}</p>
+              <p><strong>Atributos Chave:</strong> ${overview.primaryAbility}</p>
+              <p><strong>Complexidade:</strong> ${overview.complexity}</p>
+            </div>
+          </div>
+        ` : '';
+
+        return `<div class="grid md:grid-cols-2 gap-4">
+          <label><span class="sheet-label block mb-1">Classe</span><select class="sheet-select p-3" data-sheet-path="identity.className" data-sheet-special="class">${sheetSelectOptions(classOptions(), sheet.identity.className)}</select></label>
+          ${renderSubclassField(sheet, true)}
+          ${sheetField('identity.level', 'Nível', sheet.identity.level, 'number')}
+          ${sheetField('identity.xp', 'XP', sheet.identity.xp, 'number')}
+          ${overviewHtml}
+        </div>`;
+      }
+      if (index === 1) {
+        const bg = findBackgroundData(sheet.origin.background);
+        const bgHtml = bg ? `
+          <div class="sheet-panel-soft rounded-lg p-4 space-y-3 mt-4 md:col-span-2 border border-primary/10">
+            <h4 class="sheet-label border-b border-primary/10 pb-2 mb-2">Benefícios do Antecedente: ${bg.nome}</h4>
+            <div class="grid grid-cols-2 gap-4 text-xs space-y-1">
+              <div>
+                <p><strong>Atributos Favorecidos:</strong> ${bg.atributos_favorecidos.map(a => a.toUpperCase()).join(', ')}</p>
+                <p class="mt-1"><strong>Perícias Sugeridas:</strong> ${bg.pericias.map(pid => SHEET_SKILLS.find(sk => sk.id === pid)?.name || pid).join(', ')}</p>
+              </div>
+              <div>
+                <p><strong>Ferramenta:</strong> ${bg.ferramenta}</p>
+                <p class="mt-1"><strong>Talento de Origem:</strong> ${bg.talento}</p>
+              </div>
+            </div>
+            <p class="text-xs border-t border-primary/5 pt-2 mt-2"><strong>Equipamento Inicial:</strong> ${bg.equipamento}</p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <button class="sheet-action px-3 py-2 text-xs" data-sheet-action="apply-bg-features" data-bg="${bg.nome}">Aplicar Proficiências e Talento</button>
+              <button class="sheet-action px-3 py-2 text-xs" data-sheet-action="apply-bg-equipment" data-bg="${bg.nome}">Aplicar Equipamento e Ouro</button>
+            </div>
+          </div>
+        ` : '';
+
+        return `<div class="grid md:grid-cols-2 gap-4">
+          <label><span class="sheet-label block mb-1">Antecedente</span><select class="sheet-select p-3" data-sheet-path="origin.background">${sheetSelectOptions(backgroundOptions(), sheet.origin.background, 'Selecione um Antecedente...')}</select></label>
+          <label><span class="sheet-label block mb-1">Raça</span><select class="sheet-select p-3" data-sheet-path="origin.species" data-sheet-special="species">${sheetSelectOptions(speciesOptions(), sheet.origin.species || sheet.origin.race, 'Selecione uma Raça...')}</select></label>
+          ${renderSubraceField(sheet)}
+          ${sheetField('origin.languagesText', 'Idiomas', (sheet.origin.languages || []).join(', '))}
+          ${sheetField('origin.equipmentNotes', 'Anotações de equipamentos', sheet.origin.equipmentNotes, 'textarea')}
+          ${bgHtml}
+        </div>`;
+      }
+      if (index === 2) {
+        const bgName = sheet.origin.background;
+        const bg = findBackgroundData(bgName);
+        let bonusHtml = '';
+        if (bg && bg.atributos_favorecidos && bg.atributos_favorecidos.length) {
+          const favored = bg.atributos_favorecidos;
+          const increases = sheet.origin.abilityIncreases || { mode: 'custom', str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+          const mode = increases.mode || 'custom';
+          const strName = (id) => SHEET_ABILITIES.find(a => a.id === id)?.name || id;
+
+          bonusHtml = `
+            <div class="sheet-panel-soft rounded-lg p-4 mb-4 md:col-span-2 lg:col-span-3 border border-primary/10">
+              <h4 class="sheet-label border-b border-primary/10 pb-2 mb-3">Aumentos de Atributos do Antecedente (${bg.nome})</h4>
+              <p class="text-sm mb-3">Seu antecedente permite aumentar seus atributos favorecidos: <strong>${favored.map(a => strName(a)).join(', ')}</strong>. Escolha um método:</p>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block mb-2"><span class="sheet-label block mb-1">Distribuição de Bônus</span>
+                    <select class="sheet-select p-2 bg-[#0f0e11]" id="bg-bonus-mode" onchange="window.changeBgBonusMode(this.value)">
+                      <option value="custom" ${mode === 'custom' ? 'selected' : ''}>+2 em um, +1 em outro</option>
+                      <option value="triple" ${mode === 'triple' ? 'selected' : ''}>+1 em três atributos diferentes</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="space-y-3">
+                  ${mode === 'triple' ? `
+                    <p class="text-xs text-on-surface-variant">Selecione os três atributos favorecidos para receber +1 cada:</p>
+                    <div class="flex flex-wrap gap-4">
+                      ${SHEET_ABILITIES.filter(a => favored.includes(a.id)).map(attrObj => {
+                        const attr = attrObj.id;
+                        const checked = increases[attr] === 1;
+                        return `<label class="flex items-center gap-2 text-sm cursor-pointer text-primary font-semibold">
+                          <input type="checkbox" name="triple-bonus" value="${attr}" ${checked ? 'checked' : ''} onchange="window.updateTripleBonus()">
+                          ${strName(attr)} (+1)
+                        </label>`;
+                      }).join('')}
+                    </div>
+                  ` : `
+                    <p class="text-xs text-on-surface-variant">Escolha um atributo favorecido para +2 e outro diferente para +1:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                      <label><span class="sheet-label text-[9px]">Atributo (+2)</span>
+                        <select class="sheet-select p-2 text-sm bg-[#0f0e11]" id="bg-bonus-plus2" onchange="window.updateDoubleBonus()">
+                          <option value="">Escolha...</option>
+                          ${SHEET_ABILITIES.filter(a => favored.includes(a.id)).map(attrObj => {
+                            const attr = attrObj.id;
+                            return `<option value="${attr}" ${increases[attr] === 2 ? 'selected' : ''}>${strName(attr)}</option>`;
+                          }).join('')}
+                        </select>
+                      </label>
+                      <label><span class="sheet-label text-[9px]">Atributo (+1)</span>
+                        <select class="sheet-select p-2 text-sm bg-[#0f0e11]" id="bg-bonus-plus1" onchange="window.updateDoubleBonus()">
+                          <option value="">Escolha...</option>
+                          ${SHEET_ABILITIES.filter(a => favored.includes(a.id)).map(attrObj => {
+                            const attr = attrObj.id;
+                            return `<option value="${attr}" ${increases[attr] === 1 ? 'selected' : ''}>${strName(attr)}</option>`;
+                          }).join('')}
+                        </select>
+                      </label>
+                    </div>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          bonusHtml = `
+            <div class="sheet-panel-soft rounded-lg p-4 mb-4 md:col-span-2 lg:col-span-3 border border-primary/10">
+              <p class="text-sm text-on-surface-variant">Selecione um antecedente no Passo 2 para escolher seus bônus de atributos.</p>
+            </div>
+          `;
+        }
+
+        return bonusHtml + `<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full md:col-span-2 lg:col-span-3">${renderAbilityBoxes(sheet)}</div>`;
+      }
+      if (index === 3) {
+        return `<div class="grid md:grid-cols-2 gap-4 w-full">
+          <label><span class="sheet-label block mb-1">Alinhamento</span><select class="sheet-select p-3" data-sheet-path="narrative.alignment">${sheetSelectOptions(alignmentOptions(), sheet.narrative.alignment)}</select></label>
+          ${sheetField('narrative.personality', 'Personalidade', sheet.narrative.personality, 'textarea')}
+          ${sheetField('narrative.appearance', 'Aparência', sheet.narrative.appearance, 'textarea')}
+          ${sheetField('narrative.backstory', 'História', sheet.narrative.backstory, 'textarea')}
+        </div>`;
+      }
+      const spellAbilityKey = inferSpellAbility(sheet.identity.className);
+      const isSpellcaster = !!spellAbilityKey;
+      let wizardSpellsHtml = '';
+      if (isSpellcaster) {
+        const classKey = canonicalName(sheet.identity.className);
+        const currentSpells = sheet.spellcasting.spells || [];
+        const wizardQuery = sheetState.wizardSpellQuery || '';
+        const classSpells = getSpellsForClass(classKey);
+        const searchPool = wizardQuery ? (classSpells.length ? classSpells : SPELLS).filter(s =>
+          canonicalName(s.nome || s.name).includes(canonicalName(wizardQuery))
+        ) : classSpells;
+        wizardSpellsHtml = `
+          <div class="sheet-panel-soft rounded-lg p-4 space-y-3 border border-primary/10 md:col-span-2 lg:col-span-4">
+            <h4 class="sheet-label border-b border-primary/10 pb-2">Seleção de Magias Iniciais (${esc(sheet.identity.className)})</h4>
+            <p class="text-xs text-on-surface-variant">Selecione as magias iniciais do seu grimório.</p>
+            <input type="text" class="sheet-input p-2 text-xs bg-[#0f0e11]" placeholder="Buscar magia..." value="${esc(wizardQuery)}" oninput="window.wizardSpellSearch(this.value)">
+            <div class="grid sm:grid-cols-2 gap-2 max-h-[180px] overflow-y-auto custom-scrollbar pr-1">
+              ${searchPool.slice(0, 20).map(spell => {
+                const alreadyAdded = currentSpells.some(s => canonicalName(s.name || s) === canonicalName(spell.nome));
+                return `<button class="w-full text-left sheet-action p-2 normal-case tracking-normal flex justify-between items-center bg-[#0f0e11]/40 border ${alreadyAdded ? 'border-green-600/40 opacity-50' : 'border-primary/5 hover:border-primary/20'}" ${alreadyAdded ? 'disabled' : `onclick="window.addWizardSpell('${esc(spell.nome)}')"`}>
+                  <span class="text-xs font-semibold">${esc(spell.nome)}</span>
+                  <span class="text-[9px] text-on-surface-variant/80">${esc(spell.nivel || spell.level || 'Truque')}</span>
+                </button>`;
+              }).join('')}
+            </div>
+            ${currentSpells.length > 0 ? `
+              <div class="border-t border-primary/10 pt-2 mt-2">
+                <p class="sheet-label text-[9px] mb-2">Magias selecionadas (${currentSpells.length}):</p>
+                <div class="flex flex-wrap gap-2">
+                  ${currentSpells.map((sp, i) => `
+                    <span class="inline-flex items-center gap-1 bg-primary/10 border border-primary/20 rounded px-2 py-1 text-xs text-primary font-semibold">
+                      ${esc(sp.name || sp)}
+                      <button class="text-red-400 hover:text-red-300 ml-1" onclick="window.removeWizardSpell(${i})">×</button>
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+      return `<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        ${sheetField('identity.name', 'Nome do personagem', sheet.identity.name)}
+        ${sheetField('combat.hpMax', 'PV máximo (Sugerido: ' + sheet.derived.hpSuggested + ')', sheet.combat.hpMax, 'number')}
+        ${sheetField('combat.hpCurrent', 'PV atual', sheet.combat.hpCurrent, 'number')}
+        <label><span class="sheet-label block mb-1">CA (Calculada automaticamente)</span>
+          <div class="sheet-input p-3 text-on-surface-variant cursor-not-allowed opacity-70">${sheet.derived.armorClass}</div>
+        </label>
+        ${sheetField('combat.speed', 'Deslocamento (metros)', sheet.combat.speed, 'number')}
+        ${sheetField('spellcasting.ability', 'Atributo de conjuração', sheet.spellcasting.ability)}
+        <div class="md:col-span-2 lg:col-span-4 w-full">${renderStartingEquipmentChoices(sheet)}</div>
+        ${wizardSpellsHtml}
+        <div class="md:col-span-2 lg:col-span-4 w-full">${sheetField('notes', 'Notas iniciais e talentos', sheet.notes, 'textarea')}</div>
+      </div>`;
+    }
+
+    function sheetField(path, label, value = '', type = 'text') {
+      const common = `data-sheet-path="${esc(path)}"`;
+      if (type === 'textarea') return `<label><span class="sheet-label block mb-1">${esc(label)}</span><textarea class="sheet-textarea p-3 min-h-[116px]" ${common}>${esc(value)}</textarea></label>`;
+      return `<label><span class="sheet-label block mb-1">${esc(label)}</span><input class="sheet-input p-3" type="${esc(type)}" value="${esc(value)}" ${common}></label>`;
+    }
+
+    function renderSheetEditor(sheet) {
+      return `
+        <div class="sheet-shell max-w-container-max-width mx-auto px-4 md:px-6">
+          <div class="sheet-panel rounded-xl overflow-hidden">
+            <div class="p-6 border-b border-primary/15 bg-black/40">
+              <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
+                <div class="md:col-span-2">
+                  <span class="sheet-label text-[9px] text-[#998f81] block mb-1">Nome do Personagem</span>
+                  <input class="sheet-input text-2xl font-bold font-headline-lg text-[#e6c383] bg-transparent border-0 outline-none p-0 focus:ring-0 focus:border-0" style="background: transparent !important; border: none !important; box-shadow: none !important;" value="${esc(sheet.identity.name || 'Novo Personagem')}" data-sheet-path="identity.name">
+                </div>
+                <div>
+                  <span class="sheet-label text-[9px] text-[#998f81] block mb-1">Classe & Nível</span>
+                  <div class="flex gap-1 items-center border-b border-primary/20 pb-1">
+                    <select class="text-sm text-on-surface bg-transparent border-0 outline-none p-0 cursor-pointer" style="appearance: none; -webkit-appearance: none; background: transparent !important; border: none !important; box-shadow: none !important;" data-sheet-path="identity.className" data-sheet-special="class">
+                      ${sheetSelectOptions(classOptions(), sheet.identity.className)}
+                    </select>
+                    <input class="w-12 text-center bg-transparent border-0 outline-none text-sm font-bold text-[#e6c383]" type="number" value="${esc(sheet.identity.level || 1)}" data-sheet-path="identity.level">
+                  </div>
+                </div>
+                <div>
+                  <span class="sheet-label text-[9px] text-[#998f81] block mb-1">Antecedente</span>
+                  <select class="w-full text-sm text-on-surface bg-transparent border-0 border-b border-primary/20 outline-none p-0 pb-1 cursor-pointer" style="appearance: none; -webkit-appearance: none; background: transparent !important; box-shadow: none !important;" data-sheet-path="origin.background">
+                    ${sheetSelectOptions(backgroundOptions(), sheet.origin.background, 'Selecione...')}
+                  </select>
+                </div>
+                <div>
+                  <span class="sheet-label text-[9px] text-[#998f81] block mb-1">Raça</span>
+                  <select class="w-full text-sm text-on-surface bg-transparent border-0 border-b border-primary/20 outline-none p-0 pb-1 cursor-pointer" style="appearance: none; -webkit-appearance: none; background: transparent !important; box-shadow: none !important;" data-sheet-path="origin.species" data-sheet-special="species">
+                    ${sheetSelectOptions(speciesOptions(), sheet.origin.species || sheet.origin.race, 'Raça livre')}
+                  </select>
+                </div>
+                <div>
+                  <span class="sheet-label text-[9px] text-[#998f81] block mb-1">Alinhamento</span>
+                  <select class="w-full text-sm text-on-surface bg-transparent border-0 border-b border-primary/20 outline-none p-0 pb-1 cursor-pointer" style="appearance: none; -webkit-appearance: none; background: transparent !important; box-shadow: none !important;" data-sheet-path="narrative.alignment">
+                    ${sheetSelectOptions(alignmentOptions(), sheet.narrative.alignment, 'Escolha...')}
+                  </select>
+                </div>
+              </div>
+              <div class="flex flex-wrap justify-between items-center mt-4 pt-3 border-t border-primary/10 gap-3">
+                <div class="flex items-center gap-4 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <span class="sheet-label text-[9px] text-[#998f81]">Sub-raça:</span>
+                    ${sheet.origin.subrace ? `<span class="text-sm font-semibold text-[#e6c383]">${esc(sheet.origin.subrace)}</span>` : `<span class="text-xs text-on-surface-variant">Nenhuma</span>`}
+                    ${getSubracesForRace(sheet.origin.species || sheet.origin.race).length > 0 ? `
+                      <select class="text-xs text-on-surface bg-transparent border-0 border-b border-primary/20 outline-none p-0 pb-0.5 cursor-pointer" style="appearance: none; -webkit-appearance: none; background: transparent !important; box-shadow: none !important;" data-sheet-path="origin.subrace">
+                        ${sheetSelectOptions(getSubracesForRace(sheet.origin.species || sheet.origin.race).map(s => s.nome || s), sheet.origin.subrace, 'Selecione...')}
+                      </select>
+                    ` : ''}
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="sheet-label text-[9px] text-[#998f81]">Subclasse:</span>
+                    ${sheet.identity.subclass ? `<span class="text-sm font-semibold text-[#e6c383]">${esc(sheet.identity.subclass)}</span>` : `<span class="text-xs text-on-surface-variant">Trancado</span>`}
+                    ${renderSubclassField(sheet, false)}
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="sheet-label text-[9px] text-[#998f81]">XP:</span>
+                    <input class="w-20 text-center bg-transparent border-0 border-b border-primary/20 outline-none text-xs font-bold text-[#e6c383] p-0 pb-0.5" type="number" value="${esc(sheet.identity.xp || 0)}" data-sheet-path="identity.xp">
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="sheet-action px-3 py-1.5" data-sheet-action="back-list">Lista</button>
+                  <button class="sheet-action px-3 py-1.5" data-sheet-action="export-current">Exportar</button>
+                  <button class="sheet-action sheet-action-primary px-4 py-1.5" data-sheet-action="save-current">Salvar</button>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)_320px] gap-6 p-6">
+              <aside class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                  ${renderAbilityBoxes(sheet)}
+                </div>
+                ${renderSkillPanel(sheet)}
+              </aside>
+              <main class="space-y-6">
+                ${renderCombatSummary(sheet)}
+                ${renderHpPanel(sheet)}
+                ${renderSheetTabs(sheet)}
+              </main>
+              <aside class="space-y-6">
+                ${renderPortraitPanel(sheet)}
+                ${renderCoinsPanel(sheet)}
+                ${renderEquipmentPanel(sheet)}
+              </aside>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAbilityBoxes(sheet) {
+      return SHEET_ABILITIES.map(ability => `
+        <div class="sheet-stat sheet-panel-soft p-3 text-center flex flex-col justify-between relative border border-primary/10 bg-black/40">
+          <div class="sheet-label text-[10px] text-primary/80 mt-1">${esc(ability.short || ability.abbr || ability.name)}</div>
+          <div class="text-on-surface text-4xl font-headline-lg font-bold my-1">${signed(sheet.derived?.modifiers?.[ability.id] || 0)}</div>
+          <div class="flex justify-center mb-1">
+            <div class="bg-[#0f0e11] border border-primary/20 rounded-full w-8 h-8 flex items-center justify-center text-xs font-semibold text-primary">
+              <input class="w-full text-center bg-transparent border-0 outline-none p-0 text-xs font-semibold text-primary m-0" type="number" value="${esc(sheet.abilities?.[ability.id]?.score ?? 10)}" data-sheet-path="abilities.${ability.id}.score">
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderSkillPanel(sheet) {
+      return `
+        <div class="sheet-panel-soft rounded-lg p-4 border border-primary/10">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="sheet-label text-xs uppercase tracking-widest">Perícias</h3>
+            <span class="sheet-label text-[9px] text-primary/80">Bônus +${sheet.derived?.proficiencyBonus || 2}</span>
+          </div>
+          <div class="space-y-1">
+            ${SHEET_SKILLS.map(skill => {
+              const checked = (sheet.proficiencies.skills || []).includes(skill.id);
+              const bonus = sheet.derived?.skills?.[skill.id] || 0;
+              return `
+                <label class="flex items-center justify-between py-1 cursor-pointer select-none group">
+                  <span class="flex items-center gap-1.5 text-sm ${checked ? 'text-primary font-bold' : 'text-on-surface-variant'}">
+                    <input type="checkbox" class="hidden" ${checked ? 'checked' : ''} data-sheet-skill="${esc(skill.id)}">
+                    <span class="text-[11px] ${checked ? 'text-[#e6c383]' : 'text-on-surface-variant/40'}">${checked ? '●' : '○'}</span>
+                    <span>${esc(skill.name)}</span>
+                  </span>
+                  <span class="font-semibold text-sm ${checked ? 'text-[#e6c383]' : 'text-on-surface-variant'}">${signed(bonus)}</span>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCombatSummary(sheet) {
+      return `
+        <div class="grid grid-cols-3 gap-4">
+          <div class="sheet-panel-soft rounded-lg p-4 text-center border border-primary/10 bg-black/40">
+            <span class="sheet-label text-[8px] text-[#998f81] block mb-1">ARMADURA</span>
+            <strong class="font-headline-lg text-3xl text-[#e6c383] block mt-1">${sheet.derived.armorClass}</strong>
+          </div>
+          <div class="sheet-panel-soft rounded-lg p-4 text-center border border-primary/10 bg-black/40">
+            <span class="sheet-label text-[8px] text-[#998f81] block mb-1">INICIATIVA</span>
+            <strong class="font-headline-lg text-3xl text-on-surface block mt-1">${signed(sheet.derived.initiative)}</strong>
+          </div>
+          <div class="sheet-panel-soft rounded-lg p-4 text-center border border-primary/10 bg-black/40">
+            <span class="sheet-label text-[8px] text-[#998f81] block mb-1">DESLOCAMENTO</span>
+            <strong class="font-headline-lg text-3xl text-on-surface block mt-1">${sheet.combat.speed || 9}m</strong>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHpPanel(sheet) {
+      const current = Number(sheet.combat.hpCurrent || 0);
+      const max = Number(sheet.combat.hpMax || 10);
+      const temp = Number(sheet.combat.hpTemp || 0);
+      const pct = Math.max(0, Math.min(100, (current / (max || 1)) * 100));
+
+      return `
+        <div class="sheet-panel-soft rounded-lg p-5 border border-primary/10 bg-black/20">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="sheet-label text-xs">Pontos de Vida</h3>
+            <div class="flex items-center gap-2 bg-black/30 border border-primary/10 rounded px-2 py-1">
+              <span class="text-[9px] uppercase tracking-widest text-[#998f81] font-bold">TEMP</span>
+              <input class="w-10 text-center bg-transparent border-0 outline-none text-xs font-bold text-primary" type="number" value="${temp}" data-sheet-path="combat.hpTemp">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-[#0f0e11]/60 border border-primary/10 rounded-lg p-3 text-center">
+              <span class="text-[9px] uppercase tracking-widest text-[#998f81] block mb-1">ATUAL</span>
+              <input class="w-full text-center bg-transparent border-0 outline-none text-4xl font-headline-lg font-bold text-[#e6c383]" type="number" value="${current}" data-sheet-path="combat.hpCurrent">
+            </div>
+            <div class="bg-[#0f0e11]/60 border border-primary/10 rounded-lg p-3 text-center">
+              <span class="text-[9px] uppercase tracking-widest text-[#998f81] block mb-1">MÁXIMO</span>
+              <input class="w-full text-center bg-transparent border-0 outline-none text-4xl font-headline-lg font-bold text-[#998f81]" type="number" value="${max}" data-sheet-path="combat.hpMax">
+            </div>
+          </div>
+
+          <div class="w-full bg-[#0f0e11] h-2 rounded-full overflow-hidden border border-primary/5">
+            <div class="h-full bg-gradient-to-r from-primary to-[#e6c383]" style="width: ${pct}%; background-color: #e6c383;"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSheetTabs(sheet) {
+      return `
+        <div class="sheet-panel-soft rounded-lg overflow-hidden border border-primary/10">
+          <div class="flex overflow-x-auto border-b border-primary/15 bg-black/35">
+            ${SHEET_TABS.slice(0, 3).map(([id, label]) => `
+              <button class="sheet-tab ${sheetState.tab === id ? 'active text-primary border-primary' : 'text-on-surface-variant'} px-5 py-3 border-b-2 border-transparent text-xs uppercase font-bold tracking-widest bg-transparent transition-all" data-sheet-action="tab" data-tab="${id}">
+                ${esc(label)}
+              </button>
+            `).join('')}
+          </div>
+          <div class="p-5 bg-black/10">${renderSheetTabContent(sheet)}</div>
+        </div>
+      `;
+    }
+
+    function getCharacterFeatures(sheet) {
+      const features = [];
+
+      // 1. Background Feats
+      const bgName = sheet.origin?.background;
+      if (bgName) {
+        const bg = findBackgroundData(bgName);
+        if (bg) {
+          features.push({
+            nome: `Talento de Origem: ${bg.talento || 'Talento'}`,
+            descricao: `Concedido pelo antecedente ${bg.nome}.`,
+            fonte: bg.nome,
+            icon: '📖'
+          });
+        }
+      }
+
+      // 2. Race Traits
+      const raceName = sheet.origin?.species || sheet.origin?.race;
+      if (raceName) {
+        const race = getRaceRecords().find(r => canonicalName(r.nome) === canonicalName(raceName));
+        if (race) {
+          (race.habilidades_raciais || []).forEach(h => {
+            features.push({
+              nome: h.nome || h.name,
+              descricao: h.descricao || h.desc,
+              fonte: race.nome,
+              icon: '🛡️'
+            });
+          });
+
+          const subraceName = sheet.origin?.subrace;
+          if (subraceName && race.sub_racas) {
+            const sub = race.sub_racas.find(s => canonicalName(s.nome) === canonicalName(subraceName));
+            if (sub && sub.habilidades) {
+              sub.habilidades.forEach(h => {
+                features.push({
+                  nome: h.nome || h.name,
+                  descricao: h.descricao || h.desc,
+                  fonte: sub.nome,
+                  icon: '🛡️'
+                });
+              });
+            }
+          }
+        }
+      }
+
+      // 3. Class Features
+      const className = sheet.identity?.className;
+      if (className) {
+        const cls = findClassData(className);
+        if (cls) {
+          const level = Math.max(1, Math.min(20, Number(sheet.identity?.level || 1)));
+          (cls.habilidades_classe || []).forEach(h => {
+            if (Number(h.nivel || h.level || 1) <= level) {
+              features.push({
+                nome: h.nome || h.name,
+                descricao: h.descricao || h.desc,
+                fonte: `${cls.nome} Nível ${h.nivel}`,
+                icon: '⚡'
+              });
+            }
+          });
+
+          const subclassName = sheet.identity?.subclass;
+          if (subclassName && cls.sub_classes) {
+            const subclass = cls.sub_classes.find(s => canonicalName(s.nome) === canonicalName(subclassName));
+            if (subclass) {
+              const subAbilities = subclass.habilidades || subclass.features || [];
+              subAbilities.forEach(h => {
+                const subLvl = Number(h.nivel || h.nivel_acesso || 3);
+                if (subLvl <= level) {
+                  features.push({
+                    nome: h.nome || h.name,
+                    descricao: h.descricao || h.desc,
+                    fonte: `${subclass.nome} Nível ${subLvl}`,
+                    icon: '⚡'
+                  });
+                }
+              });
+            }
+          }
+        }
+      }
+
+      return features;
+    }
+
+    function renderFeaturesTab(sheet) {
+      const features = getCharacterFeatures(sheet);
+      if (!features.length) {
+        return `<p class="text-sm text-on-surface-variant p-4 text-center">Selecione uma Classe, Raça e Antecedente no Wizard para carregar suas habilidades automaticamente.</p>`;
+      }
+      return `
+        <div class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
+          ${features.map(f => `
+            <div class="border-b border-primary/10 pb-3 last:border-0 last:pb-0">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-primary text-base">${f.icon || '⚡'}</span>
+                <strong class="text-[#e6c383] font-headline-md text-sm font-bold">${esc(f.nome)}</strong>
+                <span class="text-[9px] uppercase tracking-widest text-on-surface-variant/60 ml-auto bg-black/40 px-2 py-0.5 rounded border border-primary/10">${esc(f.fonte)}</span>
+              </div>
+              <p class="text-xs text-on-surface-variant/90 leading-relaxed pl-6">${esc(f.descricao || 'Habilidade especial de D&D 5e.')}</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderSheetTabContent(sheet) {
+      if (sheetState.tab === 'features') {
+        return renderFeaturesTab(sheet);
+      }
+      if (sheetState.tab === 'attacks') return `<div class="space-y-4">${renderAttackEditor(sheet)}${renderSpellcastingSummary(sheet)}</div>`;
+      if (sheetState.tab === 'spells') return renderGrimorioTab(sheet);
+      if (sheetState.tab === 'inventory') return renderEquipmentEditor(sheet);
+      return sheetField('notes', 'Notas livres', sheet.notes, 'textarea');
+    }
+
+    function renderFeatureList(classData) {
+      const features = classData?.caracteristicas || classData?.features || [];
+      if (!features.length) return `<p class="text-sm text-on-surface-variant">Dados de classe ausentes ou incompatíveis. Use as notas livres para registrar características manualmente.</p>`;
+      return `<div class="space-y-3">${features.slice(0, 8).map(feature => `<div class="border-b border-primary/10 pb-2"><strong class="text-on-surface">${esc(feature.nome || feature.name || feature.titulo || 'Característica')}</strong><p class="text-sm text-on-surface-variant mt-1">${esc(feature.resumo || feature.descricao || feature.texto || '')}</p></div>`).join('')}</div>`;
+    }
+
+    function renderAttackEditor(sheet) {
+      const rows = sheet.combat.attacks?.length ? sheet.combat.attacks : [{ name: '', bonus: '', damage: '', notes: '' }];
+      sheet.combat.attacks = rows;
+      return `<div>
+        <div class="flex justify-between items-center mb-3"><h4 class="sheet-label">Armas e truques de dano</h4><button class="sheet-action px-3 py-2" data-sheet-action="add-attack">Adicionar</button></div>
+        <div class="space-y-2">${rows.map((attack, index) => `
+          <div class="grid md:grid-cols-4 gap-2">
+            ${sheetField(`combat.attacks.${index}.name`, 'Nome', attack.name)}
+            ${sheetField(`combat.attacks.${index}.bonus`, 'Bônus/CD', attack.bonus)}
+            ${sheetField(`combat.attacks.${index}.damage`, 'Dano e tipo', attack.damage)}
+            ${sheetField(`combat.attacks.${index}.notes`, 'Observações', attack.notes)}
+          </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    function renderSpellcastingSummary(sheet) {
+      return `<div class="grid md:grid-cols-3 gap-3">
+        ${metricBox('Atributo mágico', sheet.spellcasting.ability || 'Livre')}
+        ${metricBox('CD magia', sheet.derived.spellSaveDc)}
+        ${metricBox('Ataque mágico', signed(sheet.derived.spellAttackBonus))}
+      </div>`;
+    }
+
+    function renderSpellEditor(sheet) {
+      return renderGrimorioTab(sheet);
+    }
+
+    function renderGrimorioTab(sheet) {
+      const spells = sheet.spellcasting.spells || [];
+      const classKey = canonicalName(sheet.identity.className);
+      const classSpells = getSpellsForClass(classKey);
+      const expandedIdx = sheetState.expandedSpellIndex ?? -1;
+
+      return `
+        <div class="space-y-4">
+          ${renderSpellcastingSummary(sheet)}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="sheet-panel-soft rounded-lg p-4 border border-primary/10 bg-black/20">
+              <h4 class="sheet-label mb-3 text-xs border-b border-primary/10 pb-1">Magias Preparadas / Conhecidas (${spells.length})</h4>
+              ${spells.length === 0 ? `
+                <p class="text-xs text-on-surface-variant p-4 text-center bg-black/10 rounded border border-dashed border-primary/10">Nenhuma magia no Grimório.</p>
+              ` : `
+                <div class="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
+                  ${spells.map((sp, idx) => {
+                    const fullSpell = SPELLS.find(s => canonicalName(s.nome) === canonicalName(sp.name || sp));
+                    const lvl = fullSpell ? (fullSpell.nivel || fullSpell.level || 'Truque') : 'Magia';
+                    const escola = fullSpell?.escola || '';
+                    const isExpanded = expandedIdx === idx;
+                    return `
+                      <div class="rounded bg-black/30 border ${isExpanded ? 'border-primary/30' : 'border-primary/5 hover:border-primary/10'} group transition-all">
+                        <div class="flex justify-between items-center p-2 cursor-pointer" onclick="window.toggleSpellExpand(${idx})">
+                          <div class="flex-1">
+                            <strong class="text-primary text-xs font-bold">${esc(sp.name || sp)}</strong>
+                            <span class="text-[9px] text-[#998f81] ml-2">${esc(lvl)}${escola ? ' · ' + esc(escola) : ''}</span>
+                          </div>
+                          <div class="flex items-center gap-2">
+                            <button class="text-red-400/70 hover:text-red-400 text-xs px-2 py-0.5 rounded bg-red-950/20 transition-all opacity-0 group-hover:opacity-100" onclick="event.stopPropagation();window.removeSpell(${idx})">×</button>
+                            <span class="text-[10px] text-on-surface-variant/60 transition-transform ${isExpanded ? 'rotate-180' : ''}">${isExpanded ? '▲' : '▼'}</span>
+                          </div>
+                        </div>
+                        ${isExpanded && fullSpell ? `
+                          <div class="px-3 pb-3 border-t border-primary/10 pt-2 space-y-2 text-xs">
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-on-surface-variant">
+                              <p><strong class="text-[#998f81]">Tempo:</strong> ${esc(fullSpell.tempo_conjuracao || fullSpell.cast_time || '—')}</p>
+                              <p><strong class="text-[#998f81]">Alcance:</strong> ${esc(fullSpell.alcance || fullSpell.range || '—')}</p>
+                              <p><strong class="text-[#998f81]">Componentes:</strong> ${esc(fullSpell.componentes || fullSpell.components || '—')}</p>
+                              <p><strong class="text-[#998f81]">Duração:</strong> ${esc(fullSpell.duracao || fullSpell.duration || '—')}</p>
+                            </div>
+                            <div class="text-on-surface-variant/90 leading-relaxed mt-2 border-t border-primary/5 pt-2 max-h-[200px] overflow-y-auto custom-scrollbar">
+                              ${esc(fullSpell.descricao || fullSpell.description || 'Sem descrição disponível.')}
+                            </div>
+                          </div>
+                        ` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              `}
+            </div>
+            <div class="sheet-panel-soft rounded-lg p-4 border border-primary/10 bg-black/20">
+              <h4 class="sheet-label mb-3 text-xs border-b border-primary/10 pb-1">Buscar no Grimório</h4>
+              <div class="mb-3">
+                <input type="text" class="sheet-input p-2 text-xs bg-[#0f0e11]" id="spell-search-input" placeholder="Buscar magia..." oninput="window.searchGrimorioSpells(this.value)">
+              </div>
+              <div class="space-y-1.5 max-h-[220px] overflow-y-auto custom-scrollbar pr-1" id="spell-search-results">
+                ${(classSpells.length ? classSpells : SPELLS).slice(0, 10).map(spell => `
+                  <button class="w-full text-left sheet-action p-2 normal-case tracking-normal flex justify-between items-center bg-[#0f0e11]/40 border border-primary/5 hover:border-primary/20" onclick="window.addSpellDirect('${esc(spell.nome || spell.name)}')">
+                    <span class="text-xs font-semibold">${esc(spell.nome || spell.name)}</span>
+                    <span class="text-[9px] text-on-surface-variant/80">${esc(spell.nivel || spell.level || 'Truque')}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPortraitPanel(sheet) {
+      const defaultPortrait = "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=300&auto=format&fit=crop";
+      const url = sheet.narrative.portraitUrl || defaultPortrait;
+      return `
+        <div class="sheet-panel-soft rounded-lg overflow-hidden border border-primary/10 relative group">
+          <div class="w-full aspect-[4/5] overflow-hidden bg-black/40">
+            <img class="w-full h-full object-cover" src="${esc(url)}" alt="Retrato do Personagem">
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 text-center">
+            <h4 class="sheet-title text-base text-[#e6c383] font-serif m-0">Aparência</h4>
+          </div>
+          <div class="absolute inset-0 bg-black/85 flex flex-col justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <label class="block mb-2">
+              <span class="sheet-label text-[8px] block mb-1">URL do Retrato</span>
+              <input type="text" class="sheet-input p-1.5 text-xs bg-[#0f0e11]" value="${esc(sheet.narrative.portraitUrl || '')}" data-sheet-path="narrative.portraitUrl" placeholder="Cole a URL da imagem...">
+            </label>
+            <label class="block">
+              <span class="sheet-label text-[8px] block mb-1">Notas Visuais</span>
+              <textarea class="sheet-textarea p-1.5 text-xs bg-[#0f0e11] min-h-[60px]" data-sheet-path="narrative.appearance">${esc(sheet.narrative.appearance || '')}</textarea>
+            </label>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEquipmentPanel(sheet) {
+      const items = sheet.equipment.items || [];
+      const totalWeight = sheet.derived.totalWeight || 0.0;
+      const maxWeight = sheet.derived.maxWeight || 50.0;
+      const expandedIdx = sheetState.expandedEquipIndex ?? -1;
+
+      return `
+        <div class="sheet-panel-soft rounded-lg p-4 border border-primary/10 bg-black/20">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="sheet-label text-xs uppercase tracking-widest">Equipamento</h3>
+            <span class="text-[9px] bg-primary/10 text-primary px-2 py-0.5 rounded font-semibold border border-primary/20" style="color: #e6c383; border-color: rgba(230,195,131,0.3)">
+              ${totalWeight} / ${maxWeight}kg
+            </span>
+          </div>
+
+          ${items.length === 0 ? `
+            <p class="text-xs text-on-surface-variant text-center p-3 bg-black/10 rounded border border-dashed border-primary/10 mb-3">Inventário vazio.</p>
+          ` : `
+            <div class="space-y-1 mb-3 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar">
+              ${items.map((item, idx) => {
+                const qty = Number(item.qty || item.quantity || 1);
+                const weight = item.weight !== undefined ? Number(item.weight) : getItemWeight(item.name);
+                const totalItemW = (weight * qty).toFixed(1);
+                const isExpanded = expandedIdx === idx;
+                const dbItem = ITEMS.find(i => canonicalName(i.nome || i.name) === canonicalName(item.name));
+                const isEquippable = dbItem ? ['armadura','escudo','arma'].some(k => canonicalName(dbItem.categoria || dbItem.tipo || '').includes(k)) || canonicalName(item.name || '').includes('escudo') : canonicalName(item.name || '').includes('escudo') || canonicalName(item.name || '').includes('armadura');
+                return `
+                  <div class="rounded ${isExpanded ? 'bg-black/40 border border-primary/20' : 'border-b border-primary/5'} transition-all">
+                    <div class="flex items-center justify-between text-xs py-1.5 px-1 cursor-pointer group" onclick="window.toggleEquipExpand(${idx})">
+                      <span class="flex items-center gap-1 flex-1 pr-2">
+                        ${item.equipped ? '<span class="text-green-400 text-[10px]" title="Equipado">⬤</span>' : ''}
+                        <span class="text-on-surface-variant">${esc(item.name || 'Sem nome')}</span>
+                      </span>
+                      <span class="text-[#998f81] text-[10px] font-mono mr-2">${totalItemW}kg</span>
+                      <span class="text-[9px] text-on-surface-variant/40">${isExpanded ? '▲' : '▼'}</span>
+                    </div>
+                    ${isExpanded ? `
+                      <div class="px-2 pb-2 space-y-2 border-t border-primary/10 pt-2">
+                        ${dbItem ? `
+                          <div class="grid grid-cols-2 gap-x-3 gap-y-1 text-[10px] text-on-surface-variant">
+                            ${dbItem.categoria ? `<p><strong class="text-[#998f81]">Categoria:</strong> ${esc(dbItem.categoria)}</p>` : ''}
+                            ${dbItem.tipo ? `<p><strong class="text-[#998f81]">Tipo:</strong> ${esc(dbItem.tipo)}</p>` : ''}
+                            ${dbItem.preco ? `<p><strong class="text-[#998f81]">Preço:</strong> ${esc(dbItem.preco)}</p>` : ''}
+                            ${dbItem.peso ? `<p><strong class="text-[#998f81]">Peso:</strong> ${esc(dbItem.peso)}</p>` : ''}
+                            ${dbItem.ca ? `<p><strong class="text-[#998f81]">CA:</strong> ${esc(String(dbItem.ca))}</p>` : ''}
+                            ${dbItem.dano ? `<p><strong class="text-[#998f81]">Dano:</strong> ${esc(dbItem.dano)}</p>` : ''}
+                          </div>
+                          ${dbItem.descricao ? `<p class="text-[10px] text-on-surface-variant/80 leading-relaxed border-t border-primary/5 pt-1 mt-1 max-h-[80px] overflow-y-auto custom-scrollbar">${esc(dbItem.descricao)}</p>` : ''}
+                        ` : `<p class="text-[10px] text-on-surface-variant/60 italic">Item personalizado (não encontrado no Arsenal).</p>`}
+                        <div class="flex items-center justify-between gap-2 pt-1 border-t border-primary/5">
+                          <div class="flex items-center gap-1">
+                            <button class="w-6 h-6 rounded bg-black/40 border border-primary/20 text-primary text-sm font-bold hover:bg-primary/10 transition-colors" onclick="event.stopPropagation();window.changeItemQty(${idx},-1)">−</button>
+                            <span class="text-xs font-bold text-[#e6c383] w-6 text-center">${qty}</span>
+                            <button class="w-6 h-6 rounded bg-black/40 border border-primary/20 text-primary text-sm font-bold hover:bg-primary/10 transition-colors" onclick="event.stopPropagation();window.changeItemQty(${idx},1)">+</button>
+                          </div>
+                          <div class="flex items-center gap-2">
+                            ${isEquippable ? `
+                              <label class="flex items-center gap-1 text-[10px] cursor-pointer ${item.equipped ? 'text-green-400' : 'text-on-surface-variant/60'}" onclick="event.stopPropagation()">
+                                <input type="checkbox" class="accent-green-400" ${item.equipped ? 'checked' : ''} onchange="window.toggleEquipItem(${idx})">
+                                Equipar
+                              </label>
+                            ` : ''}
+                            <button class="text-red-400/70 hover:text-red-400 text-[10px] px-2 py-0.5 rounded bg-red-950/20" onclick="event.stopPropagation();window.removeInventoryItem(${idx})">Remover</button>
+                          </div>
+                        </div>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `}
+
+          <div class="pt-2 border-t border-primary/10">
+            <button class="w-full sheet-action p-2 text-center text-xs text-primary font-bold uppercase tracking-wider bg-black/20 hover:bg-primary/10" onclick="window.toggleAddItemForm()">
+              + ADICIONAR ITEM
+            </button>
+            <div id="add-item-form-container" class="hidden mt-3 space-y-2">
+              <input type="text" class="sheet-input p-2 text-xs bg-[#0f0e11]" id="item-search-input" placeholder="Buscar item no Arsenal..." oninput="window.searchArsenalItems(this.value)">
+              <div class="space-y-1 max-h-[150px] overflow-y-auto custom-scrollbar p-1 bg-black/30 rounded border border-primary/10" id="item-search-results">
+                ${ITEMS.slice(0, 10).map(item => `
+                  <button class="w-full text-left p-1.5 text-xs text-on-surface-variant/80 hover:text-primary hover:bg-primary/5 flex justify-between items-center transition-all" onclick="window.addInventoryItemDirect('${esc(item.nome || item.name)}')">
+                    <span>${esc(item.nome || item.name)}</span>
+                    <span class="font-mono text-[9px] text-on-surface-variant/50">${esc(item.peso || '0.0')}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCoinsPanel(sheet) {
+      const coins = sheet.equipment.coins || { pc: 0, pp: 0, pe: 0, po: 0, pl: 0 };
+      const coinList = [
+        { key: 'pc', label: 'PC' },
+        { key: 'pp', label: 'PP' },
+        { key: 'pe', label: 'PE' },
+        { key: 'po', label: 'PO', highlight: true },
+        { key: 'pl', label: 'PL' }
+      ];
+
+      return `
+        <div class="sheet-panel-soft rounded-lg p-4 border border-primary/10 bg-black/20">
+          <h3 class="sheet-label mb-3 text-xs text-center border-b border-primary/5 pb-1">Moedas</h3>
+          <div class="grid grid-cols-5 gap-2">
+            ${coinList.map(c => `
+              <label class="text-center block">
+                <span class="sheet-label text-[8px] block mb-1 ${c.highlight ? 'text-[#e6c383] font-bold' : 'text-[#998f81]'}">${c.label}</span>
+                <input class="sheet-input p-1 text-center text-xs font-semibold ${c.highlight ? 'text-[#e6c383] border-[#e6c383]/40' : ''}" type="number" value="${esc(coins[c.key] || 0)}" data-sheet-path="equipment.coins.${c.key}">
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEquipmentEditor(sheet) {
+      const items = sheet.equipment.items || [];
+      return `<div class="space-y-4">
+        <div class="flex justify-between items-center"><h4 class="sheet-label">Inventário</h4><button class="sheet-action px-3 py-2" data-sheet-action="add-item">Adicionar item</button></div>
+        ${renderEquipmentRows(sheet)}
+        <div class="sheet-panel-soft rounded-lg p-4">
+          <h4 class="sheet-label mb-3">Sugestões do Arsenal</h4>
+          <div class="grid md:grid-cols-2 gap-2 max-h-[260px] overflow-auto">${ITEMS.slice(0, 30).map(item => `<button class="sheet-action px-3 py-2 text-left normal-case tracking-normal" data-sheet-action="add-item-name" data-item="${esc(item.nome || item.name)}">${esc(item.nome || item.name)} <span class="text-on-surface-variant">${esc(item.categoria || item.tipo || '')}</span></button>`).join('')}</div>
+        </div>
+      </div>`;
+    }
+
+    function renderEquipmentRows(sheet) {
+      const rows = sheet.equipment.items?.length ? sheet.equipment.items : [{ name: '', qty: 1, notes: '' }];
+      sheet.equipment.items = rows;
+      return `<div class="space-y-2">${rows.map((item, index) => `<div class="grid md:grid-cols-[1fr_90px_1fr] gap-2">${sheetField(`equipment.items.${index}.name`, 'Item', item.name)}${sheetField(`equipment.items.${index}.qty`, 'Qtd.', item.qty || 1, 'number')}${sheetField(`equipment.items.${index}.notes`, 'Notas', item.notes || '')}</div>`).join('')}</div>`;
+    }
+
+    function bindSheetActions(root) {
+      root.querySelectorAll('[data-sheet-action]').forEach(el => {
+        el.onclick = event => handleSheetAction(event, el);
+      });
+      root.querySelectorAll('[data-sheet-path]').forEach(el => {
+        el.onchange = () => {
+          const path = el.dataset.sheetPath;
+          let value = el.type === 'number' ? Number(el.value) : el.value;
+          if (path === 'origin.languagesText') {
+            sheetState.current.origin.languages = String(value).split(',').map(v => v.trim()).filter(Boolean);
+          } else if (path === 'spellcasting.spellsText') {
+            sheetState.current.spellcasting.spells = String(value).split('\n').map(v => v.trim()).filter(Boolean).map(name => ({ name }));
+          } else if (el.dataset.sheetSpecial === 'class') {
+            applyClassDefaults(sheetState.current, value);
+          } else if (el.dataset.sheetSpecial === 'species') {
+            applySpeciesDefaults(sheetState.current, value);
+          } else if (path === 'origin.background') {
+            setSheetPath(path, value);
+            applyBackgroundDefaults(sheetState.current, value);
+          } else {
+            setSheetPath(path, value);
+            return;
+          }
+          computeDerived(sheetState.current);
+          renderSheetApp();
+        };
+      });
+      root.querySelectorAll('[data-sheet-skill]').forEach(el => {
+        el.onchange = () => {
+          const set = new Set(sheetState.current.proficiencies.skills || []);
+          if (el.checked) set.add(el.dataset.sheetSkill);
+          else set.delete(el.dataset.sheetSkill);
+          sheetState.current.proficiencies.skills = Array.from(set);
+          computeDerived(sheetState.current);
+          renderSheetApp();
+        };
+      });
+      const importInput = root.querySelector('#sheet-import-file');
+      if (importInput) {
+        importInput.onchange = async () => {
+          const file = importInput.files?.[0];
+          if (!file) return;
+          const text = await file.text();
+          const imported = await characterStore.importSheet(JSON.parse(text));
+          sheetState.current = imported;
+          sheetState.mode = 'edit';
+          sheetState.message = 'Ficha importada com sucesso.';
+          renderSheetApp();
+        };
+      }
+    }
+
+    async function handleSheetAction(event, el) {
+      event.preventDefault();
+      const action = el.dataset.sheetAction;
+      if (action === 'new-wizard' || action === 'new-edit') {
+        sheetState.current = computeDerived(defaultSheet());
+        sheetState.mode = action === 'new-wizard' ? 'wizard' : 'edit';
+        sheetState.wizardStep = 0;
+        sheetState.message = '';
+      } else if (action === 'back-list') {
+        sheetState.mode = 'list';
+        sheetState.current = null;
+      } else if (action === 'edit') {
+        sheetState.current = normalizeImportedSheet(await characterStore.get(el.dataset.id));
+        sheetState.mode = 'edit';
+      } else if (action === 'duplicate') {
+        const original = await characterStore.get(el.dataset.id);
+        const copy = normalizeImportedSheet({ ...original, id: cryptoRandomId(), identity: { ...original.identity, name: `${original.identity?.name || 'Ficha'} (cópia)` }, createdAt: null });
+        await characterStore.save(copy);
+        sheetState.message = 'Ficha duplicada.';
+      } else if (action === 'delete') {
+        if (confirm('Excluir esta ficha salva?')) {
+          await characterStore.remove(el.dataset.id);
+          sheetState.message = 'Ficha excluída.';
+        }
+      } else if (action === 'export') {
+        exportSheetJson(await characterStore.exportSheet(el.dataset.id));
+      } else if (action === 'export-current') {
+        exportSheetJson(computeDerived(sheetState.current));
+      } else if (action === 'import-trigger') {
+        $('#sheet-import-file')?.click();
+      } else if (action === 'wizard-next') {
+        sheetState.wizardStep += 1;
+      } else if (action === 'wizard-prev') {
+        sheetState.wizardStep = Math.max(0, sheetState.wizardStep - 1);
+      } else if (action === 'wizard-go') {
+        sheetState.wizardStep = Number(el.dataset.step || 0);
+      } else if (action === 'skip-edit' || action === 'finish-wizard') {
+        await characterStore.save(computeDerived(sheetState.current));
+        sheetState.mode = 'edit';
+      } else if (action === 'apply-bg-features') {
+        const bgName = el.dataset.bg;
+        const bg = findBackgroundData(bgName);
+        if (bg) {
+          const skills = sheetState.current.proficiencies.skills || [];
+          (bg.pericias || []).forEach(sk => {
+            if (!skills.includes(sk)) skills.push(sk);
+          });
+          sheetState.current.proficiencies.skills = skills;
+
+          const tools = sheetState.current.origin.toolProficiencies || [];
+          if (bg.ferramenta && bg.ferramenta !== 'Nenhuma' && !tools.includes(bg.ferramenta)) {
+            tools.push(bg.ferramenta);
+          }
+          sheetState.current.origin.toolProficiencies = tools;
+
+          let notes = sheetState.current.notes || '';
+          const featStr = `Talento de Origem: ${bg.talento}`;
+          if (!notes.includes(featStr)) {
+            notes = notes ? `${notes}\n${featStr}` : featStr;
+          }
+          sheetState.current.notes = notes;
+
+          sheetState.message = `Proficiências e Talento do antecedente ${bg.nome} aplicados!`;
+        }
+      } else if (action === 'apply-bg-equipment') {
+        const bgName = el.dataset.bg;
+        const bg = findBackgroundData(bgName);
+        if (bg) {
+          sheetState.current.origin.equipmentNotes = bg.equipamento;
+
+          const goldMatch = bg.equipamento.match(/\b(\d+)\s*po\b/i);
+          if (goldMatch) {
+            sheetState.current.equipment.coins.po = Number(goldMatch[1]);
+          }
+
+          const cleanText = bg.equipamento.replace(/\b\d+\s*po\b/gi, '').trim();
+          const parts = cleanText.split(/,|\be\b/i).map(p => p.replace(/[.]$/, '').trim()).filter(Boolean);
+          const bgItems = [];
+          parts.forEach(part => {
+            const pLower = part.toLowerCase();
+            if (pLower.includes('mochila') || pLower.includes('roupas') || pLower.includes('símbolo sagrado') || pLower.includes('livro') || pLower.includes('ferramentas') || pLower.includes('kit') || pLower.includes('pé de cabra') || pLower.includes('martelo') || pLower.includes('cravos') || pLower.includes('corda') || pLower.includes('espelho') || pLower.includes('perfume') || pLower.includes('balança') || pLower.includes('baú') || pLower.includes('tinteiro') || pLower.includes('pena') || pLower.includes('pergaminho') || pLower.includes('adaga') || pLower.includes('cobertor') || pLower.includes('diário') || pLower.includes('foice') || pLower.includes('algibeira') || pLower.includes('pá') || pLower.includes('lança') || pLower.includes('algema') || pLower.includes('apito') || pLower.includes('cajado') || pLower.includes('pederneira') || pLower.includes('tenda') || pLower.includes('anel') || pLower.includes('espada') || pLower.includes('baralho') || pLower.includes('lantern')) {
+              const resolved = resolveEquipmentItems(part);
+              if (resolved && resolved.length) {
+                bgItems.push({ name: resolved[0].nome, qty: 1, notes: 'Antecedente (Resolvido)' });
+              } else {
+                bgItems.push({ name: part, qty: 1, notes: 'Antecedente' });
+              }
+            }
+          });
+          if (bgItems.length) {
+            sheetState.current.equipment.items = [
+              ...(sheetState.current.equipment.items || []),
+              ...bgItems
+            ];
+          }
+          sheetState.message = `Equipamento e ouro do antecedente ${bg.nome} aplicados!`;
+        }
+      } else if (action === 'save-current') {
+        sheetState.current = await characterStore.save(computeDerived(sheetState.current));
+        sheetState.message = 'Ficha salva localmente.';
+      } else if (action === 'tab') {
+        sheetState.tab = el.dataset.tab;
+      } else if (action === 'add-attack') {
+        sheetState.current.combat.attacks.push({ name: '', bonus: '', damage: '', notes: '' });
+      } else if (action === 'add-item') {
+        sheetState.current.equipment.items.push({ name: '', qty: 1, notes: '' });
+      } else if (action === 'add-item-name') {
+        sheetState.current.equipment.items.push({ name: el.dataset.item, qty: 1, notes: '' });
+      } else if (action === 'add-spell') {
+        sheetState.current.spellcasting.spells.push({ name: el.dataset.spell });
+      }
+      await renderSheetApp();
+    }
+
+    function exportSheetJson(sheet) {
+      const safeSheet = computeDerived(normalizeImportedSheet(sheet));
+      const blob = new Blob([JSON.stringify(safeSheet, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${canonicalName(safeSheet.identity?.name || 'ficha') || 'ficha'}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
     // Live Search input event listener
     const handleSearch = e => {
       query = e.target.value;
       openId = null;
-      
+
       // Keep both search boxes synchronized
       if (e.target.id === 'search-box') {
         const mob = $('#search-box-mobile');
@@ -1653,7 +3782,7 @@
         const dsk = $('#search-box');
         if (dsk) dsk.value = query;
       }
-      
+
       render();
     };
 
@@ -1668,7 +3797,7 @@
 
     // Sidebar controllers driven by body.show-sidebar class
     function openSidebar() {
-      if (current === 'inicio') return;
+      if (current === 'inicio' || current === 'ficha') return;
       document.body.classList.add('show-sidebar');
     }
 
@@ -1677,7 +3806,7 @@
     }
 
     function toggleSidebar() {
-      if (current === 'inicio') return;
+      if (current === 'inicio' || current === 'ficha') return;
       document.body.classList.toggle('show-sidebar');
     }
 

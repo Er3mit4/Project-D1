@@ -9,6 +9,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from page_references import book_page_reference
+
 
 PHB_SOURCE = "Livro do Jogador"
 DMG_SOURCE = "Guia do Mestre"
@@ -226,7 +228,7 @@ def normalize_key(text: str | None) -> str:
 
 def page_ref(pdf_page_1: int, printed_page: int | None = None) -> str:
     printed = printed_page if printed_page is not None else pdf_page_1
-    return f"{printed} (PDF: {pdf_page_1})"
+    return book_page_reference(printed, pdf_page_1)
 
 
 def item_base(

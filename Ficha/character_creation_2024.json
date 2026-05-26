@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "d1-character-creation-v1",
+  "ruleset": "dnd-2024-compatible-hybrid",
+  "source": {
+    "book": "Livro do Jogador 2024",
+    "chapter": "Capítulo 2: Criação de Personagens",
+    "note": "Dados curados para o refinamento da Ficha com bônus de antecedentes e equipamentos vinculados ao Arsenal."
+  },
+  "steps": [
+    {
+      "id": "classe",
+      "title": "Passo 1: Escolha a Classe",
+      "summary": "Selecione sua classe de invocação primária, nível de experiência e desbloqueie sua subclasse."
+    },
+    {
+      "id": "origem",
+      "title": "Passo 2: Determine a Origem",
+      "summary": "Selecione seu antecedente curado (que concede proficiências, equipamentos e bônus de atributos), sua raça, sub-raça e idiomas."
+    },
+    {
+      "id": "atributos",
+      "title": "Passo 3: Determine os Valores de Atributo",
+      "summary": "Aloque seus atributos com Standard Array e selecione os bônus de aumento concedidos por seu antecedente (+2/+1 ou +1/+1/+1)."
+    },
+    {
+      "id": "narrativa",
+      "title": "Passo 4: Escolha um Alinhamento",
+      "summary": "Defina sua orientação ética e preencha sua biografia, aparência e personalidade."
+    },
+    {
+      "id": "detalhes",
+      "title": "Passo 5: Registre os Detalhes e Nome",
+      "summary": "Insira o nome do seu herói, revise seus pontos de vida iniciais, classe de armadura, proficiências, ataques e finalize a ficha."
+    }
+  ],
+  "abilities": [
+    { "id": "str", "abbr": "FOR", "name": "Força" },
+    { "id": "dex", "abbr": "DES", "name": "Destreza" },
+    { "id": "con", "abbr": "CON", "name": "Constituição" },
+    { "id": "int", "abbr": "INT", "name": "Inteligência" },
+    { "id": "wis", "abbr": "SAB", "name": "Sabedoria" },
+    { "id": "cha", "abbr": "CAR", "name": "Carisma" }
+  ],
+  "skills": [
+    { "id": "acrobatics", "name": "Acrobacia", "ability": "dex" },
+    { "id": "animalHandling", "name": "Lidar com Animais", "ability": "wis" },
+    { "id": "arcana", "name": "Arcanismo", "ability": "int" },
+    { "id": "athletics", "name": "Atletismo", "ability": "str" },
+    { "id": "deception", "name": "Enganação", "ability": "cha" },
+    { "id": "history", "name": "História", "ability": "int" },
+    { "id": "insight", "name": "Intuição", "ability": "wis" },
+    { "id": "intimidation", "name": "Intimidação", "ability": "cha" },
+    { "id": "investigation", "name": "Investigação", "ability": "int" },
+    { "id": "medicine", "name": "Medicina", "ability": "wis" },
+    { "id": "nature", "name": "Natureza", "ability": "int" },
+    { "id": "perception", "name": "Percepção", "ability": "wis" },
+    { "id": "performance", "name": "Atuação", "ability": "cha" },
+    { "id": "persuasion", "name": "Persuasão", "ability": "cha" },
+    { "id": "religion", "name": "Religião", "ability": "int" },
+    { "id": "sleightOfHand", "name": "Prestidigitação", "ability": "dex" },
+    { "id": "stealth", "name": "Furtividade", "ability": "dex" },
+    { "id": "survival", "name": "Sobrevivência", "ability": "wis" }
+  ],
+  "abilityMethods": {
+    "standardArray": [15, 14, 13, 12, 10, 8],
+    "pointBuy": {
+      "budget": 27,
+      "costs": { "8": 0, "9": 1, "10": 2, "11": 3, "12": 4, "13": 5, "14": 7, "15": 9 }
+    },
+    "manualRoll": "4d6, mantendo os três maiores, repetido seis vezes"
+  },
+  "standardArrayByClass": {
+    "Barbaro": { "str": 15, "dex": 13, "con": 14, "int": 10, "wis": 12, "cha": 8 },
+    "Bardo": { "str": 8, "dex": 14, "con": 12, "int": 13, "wis": 10, "cha": 15 },
+    "Bruxo": { "str": 8, "dex": 14, "con": 13, "int": 12, "wis": 10, "cha": 15 },
+    "Clerigo": { "str": 14, "dex": 8, "con": 13, "int": 10, "wis": 15, "cha": 12 },
+    "Druida": { "str": 8, "dex": 12, "con": 14, "int": 13, "wis": 15, "cha": 10 },
+    "Feiticeiro": { "str": 10, "dex": 13, "con": 14, "int": 8, "wis": 12, "cha": 15 },
+    "Guardiao": { "str": 12, "dex": 15, "con": 13, "int": 8, "wis": 14, "cha": 10 },
+    "Guerreiro": { "str": 15, "dex": 14, "con": 13, "int": 8, "wis": 10, "cha": 12 },
+    "Ladino": { "str": 12, "dex": 15, "con": 13, "int": 14, "wis": 10, "cha": 8 },
+    "Mago": { "str": 8, "dex": 12, "con": 13, "int": 15, "wis": 14, "cha": 10 },
+    "Monge": { "str": 12, "dex": 15, "con": 13, "int": 10, "wis": 14, "cha": 8 },
+    "Paladino": { "str": 15, "dex": 10, "con": 13, "int": 8, "wis": 12, "cha": 14 }
+  },
+  "classOverview": [
+    { "class": "Barbaro", "interest": "Batalha", "primaryAbility": "Força", "complexity": "Média", "hitDie": "d12" },
+    { "class": "Bardo", "interest": "Atuação", "primaryAbility": "Carisma", "complexity": "Alta", "hitDie": "d8" },
+    { "class": "Bruxo", "interest": "Conhecimento obscuro", "primaryAbility": "Carisma", "complexity": "Alta", "hitDie": "d8" },
+    { "class": "Clerigo", "interest": "Deuses", "primaryAbility": "Sabedoria", "complexity": "Média", "hitDie": "d8" },
+    { "class": "Druida", "interest": "Natureza", "primaryAbility": "Sabedoria", "complexity": "Alta", "hitDie": "d8" },
+    { "class": "Feiticeiro", "interest": "Poder", "primaryAbility": "Carisma", "complexity": "Alta", "hitDie": "d6" },
+    { "class": "Guardiao", "interest": "Sobrevivência", "primaryAbility": "Destreza e Sabedoria", "complexity": "Média", "hitDie": "d10" },
+    { "class": "Guerreiro", "interest": "Armas", "primaryAbility": "Força ou Destreza", "complexity": "Baixa", "hitDie": "d10" },
+    { "class": "Ladino", "interest": "Furtividade", "primaryAbility": "Destreza", "complexity": "Baixa", "hitDie": "d8" },
+    { "class": "Mago", "interest": "Livros de magia", "primaryAbility": "Inteligência", "complexity": "Média", "hitDie": "d6" },
+    { "class": "Monge", "interest": "Combate desarmado", "primaryAbility": "Destreza e Sabedoria", "complexity": "Alta", "hitDie": "d8" },
+    { "class": "Paladino", "interest": "Proteção", "primaryAbility": "Força e Carisma", "complexity": "Média", "hitDie": "d10" }
+  ],
+  "levelProgression": [
+    { "level": 1, "xp": 0, "proficiencyBonus": 2 },
+    { "level": 2, "xp": 300, "proficiencyBonus": 2 },
+    { "level": 3, "xp": 900, "proficiencyBonus": 2 },
+    { "level": 4, "xp": 2700, "proficiencyBonus": 2 },
+    { "level": 5, "xp": 6500, "proficiencyBonus": 3 },
+    { "level": 6, "xp": 14000, "proficiencyBonus": 3 },
+    { "level": 7, "xp": 23000, "proficiencyBonus": 3 },
+    { "level": 8, "xp": 34000, "proficiencyBonus": 3 },
+    { "level": 9, "xp": 48000, "proficiencyBonus": 4 },
+    { "level": 10, "xp": 64000, "proficiencyBonus": 4 },
+    { "level": 11, "xp": 85000, "proficiencyBonus": 4 },
+    { "level": 12, "xp": 100000, "proficiencyBonus": 4 },
+    { "level": 13, "xp": 120000, "proficiencyBonus": 5 },
+    { "level": 14, "xp": 140000, "proficiencyBonus": 5 },
+    { "level": 15, "xp": 165000, "proficiencyBonus": 5 },
+    { "level": 16, "xp": 195000, "proficiencyBonus": 5 },
+    { "level": 17, "xp": 225000, "proficiencyBonus": 6 },
+    { "level": 18, "xp": 265000, "proficiencyBonus": 6 },
+    { "level": 19, "xp": 305000, "proficiencyBonus": 6 },
+    { "level": 20, "xp": 355000, "proficiencyBonus": 6 }
+  ],
+  "firstLevelHitPoints": {
+    "d12": "12 + mod. de Constituição",
+    "d10": "10 + mod. de Constituição",
+    "d8": "8 + mod. de Constituição",
+    "d6": "6 + mod. de Constituição"
+  },
+  "fixedHitPointsByDie": {
+    "d12": 7,
+    "d10": 6,
+    "d8": 5,
+    "d6": 4
+  },
+  "languages": {
+    "common": ["Comum", "Língua de Sinais Comum", "Dracônico", "Anão", "Élfico", "Gigante", "Gnômico", "Goblin", "Pequenino", "Orc"],
+    "rare": ["Abissal", "Celestial", "Dialeto Obscuro", "Druídico", "Gíria dos Ladrões", "Infernal", "Primordial", "Silvestre", "Subcomum"]
+  },
+  "alignments": [
+    "Ordeiro e Bom",
+    "Neutro e Bom",
+    "Caótico e Bom",
+    "Ordeiro e Neutro",
+    "Neutro",
+    "Caótico e Neutro",
+    "Ordeiro e Mau",
+    "Neutro e Mau",
+    "Caótico e Mau"
+  ],
+  "formulas": {
+    "abilityModifier": "Math.floor((valor - 10) / 2)",
+    "passivePerception": "10 + modificador de Sabedoria + bônus de proficiência se proficiente em Percepção",
+    "armorClassUnarmored": "10 + modificador de Destreza",
+    "initiative": "modificador de Destreza",
+    "spellSaveDc": "8 + modificador de atributo de conjuração + bônus de proficiência",
+    "spellAttackBonus": "modificador de atributo de conjuração + bônus de proficiência"
+  },
+  "backgrounds": [
+    {
+      "nome": "Acólito",
+      "atributos_favorecidos": ["int", "wis", "cha"],
+      "pericias": ["insight", "religion"],
+      "ferramenta": "Nenhuma",
+      "talento": "Iniciado em Magia (Clérigo)",
+      "equipamento": "Um símbolo sagrado, um livro de preces, 5 bastões de incenso, vestes de acólito e 15 po."
+    },
+    {
+      "nome": "Artesão",
+      "atributos_favorecidos": ["str", "dex", "int"],
+      "pericias": ["athletics", "persuasion"],
+      "ferramenta": "Ferramentas de artesão (uma de sua escolha)",
+      "talento": "Artesão (Crafter)",
+      "equipamento": "Ferramentas de artesão, mochila, pé de cabra, martelo, 10 cravos, corda de cânhamo (15m), roupas de viajante e 25 po."
+    },
+    {
+      "nome": "Artista",
+      "atributos_favorecidos": ["dex", "con", "cha"],
+      "pericias": ["acrobatics", "performance"],
+      "ferramenta": "Instrumento musical (um de sua escolha)",
+      "talento": "Músico (Musician)",
+      "equipamento": "Instrumento musical, roupas de artista, espelho de metal, perfume e 11 po."
+    },
+    {
+      "nome": "Charlatão",
+      "atributos_favorecidos": ["dex", "int", "cha"],
+      "pericias": ["deception", "sleightOfHand"],
+      "ferramenta": "Kit de falsificação",
+      "talento": "Habilidoso (Skilled)",
+      "equipamento": "Kit de falsificação, roupas finas, kit de disfarce, perfume e 15 po."
+    },
+    {
+      "nome": "Comerciante",
+      "atributos_favorecidos": ["con", "int", "cha"],
+      "pericias": ["animalHandling", "persuasion"],
+      "ferramenta": "Ferramentas de navegador",
+      "talento": "Sortudo (Lucky)",
+      "equipamento": "Balança de mercador, roupas finas, baú pequeno, tinteiro, pena, pergaminho (5 folhas) e 22 po."
+    },
+    {
+      "nome": "Criminoso",
+      "atributos_favorecidos": ["dex", "con", "int"],
+      "pericias": ["deception", "stealth"],
+      "ferramenta": "Ferramentas de ladrão",
+      "talento": "Alerta (Alert)",
+      "equipamento": "Ferramentas de ladrão, pé de cabra, adaga, roupas escuras com capuz e 16 po."
+    },
+    {
+      "nome": "Eremita",
+      "atributos_favorecidos": ["con", "wis", "cha"],
+      "pericias": ["medicine", "religion"],
+      "ferramenta": "Kit de herbalismo",
+      "talento": "Curandeiro (Healer)",
+      "equipamento": "Kit de herbalismo, cobertor, roupas simples, diário de anotações e 15 po."
+    },
+    {
+      "nome": "Fazendeiro",
+      "atributos_favorecidos": ["str", "con", "wis"],
+      "pericias": ["animalHandling", "nature"],
+      "ferramenta": "Ferramentas de carpinteiro",
+      "talento": "Robusto (Tough)",
+      "equipamento": "Foice, algibeira, roupas de trabalho, pá e 23 po."
+    },
+    {
+      "nome": "Guarda",
+      "atributos_favorecidos": ["str", "dex", "wis"],
+      "pericias": ["athletics", "perception"],
+      "ferramenta": "Jogo de cartas ou de dados",
+      "talento": "Alerta (Alert)",
+      "equipamento": "Lança, algema, apito, roupas de guarda e 12 po."
+    },
+    {
+      "nome": "Guia",
+      "atributos_favorecidos": ["dex", "con", "wis"],
+      "pericias": ["stealth", "survival"],
+      "ferramenta": "Ferramentas de cartógrafo",
+      "talento": "Iniciado em Magia (Druida)",
+      "equipamento": "Cajado, pederneira e isqueiro, tenda de duas pessoas, roupas de viagem e 13 po."
+    },
+    {
+      "nome": "Marujo",
+      "atributos_favorecidos": ["str", "dex", "wis"],
+      "pericias": ["athletics", "perception"],
+      "ferramenta": "Ferramentas de navegador",
+      "talento": "Combatente de Taberna (Tavern Brawler)",
+      "equipamento": "Adaga, corda de cânhamo (15m), pé de cabra, roupas de marujo e 10 po."
+    },
+    {
+      "nome": "Nobre",
+      "atributos_favorecidos": ["str", "int", "cha"],
+      "pericias": ["history", "persuasion"],
+      "ferramenta": "Jogo de xadrez dracônico",
+      "talento": "Habilidoso (Skilled)",
+      "equipamento": "Anel de sinete, roupas finas, pergaminho de pedigree e 24 po."
+    },
+    {
+      "nome": "Sábio",
+      "atributos_favorecidos": ["int", "wis", "cha"],
+      "pericias": ["arcana", "history"],
+      "ferramenta": "Ferramentas de calígrafo",
+      "talento": "Iniciado em Magia (Mago)",
+      "equipamento": "Tinteiro, pena, pergaminho (5 folhas), livro de estudos, roupas de estudioso e 8 po."
+    },
+    {
+      "nome": "Soldado",
+      "atributos_favorecidos": ["str", "dex", "con"],
+      "pericias": ["athletics", "intimidation"],
+      "ferramenta": "Jogo de cartas ou de dados",
+      "talento": "Atacante Selvagem (Savage Attacker)",
+      "equipamento": "Espada curta, baralho de cartas, roupas militares de viagem e 14 po."
+    },
+    {
+      "nome": "Viajante",
+      "atributos_favorecidos": ["dex", "wis", "cha"],
+      "pericias": ["insight", "stealth"],
+      "ferramenta": "Ferramentas de ladrão",
+      "talento": "Sortudo (Lucky)",
+      "equipamento": "Pé de cabra, adaga, lanterna furta-fogo, roupas de viagem e 16 po."
+    }
+  ],
+  "multiclass": {
+    "summary": "Nível total controla XP e bônus de proficiência. Dados de vida podem ser agrupados por tipo. Validação completa de pré-requisitos fica para fase futura.",
+    "spellSlotPolicy": "Suporte básico de registro manual no MVP."
+  }
+}

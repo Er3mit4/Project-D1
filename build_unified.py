@@ -20,6 +20,7 @@ def main() -> int:
         "__ARSENAL_DATA__": read_json("Arsenal/arsenal.json"),
         "__MONSTERS_DATA__": read_json("Bestiario/monstros.json"),
         "__RACAS_CLASSES_DATA__": read_json("RacasClasses/racas_classes.json"),
+        "__CHARACTER_CREATION_DATA__": read_json("Ficha/character_creation_2024.json"),
     }
     html = TEMPLATE.read_text(encoding="utf-8")
     for marker, data in payloads.items():
@@ -29,7 +30,8 @@ def main() -> int:
     print(
         f"Gerado {OUTPUT} com {len(payloads['__SPELLS_DATA__'])} magias, "
         f"{len(payloads['__ARSENAL_DATA__'])} itens, {len(payloads['__MONSTERS_DATA__'])} monstros "
-        f"e {len(rc.get('items', []))} registros de raças/classes."
+        f"e {len(rc.get('items', []))} registros de raças/classes, "
+        f"incluindo dados da Ficha."
     )
     return 0
 

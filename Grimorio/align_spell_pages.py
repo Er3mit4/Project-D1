@@ -15,8 +15,14 @@ import json
 import argparse
 from pathlib import Path
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from extraction_sources import pdf_path
+
 # Configurações padrões
-DEFAULT_PDF = r"D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf"
+DEFAULT_PDF = pdf_path("phb")
 DEFAULT_JSON = "spells.json"
 
 def check_dependencies():

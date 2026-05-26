@@ -201,7 +201,6 @@ def main():
         
         # Referência de página
         pp = s.get('page_print', 0)
-        pdf = s.get('page_pdf', 0)
         pr = f'p.{pp}' if pp else ''
         
         # Classes como lista

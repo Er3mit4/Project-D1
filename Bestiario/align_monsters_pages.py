@@ -23,8 +23,15 @@ import re
 import argparse
 from pathlib import Path
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from extraction_sources import pdf_path
+from page_references import book_page_reference
+
 # Configurações padrão
-DEFAULT_PDF = r"D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf"
+DEFAULT_PDF = pdf_path("mm")
 DEFAULT_JSON = "monstros.json"
 
 # Faixa de páginas PDF do Manual dos Monstros a varrer (índice 0)
@@ -286,7 +293,7 @@ def main():
                 corrections_lookup[x["name"]] = {
                     "pagina_livro": x["actual_print"],
                     "pagina_pdf": x["actual_pdf"],
-                    "referencia": f"{x['actual_print']} (PDF: {x['actual_pdf']})",
+                    "referencia": book_page_reference(x["actual_print"], x["actual_pdf"]),
                 }
             elif x["actual_pdf"] is not None and diff != 0 and abs(diff) > MAX_TRUSTED_DIFF:
                 print(f"  [SKIP] '{x['name']}': desvio de {diff:+d} págs excede o limite de confiança ({MAX_TRUSTED_DIFF}). Ignorado.")

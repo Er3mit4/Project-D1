@@ -15,10 +15,10 @@ Sistema unificado de referência completa de D&D 5e em Português Brasileiro, de
 - **Frontend:** SPA nativa escrita em HTML5 e JavaScript puro, estilizada de forma premium com Tailwind CSS CDN.
 - **Tipografia & Ícones:** Combinação elegante de `EB Garamond` para tom medieval e `Hanken Grotesk` para legibilidade de estatísticas, com ícones do Google Material Symbols.
 - **Dados:** JSON compactado e embutido no arquivo unificado, garantindo funcionamento **Offline-First**.
-- **Extração & Compilação:** Pipelines em Python integrados com a ferramenta Docling CLI para parseamento de PDFs originais em dados estruturados de alta fidelidade.
+- **Extração & Compilação:** Pipelines em Python usando PDFs textuais como fonte primária via PyMuPDF, com DjVu/hOCR/page metadata como apoio de layout e paginação; Docling permanece como fallback pontual.
 - **Hospedagem:** Publicação estática rápida pelo GitHub Pages.
 
-O site principal é gerado na raiz (`index.html`) por meio do script de build (`build_unified.py`) a partir do template (`unified_template.html`). As pastas dos módulos contêm os códigos de extração, auditoria de dados e arquivos legados.
+O site principal é gerado na raiz (`index.html`) por meio do script de build (`build_unified.py`) a partir do template (`unified_template.html`). As pastas dos módulos contêm os códigos de extração, auditoria de dados e arquivos legados. O catálogo das fontes de extração fica em `extraction_sources.py`.
 
 Para atualizar o módulo de Raças & Classes, mantenha o fluxo local em `RacasClasses/`: extração/revisão dos JSONs, validação com `python RacasClasses\review_racas_classes.py` e rebuild do app unificado com `python build_unified.py`.
 

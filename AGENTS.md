@@ -7,10 +7,10 @@
 ## Stack
 
 - **Frontend:** HTML/CSS/JS puro (single-file unificado, sem frameworks)
-- **Dados:** JSON embutido no JavaScript da raiz (extraído de PDFs via Docling + Python)
+- **Dados:** JSON embutido no JavaScript da raiz (extraído de PDFs textuais + metadados OCR/layout via Python)
 - **Armazenamento:** LocalStorage (fichas de personagem)
 - **Publicação:** GitHub Pages (repo unificado `Project-D1`, branch `main`, raiz `/`)
-- **Extração:** Docling CLI (PDF→Markdown→JSON) + Python scripts
+- **Extração:** PyMuPDF sobre PDFs textuais do pacote Internet Archive + DjVu/hOCR/page metadata como apoio; Docling fica como fallback pontual
 
 ## Repositório
 
@@ -29,6 +29,7 @@
 ├── index.html              ← App unificado do site
 ├── unified_template.html   ← Template do app unificado sem dados embutidos
 ├── build_unified.py        ← Injeta Grimório/Arsenal/Bestiário/Raças & Classes no app raiz
+├── extraction_sources.py   ← Catálogo central das fontes textuais/OCR dos livros
 ├── README.md               ← Apresentação simples para GitHub
 │
 ├── Grimorio/               ← Módulo: Grimório (Fase 1)
@@ -57,7 +58,7 @@
 │   ├── index.html          ←   Página legada; redireciona para ../index.html#arsenal
 │   ├── template.html       ←   Template sem dados
 │   ├── build_html.py       ←   Injeta dados no template
-│   ├── extract_arsenal.py  ←   Parser Docling → JSON
+│   ├── extract_arsenal.py  ←   Parser fonte textual/layout → JSON
 │   ├── review_arsenal.py   ←   Revisão semântica/auditoria do JSON
 │   ├── validate_arsenal.py ←   Validação estrutural/sentinelas
 │   ├── align_arsenal_pages.py ← Auditoria e alinhamento de paginação via PDF
@@ -65,22 +66,22 @@
 │   ├── arsenal_reviewed.json ← JSON revisado semanticamente
 │   ├── arsenal.json        ←   Dados finais dos itens
 │   ├── arsenal_review_audit.json ← Relatório de auditoria da revisão
-│   └── docling_out/        ←   Saída do Docling (JSONs brutos)
+│   └── docling_out/        ←   Saída legada/fallback do Docling (JSONs brutos)
 ├── Bestiario/              ← Módulo: Bestiário (Fase 3)
 │   ├── index.html          ←   Página legada; redireciona para ../index.html#bestiario
 │   ├── template.html       ←   Template sem dados
 │   ├── build_html.py       ←   Injeta dados no template
-│   ├── extract_monsters.py ←   Parser Docling → JSON
+│   ├── extract_monsters.py ←   Parser fonte textual/layout → JSON
 │   ├── review_monsters.py  ←   Revisão semântica/auditoria do JSON
 │   ├── align_monsters_pages.py ← Auditoria e alinhamento de paginação via PDF
 │   ├── monstros_raw.json   ←   Saída bruta do parser
 │   ├── monstros_reviewed.json ← JSON revisado semanticamente
 │   ├── monstros.json       ←   Dados finais dos monstros
 │   ├── review_audit.json   ←   Relatório de auditoria da revisão
-│   ├── prepare_docling_sources.py ←   Fatiar PDF em chunks
-│   ├── run_docling_extraction.py  ←   Rodar Docling nos chunks
-│   ├── docling_out/        ←   Saída do Docling (JSONs brutos)
-│   └── docling_html_out/   ←   Saída do Docling em HTML para auditoria
+│   ├── prepare_docling_sources.py ←   Fatiar PDF em chunks (legado/fallback)
+│   ├── run_docling_extraction.py  ←   Rodar Docling nos chunks (legado/fallback)
+│   ├── docling_out/        ←   Saída legada/fallback do Docling (JSONs brutos)
+│   └── docling_html_out/   ←   Saída legada/fallback do Docling em HTML para auditoria
 ├── RacasClasses/           ← Módulo: Raças & Classes (Fase 4)
 │   ├── index.html          ←   Página legada; redireciona para ../index.html#racasclasses
 │   ├── template.html       ←   Template sem dados
@@ -101,10 +102,12 @@
 
 | Livro | Path | Status |
 |-------|------|--------|
-| Livro do Jogador | `D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf` | ✅ Magias extraídas |
-| Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\old-dd-5e-manual-dos-monstros-biblioteca-elfica.pdf` | ✅ Monstros extraídos/revisados (345) |
-| Guia do Mestre | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-do-mestre-biblioteca-elfica.pdf` | ✅ Itens extraídos/revisados (Arsenal) |
+| Livro do Jogador | `D:\Documents\Sessão RPG\D&D\Livro-de-Regras-DnD-5e\LivrodoJogador.pdf` | ✅ Magias extraídas; nova fonte preferencial cadastrada |
+| Manual dos Monstros | `D:\Documents\Sessão RPG\D&D\Livro-de-Regras-DnD-5e\ManualdosMonstros.pdf` | ✅ Monstros extraídos/revisados (345); nova fonte preferencial cadastrada |
+| Guia do Mestre | `D:\Documents\Sessão RPG\D&D\Livro-de-Regras-DnD-5e\GuiadoMestre.pdf` | ✅ Itens extraídos/revisados (Arsenal); nova fonte preferencial cadastrada |
 | Guia de Xanathar | `D:\Documents\Sessão RPG\D&D\dd-5e-guia-de-xanathar-para-todas-as-coisas-fundo-branco-biblioteca-elfica.pdf` | ✅ Subclasses integradas em Raças & Classes |
+
+Fontes auxiliares dos três livros principais ficam no mesmo pacote `Livro-de-Regras-DnD-5e` e são registradas em `extraction_sources.py`: `*_djvu.xml`, `*_djvu.txt`, `*_hocr.html`, `*_chocr.html.gz`, `*_page_numbers.json`, `*_scandata.xml` e `*_jp2.zip`.
 
 ## Fases do Projeto
 
@@ -121,23 +124,25 @@
 
 - **Idioma:** Toda a interface em PT-BR
 - **Design:** Tema escuro fantasy premium (Tailwind CSS CDN + fontes EB Garamond e Hanken Grotesk, glassmorphism e cores harmônicas baseadas em latão/ouro)
-- **Referência de página:** Formato "XXX (PDF: YYY)" — livro impresso + PDF
+- **Referência de página:** Formato "XXX" — somente página impressa do livro; `page_pdf`/`pagina_pdf` é metadado técnico de auditoria e não deve aparecer na interface.
 - **Offline-first:** Tudo funciona sem internet
 - **Single-file:** O app raiz é um HTML autocontido (CSS + JS + dados embutidos)
 - **Padrão visual:** Seguir o `DESIGN.md` para consistência entre módulos
 
 ## Workflow de Extração
 
-1. Analisar estrutura do PDF (mapear páginas/capítulos)
-2. Extrair via Docling em HTML: `docling "<PDF>" --output /tmp/docling_out --to html`
-3. Criar script Python para parsear o HTML → JSON limpo
-4. Revisar dados (completude, erros, duplicatas)
-5. Injetar dados no template do módulo via `build_html.py`
-6. Regerar o app unificado com `python build_unified.py`
-7. Testar via `python3 -m http.server` + browser
-8. Commit + push para o repo unificado e validar GitHub Pages
+1. Consultar `extraction_sources.py` para escolher a fonte do livro (`phb`, `dmg`, `mm`, `xge`).
+2. Usar o PDF textual do pacote `Livro-de-Regras-DnD-5e` como fonte primária via PyMuPDF (`page.get_text("text")`, `blocks` e, quando útil, `find_tables()`).
+3. Usar `*_djvu.xml` como apoio de layout quando for necessário reconstruir colunas, stat blocks, tabelas achatadas ou ordem visual por coordenadas.
+4. Usar `*_page_numbers.json` e `*_scandata.xml` para conferir paginação impressa/PDF; usar `*_hocr.html`/`*_chocr.html.gz` apenas quando precisar de detalhe OCR mais fino.
+5. Criar ou ajustar script Python para gerar `*_raw.json` sem correções manuais destrutivas.
+6. Revisar dados (completude, erros, duplicatas, campos obrigatórios e trechos achatados).
+7. Injetar dados no template do módulo via `build_html.py`.
+8. Regerar o app unificado com `python build_unified.py`.
+9. Testar via `python -m http.server` + browser.
+10. Commit + push para o repo unificado e validar GitHub Pages.
 
-> **Nota:** Extrair em HTML (`--to html`) ao invés de Markdown (`--to md`) preserva tabelas, formatação e estrutura do documento original. Use `--to md` apenas se precisar de texto limpo simples.
+> **Nota:** Docling não é mais a fonte principal para os três livros básicos. Use Docling/HTML apenas como fallback pontual quando PyMuPDF + DjVu/hOCR não resolverem um trecho específico. A simples troca de estratégia não exige reextração imediata dos JSONs já revisados.
 
 ## Pipeline de Revisão Semântica dos Dados
 
@@ -153,7 +158,7 @@ Pipeline recomendado:
    - Usar um subagente/modelo ágil disponível para revisar e reescrever o JSON estruturado.
    - O agente deve editar os dados, não criar mais regras de parser para cada caso isolado.
    - Escopo típico de escrita: `*_reviewed.json` e, quando apropriado, o JSON final.
-   - Fontes de conferência: `*_raw.json`, saída Docling HTML/JSON, páginas/chunks do PDF e o JSON atual.
+   - Fontes de conferência: `*_raw.json`, PDF textual via PyMuPDF, `*_djvu.xml`, metadados de página/OCR, saídas Docling legadas/fallback quando existirem e o JSON atual.
 
 3. **Contrato do mini-agente**
    - Preservar o schema existente.

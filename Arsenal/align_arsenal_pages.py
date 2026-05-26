@@ -20,10 +20,17 @@ import re
 import argparse
 from pathlib import Path
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from extraction_sources import pdf_path
+from page_references import book_page_reference
+
 # Configurações padrão dos PDFs
-DEFAULT_PDF_PHB = r"D:\Documents\Sessão RPG\D&D\dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf"
-DEFAULT_PDF_DMG = r"D:\Documents\Sessão RPG\D&D\dd-5e-guia-do-mestre-biblioteca-elfica.pdf"
-DEFAULT_PDF_XGE = r"D:\Documents\Sessão RPG\D&D\xge.pdf"  # Opcional
+DEFAULT_PDF_PHB = pdf_path("phb")
+DEFAULT_PDF_DMG = pdf_path("dmg")
+DEFAULT_PDF_XGE = pdf_path("xge")  # Opcional
 
 # Mapeamento de fonte para PDF
 SOURCE_PHB = "Livro do Jogador"
@@ -230,7 +237,7 @@ def apply_corrections(results: list, files_to_process: list, source_label: str):
                 corrections_lookup[x["name"]] = {
                     "pagina_livro": x["actual_print"],
                     "pagina_pdf": x["actual_pdf"],
-                    "referencia": f"{x['actual_print']} (PDF: {x['actual_pdf']})",
+                    "referencia": book_page_reference(x["actual_print"], x["actual_pdf"]),
                 }
             else:
                 skipped.append(x["name"])
